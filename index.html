@@ -534,15 +534,16 @@ function highlight(name, q){
   return `${before}<mark>${mid}</mark>${after}`;
 }
 
+/* ✅ localStorage keys без апострофа */
 function loadSaved(){
-  const a = localStorage.getItem("o'zbegim_address") || '';
-  const p = localStorage.getItem("o'zbegim_phone") || '';
+  const a = localStorage.getItem("ozbegim_address") || '';
+  const p = localStorage.getItem("ozbegim_phone") || '';
   if(a && !address.value) address.value = a;
   if(p && !phone.value) phone.value = p;
 }
 function bindSave(){
-  address.addEventListener('input', ()=>localStorage.setItem("o'zbegim_address", address.value));
-  phone.addEventListener('input', ()=>localStorage.setItem("o'zbegim_phone", phone.value));
+  address.addEventListener('input', ()=>localStorage.setItem("ozbegim_address", address.value));
+  phone.addEventListener('input', ()=>localStorage.setItem("ozbegim_phone", phone.value));
 }
 
 function setLang(l,b){
@@ -747,13 +748,13 @@ function genOrderId(){
   const d = new Date();
   const dd = String(d.getDate()).padStart(2,'0');
   const mm = String(d.getMonth()+1).padStart(2,'0');
-  const key = `ozbegim_seq_${d.getFullYear()}${mm}${dd}`; // счётчик на конкретную дату
+  const key = `ozbegim_seq_${d.getFullYear()}${mm}${dd}`;
 
   let n = Number(localStorage.getItem(key) || 0) + 1;
   localStorage.setItem(key, String(n));
 
   const num = String(n).padStart(3,'0');
-  return `OZB-${dd}${mm}-${num}`; // пример: OZB-2801-001
+  return `OZB-${dd}${mm}-${num}`;
 }
 
 function calcTotalNum(){
@@ -789,7 +790,6 @@ function sendOrder(){
     phone: phone.value,
     comment: comment.value,
     order_id: genOrderId()
-    /* ✅ created_at убрали полностью */
   };
 
   setTimeout(()=>{
