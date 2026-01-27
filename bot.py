@@ -6,6 +6,7 @@ import time
 
 from aiogram import Bot, Dispatcher, types, F
 from aiogram.filters import CommandStart, Command
+from aiogram.filters.command import CommandObject
 from aiogram.client.default import DefaultBotProperties
 from aiogram.types import (
     ReplyKeyboardMarkup, KeyboardButton, WebAppInfo,
@@ -43,24 +44,37 @@ def allow_start(user_id: int, ttl: float = 2.0) -> bool:
 
 
 # ====== КНОПКИ ======
+OPEN_BTN_TEXT = "Ochish • Открыть • Open"
+
 def kb_webapp_reply() -> ReplyKeyboardMarkup:
+    # ✅ кнопка WebApp в чате с ботом
     return ReplyKeyboardMarkup(
-        keyboard=[[KeyboardButton(text="🍽 Открыть меню", web_app=WebAppInfo(url=WEBAPP_URL))]],
+        keyboard=[[KeyboardButton(text=OPEN_BTN_TEXT, web_app=WebAppInfo(url=WEBAPP_URL))]],
         resize_keyboard=True
     )
 
 def kb_channel_button_to_bot() -> InlineKeyboardMarkup:
     """
-    ✅ СИНЯЯ кнопка В ЗАКРЕПЕ КАНАЛА, которая ведёт В БОТА (не в WebApp).
-    Это inline-кнопка с url на бота.
+    ✅ СИНЯЯ кнопка в закрепе канала -> ведёт В БОТА и автоматически запускает /start с параметром "menu"
     """
-    bot_link = f"https://t.me/{BOT_USERNAME}"
+    deeplink = f"https://t.me/{BOT_USERNAME}?start=menu"
     return InlineKeyboardMarkup(
-        inline_keyboard=[[InlineKeyboardButton(text="🔵 Перейти в бот", url=bot_link)]]
+        inline_keyboard=[[InlineKeyboardButton(text="Перейти в меню", url=deeplink)]]
     )
 
 
 # ====== ТЕКСТ ======
+def intro_text() -> str:
+    # ✅ ВСТАВИЛИ ВЫБРАННЫЙ ВАРИАНТ
+    return (
+        "🇺🇿 <b>Assolomu aleykum!</b> 👋\n\n"
+        "Buyurtma berish uchun quyidagi <b>“Ochish”</b> tugmasini bosing va menyuga o‘ting.\n\n"
+        "🇷🇺 <b>Здравствуйте!</b> 👋\n\n"
+        "Чтобы оформить заказ, нажмите кнопку <b>«Открыть»</b> ниже и перейдите к меню.\n\n"
+        "🇺🇸 <b>Hello!</b> 👋\n\n"
+        "To place an order, click the <b>“Open”</b> button below and go to the menu."
+    )
+
 def welcome_text() -> str:
     return (
         "✨ <b>O'ZBEGIM Cafe</b>\n\n"
@@ -71,20 +85,18 @@ def welcome_text() -> str:
 
 # ====== /start ======
 @dp.message(CommandStart())
-async def start(message: types.Message):
+async def start(message: types.Message, command: CommandObject):
     if not allow_start(message.from_user.id, ttl=2.0):
         return
-    await message.answer(welcome_text(), reply_markup=kb_webapp_reply())
+
+    # если пришли из канала по кнопке -> /start menu
+    if (command.args or "").strip().lower() == "menu":
+        await message.answer(intro_text(), reply_markup=kb_webapp_reply())
+    else:
+        await message.answer(welcome_text(), reply_markup=kb_webapp_reply())
 
 
-@dp.message(Command("startapp"))
-async def startapp(message: types.Message):
-    if not allow_start(message.from_user.id, ttl=2.0):
-        return
-    await message.answer(welcome_text(), reply_markup=kb_webapp_reply())
-
-
-# ====== ПОСТ В КАНАЛ (с закрепом и синей кнопкой в бот) ======
+# ====== ПОСТ В КАНАЛ ======
 @dp.message(Command("post_menu"))
 async def post_menu(message: types.Message):
     if message.from_user.id != ADMIN_ID:
@@ -92,14 +104,11 @@ async def post_menu(message: types.Message):
 
     text = (
         "🍽 <b>O'ZBEGIM Cafe</b>\n\n"
-        "Чтобы открыть меню и оформить заказ — перейдите в бот:\n"
-        "👇 Нажмите синюю кнопку ниже"
+        "Нажмите кнопку ниже, чтобы перейти в меню:"
     )
 
     try:
         sent = await bot.send_message(CHANNEL_ID, text, reply_markup=kb_channel_button_to_bot())
-
-        # пробуем закрепить автоматически
         try:
             await bot.pin_chat_message(CHANNEL_ID, sent.message_id, disable_notification=True)
             await message.answer("✅ Пост отправлен в канал и закреплён.")
@@ -108,7 +117,6 @@ async def post_menu(message: types.Message):
                 "✅ Пост отправлен в канал.\n"
                 "⚠️ Не удалось закрепить — дай боту право «Закреплять сообщения» или закрепи вручную."
             )
-
     except Exception as e:
         logging.exception("CHANNEL POST ERROR")
         await message.answer(f"❌ Ошибка отправки в канал: <code>{e}</code>")
@@ -122,10 +130,8 @@ def fmt_sum(n: int) -> str:
         n = 0
     return f"{n:,}".replace(",", " ")
 
-
 def tg_label(u: types.User) -> str:
     return f"@{u.username}" if u.username else u.full_name
-
 
 def clean_str(v) -> str:
     return ("" if v is None else str(v)).strip()
@@ -213,7 +219,6 @@ async def webapp_data(message: types.Message):
 async def main():
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)
-
 
 if __name__ == "__main__":
     asyncio.run(main())
