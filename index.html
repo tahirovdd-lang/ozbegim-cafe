@@ -2,196 +2,805 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Radj Shashlik</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KADIMA</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lobster&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
 
 <style>
-body{font-family:Arial;background:#f5f5f5;padding:10px;margin:0}
-h2,h3{text-align:center}
-.lang-btn,.category-btn{
-  padding:8px 12px;
-  margin:3px;
-  border:none;
-  border-radius:6px;
-  background:#ddd;
-  cursor:pointer
+:root{
+  --bg:#F8F3E9;
+  --terracotta:#C76B2F;
+  --gold:#D4A017;
+  --green:#1F4D3A;
+  --meat:#8B1E1E;
+
+  --stroke: rgba(199,107,47,.35);
+  --stroke-strong: rgba(199,107,47,.50);
+  --inner: rgba(255,255,255,.70);
+  --shadow: rgba(120,70,20,.10);
+  --shadow-strong: rgba(120,70,20,.18);
+
+  --r-lg:24px;
+  --r-md:22px;
+  --r-pill:28px;
 }
-.lang-btn.active,.category-btn.active{
-  background:#0088cc;
-  color:#fff
+
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+body{
+  margin:0;
+  font-family:'Montserrat',sans-serif;
+  background:var(--bg);
+  color:#2b2b2b;
+  padding-bottom:88px;
 }
-.card{background:#fff;border-radius:10px;padding:15px;margin-bottom:10px}
-.title{font-weight:bold}
-.price{color:green;margin:5px 0}
-.controls{display:flex;gap:10px;align-items:center}
-.plus{background:#4CAF50;color:white}
-.minus{background:#ddd}
-.cart{background:#fff;border-radius:10px;padding:15px;margin-top:10px}
-.cart-item{display:flex;justify-content:space-between}
-.total{text-align:center;font-size:18px;font-weight:bold;margin-top:10px}
-input,select{width:100%;padding:10px;margin-top:8px;border-radius:6px;border:1px solid #ccc}
-.order-btn{width:100%;background:#0088cc;color:white;font-size:18px;padding:12px;margin-top:10px}
+
+.header{
+  padding:16px 12px 26px;
+  background:linear-gradient(135deg,var(--terracotta),var(--gold));
+  color:white;
+  box-shadow:0 6px 18px rgba(120,70,20,.25);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  text-align:center;
+}
+.header img{position:absolute;left:12px;width:110px;}
+
+.brand-title{font-family:'Lobster',cursive;font-size:36px;}
+.brand-sub{font-weight:800;font-size:15px;}
+
+.brand-phone{position:relative; z-index:50; pointer-events:auto;}
+.brand-phone a{
+  color:white;
+  text-decoration:none;
+  font-size:15px;
+  font-weight:700;
+  position:relative;
+  z-index:51;
+  pointer-events:auto;
+  cursor:pointer;
+}
+
+.search-btn{
+  position:absolute;
+  right:14px;
+  bottom:10px;
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer;
+  z-index:60;
+
+  color:#333;
+  background:#fffdf9;
+  border:1px solid var(--stroke);
+  box-shadow: inset 0 0 0 2px var(--inner), 0 6px 14px var(--shadow);
+  transition:.15s;
+}
+.search-btn:active{transform:scale(.97);}
+
+.langs,.types,.payments{
+  display:flex;
+  gap:12px;
+  padding:12px;
+  justify-content:center;
+}
+
+.btn{
+  padding:12px 20px;
+  border-radius:var(--r-pill);
+  font-weight:700;
+  min-width:120px;
+  text-align:center;
+  cursor:pointer;
+  transition:.15s;
+
+  border:1px solid var(--stroke);
+  background:#fffdf9;
+  box-shadow: inset 0 0 0 2px var(--inner), 0 6px 14px var(--shadow);
+}
+.btn:active{transform:scale(.98);}
+.btn.active{
+  background:linear-gradient(135deg,var(--terracotta),var(--gold));
+  color:white;
+  border:1px solid rgba(255,255,255,.55);
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,.45), 0 8px 18px var(--shadow-strong);
+}
+
+.input{
+  margin:8px auto;
+  display:block;
+  padding:14px;
+  width:85%;
+  border-radius:var(--r-md);
+  font-size:15px;
+
+  border:1px solid var(--stroke);
+  background:#fffdf9;
+  box-shadow: inset 0 0 0 2px var(--inner), 0 6px 14px var(--shadow);
+  outline:none;
+  transition:.15s;
+}
+.input:focus{
+  border-color: var(--stroke-strong);
+  box-shadow: inset 0 0 0 2px var(--inner), 0 10px 22px var(--shadow-strong);
+}
+
+.categories{
+  display:flex;
+  gap:12px;
+  padding:14px;
+  overflow-x:auto;
+  scroll-behavior:smooth;
+}
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px;
+  padding:12px;
+}
+
+.card{
+  border-radius:var(--r-lg);
+  padding:12px;
+  text-align:center;
+  background:#fffdf9;
+  border:1px solid var(--stroke);
+  box-shadow: inset 0 0 0 2px var(--inner), 0 8px 18px rgba(120,70,20,.12);
+  transition:.15s;
+}
+.card:active{transform:scale(.99);}
+
+.img{height:76px;display:flex;align-items:center;justify-content:center;}
+.img img{max-width:62px;opacity:.9;}
+
+.price{font-weight:800;color:var(--meat);margin-top:6px;}
+.price small{font-weight:700;opacity:.75;margin-left:4px;}
+
+.counter{display:flex;justify-content:center;gap:10px;margin-top:8px;align-items:center;}
+.counter button{
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  cursor:pointer;
+
+  border:1px solid rgba(255,255,255,.6);
+  background:var(--green);
+  color:white;
+  font-size:16px;
+  box-shadow:0 6px 14px var(--shadow);
+  transition:.15s;
+}
+.counter button:active{transform:scale(.96);}
+
+.cart{
+  background:#fffdf9;
+  margin:12px;
+  padding:16px;
+  border-radius:var(--r-lg);
+  border:1px solid var(--stroke);
+  box-shadow: inset 0 0 0 2px var(--inner), 0 8px 18px rgba(120,70,20,.12);
+}
+
+textarea.input{height:90px;}
+
+.order-btn{
+  width:100%;
+  padding:18px;
+  margin-top:14px;
+  border-radius:var(--r-lg);
+  cursor:pointer;
+  color:white;
+  font-size:17px;
+  font-weight:800;
+
+  border:1px solid rgba(255,255,255,.55);
+  background:linear-gradient(135deg,var(--green),#2e7d32);
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,.22), 0 10px 22px rgba(31,77,58,.18);
+  transition:.15s;
+}
+.order-btn:active{transform:scale(.99);}
+
+.popup{position:fixed;inset:0;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:.3s;}
+.popup.show{opacity:1;pointer-events:auto;}
+.popup-box{
+  background:white;
+  padding:26px;
+  border-radius:var(--r-lg);
+  text-align:center;
+  font-weight:700;
+  border:1px solid var(--stroke);
+  box-shadow: inset 0 0 0 2px var(--inner), 0 10px 22px rgba(0,0,0,.10);
+}
+
+.search-wrap{
+  width:85%;
+  margin:8px auto;
+  position:relative;
+  display:none;
+  z-index:70;
+}
+.search-wrap.show{display:block;}
+.search-wrap input{width:100%;margin:0;padding-right:44px;}
+.search-clear{
+  position:absolute;
+  right:10px;
+  top:50%;
+  transform:translateY(-50%);
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+
+  border:1px solid var(--stroke);
+  background:#fffdf9;
+  box-shadow: inset 0 0 0 2px var(--inner), 0 6px 14px var(--shadow);
+  transition:.15s;
+}
+.search-clear:active{transform:translateY(-50%) scale(.96);}
+
+.search-title{
+  width:85%;
+  margin:10px auto 0;
+  font-weight:800;
+  opacity:.9;
+  display:none;
+  z-index:70;
+  position:relative;
+}
+.search-title.show{display:block;}
+
+mark{background:rgba(212,160,23,.25);padding:0 .12em;border-radius:6px;}
+
+.quick-filters{
+  display:flex;
+  gap:10px;
+  padding:0 12px 10px;
+  overflow-x:auto;
+}
+.qbtn{
+  border:1px solid var(--stroke);
+  background:#fffdf9;
+  box-shadow: inset 0 0 0 2px var(--inner), 0 6px 14px var(--shadow);
+  border-radius:999px;
+  padding:10px 14px;
+  font-weight:800;
+  cursor:pointer;
+  white-space:nowrap;
+  transition:.15s;
+}
+.qbtn:active{transform:scale(.98);}
+
+.popular-wrap{width:100%;padding:4px 12px 6px;}
+.popular-title{width:100%;font-weight:900;padding:8px 2px 10px;display:flex;align-items:center;gap:8px;}
+.popular-row{display:flex;gap:12px;overflow-x:auto;padding:2px 2px 10px;}
+.pop-card{
+  min-width:150px;
+  border-radius:var(--r-lg);
+  padding:10px;
+  background:#fffdf9;
+  border:1px solid var(--stroke);
+  box-shadow: inset 0 0 0 2px var(--inner), 0 8px 18px rgba(120,70,20,.12);
+  cursor:pointer;
+  transition:.15s;
+  position:relative;
+}
+.pop-card:active{transform:scale(.99);}
+.pop-img{
+  height:74px;
+  border-radius:18px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(199,107,47,.08);
+}
+.pop-img img{width:100%;height:100%;object-fit:cover;}
+.pop-name{font-weight:900;margin-top:8px;}
+.pop-price{font-weight:900;color:var(--meat);margin-top:4px;}
+.pop-badge{position:absolute;left:10px;top:10px;font-size:18px;pointer-events:none;}
+
+.sticky-checkout{
+  position:fixed;
+  left:0; right:0; bottom:0;
+  padding:10px 12px;
+  background:rgba(248,243,233,.88);
+  backdrop-filter: blur(10px);
+  z-index:999;
+  border-top:1px solid rgba(199,107,47,.25);
+}
+.sticky-inner{
+  max-width:520px;
+  margin:0 auto;
+  border-radius:18px;
+  padding:10px 12px;
+  background:#fffdf9;
+  border:1px solid var(--stroke);
+  box-shadow: inset 0 0 0 2px var(--inner), 0 10px 22px rgba(120,70,20,.12);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+.sticky-sum{font-weight:900;line-height:1.1;}
+.sticky-sum small{display:block;font-weight:800;opacity:.75;margin-top:2px;}
+.sticky-btn{
+  padding:12px 14px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.55);
+  background:linear-gradient(135deg,var(--green),#2e7d32);
+  color:#fff;
+  font-weight:900;
+  cursor:pointer;
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,.20), 0 10px 22px rgba(31,77,58,.18);
+  transition:.15s;
+  white-space:nowrap;
+}
+.sticky-btn:active{transform:scale(.99);}
+
+@media (hover:hover){
+  .btn:hover{box-shadow: inset 0 0 0 2px var(--inner), 0 10px 22px var(--shadow-strong);}
+  .card:hover{transform:translateY(-2px); box-shadow: inset 0 0 0 2px var(--inner), 0 12px 26px rgba(120,70,20,.16);}
+  .qbtn:hover{box-shadow: inset 0 0 0 2px var(--inner), 0 10px 22px var(--shadow-strong);}
+  .search-btn:hover{box-shadow: inset 0 0 0 2px var(--inner), 0 10px 22px var(--shadow-strong);}
+  .sticky-btn:hover{box-shadow: inset 0 0 0 2px rgba(255,255,255,.22), 0 14px 28px rgba(31,77,58,.22);}
+  .pop-card:hover{transform:translateY(-2px);}
+}
 </style>
 </head>
 
 <body>
 
-<h2 id="title">🍽 Radj Shashlik</h2>
-
-<!-- 🌐 ЯЗЫК -->
-<div style="text-align:center">
-  <button class="lang-btn active" onclick="setLang('ru',this)">🇷🇺 RU</button>
-  <button class="lang-btn" onclick="setLang('uz',this)">🇺🇿 UZ</button>
-  <button class="lang-btn" onclick="setLang('en',this)">🇬🇧 EN</button>
+<div class="header">
+  <img src="logo.png" onerror="this.src='logo.png'">
+  <div>
+    <div class="brand-title">KADIMA</div>
+    <div class="brand-sub">Signature taste</div>
+    <div class="brand-phone">
+      <a href="tel:+998905389999" onclick="callPhone(event)">+998 90 538 99 99</a>
+    </div>
+  </div>
+  <div class="search-btn" onclick="toggleSearch()">🔍</div>
 </div>
 
-<!-- КАТЕГОРИИ -->
-<div style="text-align:center;margin-top:10px" id="categories"></div>
+<div class="search-title" id="searchTitle">Результаты поиска</div>
+<div class="search-wrap" id="searchWrap">
+  <input id="searchInput" class="input" placeholder="Поиск блюда..." oninput="searchProducts()" onkeydown="onSearchKey(event)">
+  <div class="search-clear" onclick="clearSearch()" title="Очистить">✖</div>
+</div>
 
-<!-- МЕНЮ -->
-<div id="menu"></div>
+<div class="langs">
+  <button class="btn active" onclick="setLang('ru',this)">RU</button>
+  <button class="btn" onclick="setLang('uz',this)">UZ</button>
+  <button class="btn" onclick="setLang('en',this)">EN</button>
+</div>
 
-<!-- КОРЗИНА -->
+<div class="popular-wrap" id="popularWrap">
+  <div class="popular-title" id="popularTitle">🔥 Популярное</div>
+  <div class="popular-row" id="popularRow"></div>
+</div>
+
+<div class="quick-filters" id="quickFilters"></div>
+
+<div class="types">
+  <button class="btn active" id="btnDelivery" onclick="setType('delivery',this)"></button>
+  <button class="btn" id="btnPickup" onclick="setType('pickup',this)"></button>
+</div>
+
+<input id="address" class="input">
+<input id="phone" class="input">
+
+<div class="categories" id="cats"></div>
+<div class="products" id="products"></div>
+
 <div class="cart">
-<h3 id="cart-title">🛒 Корзина</h3>
-<div id="cart-items">Корзина пуста</div>
-<div class="total">💰 <span id="total-label">Итого</span>: <span id="total">0</span> сум</div>
+  <b id="cartTitle"></b>: <span id="total">0</span> сум
+  <textarea id="comment" class="input"></textarea>
+  <div class="payments">
+    <button class="btn active" id="payCash" onclick="setPayment('cash')"></button>
+    <button class="btn" id="payClick" onclick="setPayment('click')"></button>
+  </div>
+  <button class="order-btn" id="orderBtn" onclick="sendOrder()"></button>
 </div>
 
-<!-- ДОСТАВКА -->
-<select id="delivery" onchange="toggleAddress()">
-  <option value="delivery">🚚 Доставка</option>
-  <option value="pickup">🏃 Самовывоз</option>
-</select>
+<div class="popup" id="popup"><div class="popup-box">✅ Заказ принят!</div></div>
 
-<input type="text" id="address" placeholder="📍 Адрес доставки">
-<input type="tel" id="phone" placeholder="📱 Телефон">
-
-<button class="order-btn" id="order-btn" onclick="sendOrder()">✅ Оформить заказ</button>
+<div class="sticky-checkout">
+  <div class="sticky-inner">
+    <div class="sticky-sum">
+      <span id="stickyTotal">0</span> <small>сум</small>
+    </div>
+    <button class="sticky-btn" onclick="sendOrder()" id="stickyOrder">Оформить заказ</button>
+  </div>
+</div>
 
 <script>
 Telegram.WebApp.ready();
 
-let lang='ru';
-let currentCategory='Шашлык';
-const cart={};
+/* ✅ звонок из WebApp */
+function callPhone(e){
+  try{ e.preventDefault(); e.stopPropagation(); }catch(_){}
+  const tel = "tel:+998905389999";
+  try{
+    if (window.Telegram && Telegram.WebApp && typeof Telegram.WebApp.openLink === "function"){
+      Telegram.WebApp.openLink(tel);
+      return;
+    }
+  }catch(_){}
+  try{ window.location.href = tel; }catch(_){}
+}
 
-const texts={
- ru:{
-  cart:"🛒 Корзина", empty:"Корзина пуста",
-  total:"Итого", order:"✅ Оформить заказ"
- },
- uz:{
-  cart:"🛒 Savat", empty:"Savat bo‘sh",
-  total:"Jami", order:"✅ Buyurtma berish"
- },
- en:{
-  cart:"🛒 Cart", empty:"Cart is empty",
-  total:"Total", order:"✅ Place order"
- }
+const tgUser = Telegram.WebApp.initDataUnsafe?.user || {};
+const tg_username = tgUser.username || "";
+const tg_first_name = tgUser.first_name || "";
+const tg_id = tgUser.id || "";
+
+let lang='ru',category='salads',type='delivery',payment='cash',cart={};
+
+const TEXT={
+  ru:{delivery:'🚚 Доставка',pickup:'🏃 Самовывоз',address:'📍 Адрес доставки',phone:'📞 Телефон',cart:'🛒 Корзина',order:'Оформить заказ',comment:'✍️ Комментарий к заказу',cash:'💵 Наличные',click:'💳 CLICK',results:'Результаты поиска',popular:'🔥 Популярное'},
+  uz:{delivery:'🚚 Yetkazish',pickup:'🏃 Olib ketish',address:'📍 Manzil',phone:'📞 Telefon',cart:'🛒 Savat',order:'Buyurtma berish',comment:'✍️ Izoh',cash:'💵 Naqd',click:'💳 CLICK',results:'Qidiruv natijalari',popular:'🔥 Ommabop'},
+  en:{delivery:'🚚 Delivery',pickup:'🏃 Pickup',address:'📍 Address',phone:'📞 Phone',cart:'🛒 Cart',order:'Place order',comment:'✍️ Comment',cash:'💵 Cash',click:'💳 CLICK',results:'Search results',popular:'🔥 Popular'}
 };
 
-const menuData={
- "Шашлык":[["Шашлык куриный",45000],["Шашлык говяжий",60000]],
- "Первые блюда":[["Шурпа",35000]],
- "Национальные блюда":[["Плов",50000]],
- "Салаты":[["Оливье",30000]],
- "Напитки":[["Кола 1л",15000]],
- "Хлеб":[["Лепёшка",5000]]
+const CATS={
+  ru:{salads:'🥗 Салаты',sauce:'🥣 Соус',first:'🍜 Первые блюда',hot:'🍲 Горячие блюда',garnish:'🍟 Гарнир',drinks:'🥤 Напитки'},
+  uz:{salads:'🥗 Salatlar',sauce:'🥣 Souslar',first:'🍜 Birinchi taomlar',hot:'🍲 Issiq taomlar',garnish:'🍟 Garnir',drinks:'🥤 Ichimliklar'},
+  en:{salads:'🥗 Salads',sauce:'🥣 Sauces',first:'🍜 First dishes',hot:'🍲 Hot dishes',garnish:'🍟 Side dishes',drinks:'🥤 Drinks'}
 };
 
-function setLang(l,btn){
- lang=l;
- document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
- btn.classList.add('active');
- document.getElementById('cart-title').innerText=texts[lang].cart;
- document.getElementById('total-label').innerText=texts[lang].total;
- document.getElementById('order-btn').innerText=texts[lang].order;
- renderCart();
+/* ✅ МЕНЮ */
+const MENU = {
+  salads:[
+    ['Весенний',25000,'logo.png'],
+    ['Осенний',30000,'logo.png'],
+    ['Греческий',40000,'logo.png'],
+    ['Вечо',45000,'logo.png'],
+    ['Крабовый',40000,'logo.png'],
+    ['Элитный',45000,'logo.png'],
+    ['Смак',40000,'logo.png'],
+    ['Салат с руколлой',45000,'logo.png'],
+    ['Винегрет',40000,'logo.png'],
+    ['Цезарь классический',45000,'logo.png'],
+    ['Оливье',40000,'logo.png'],
+    ['Свежий',25000,'logo.png']
+  ],
+  sauce:[
+    ['Чалоп',10000,'logo.png'],
+    ['Соус из помидоров',5000,'logo.png']
+  ],
+  first:[
+    ['Шурпа',40000,'logo.png'],
+    ['Пельмени',40000,'logo.png'],
+    ['Лагман',40000,'logo.png'],
+    ['Суп бульон',20000,'logo.png']
+  ],
+  hot:[
+    ['Манты 1шт',10000,'logo.png'],
+    ['Плов 0.5',50000,'logo.png'],
+    ['Халиса',80000,'logo.png'],
+    ['Курутоб',80000,'logo.png'],
+    ['Жаренный Лагман',50000,'logo.png']
+  ],
+  garnish:[
+    ['Фри',20000,'logo.png']
+  ],
+  drinks:[
+    ['Coca Cola 1.5L',20000,'logo.png'],
+    ['Fanta 1.5L',20000,'logo.png'],
+    ['Pepsi 1.5L',20000,'logo.png'],
+    ['Сок в ассортименте 1L',20000,'logo.png'],
+    ['Вода газ\\без газа Chertoq 1.5L',8000,'logo.png'],
+    ['Чай Зеленый\\ Черный',5000,'logo.png'],
+    ['Чай с лимоном',15000,'logo.png'],
+    ['Кофе растворимый черный',10000,'logo.png']
+  ]
+};
+
+/* ✅ Популярное */
+const POPULAR = [
+  ['Плов 0.5',50000,'logo.png'],
+  ['Манты 1шт',10000,'logo.png'],
+  ['Шурпа',40000,'logo.png'],
+  ['Цезарь классический',45000,'logo.png']
+];
+
+function formatSum(x){
+  const n = Number(x) || 0;
+  return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,' ');
+}
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+function highlight(name, q){
+  const n = escapeHtml(name);
+  if(!q) return n;
+  const idx = n.toLowerCase().indexOf(q.toLowerCase());
+  if(idx === -1) return n;
+  const before = n.slice(0, idx);
+  const mid = n.slice(idx, idx + q.length);
+  const after = n.slice(idx + q.length);
+  return `${before}<mark>${mid}</mark>${after}`;
 }
 
-function renderCategories(){
- const div=document.getElementById("categories");
- div.innerHTML="";
- for(let c in menuData){
-  div.innerHTML+=`<button class="category-btn ${c===currentCategory?'active':''}" onclick="selectCategory('${c}',this)">${c}</button>`;
- }
+function loadSaved(){
+  const a = localStorage.getItem('kadima_address') || '';
+  const p = localStorage.getItem('kadima_phone') || '';
+  if(a && !address.value) address.value = a;
+  if(p && !phone.value) phone.value = p;
+}
+function bindSave(){
+  address.addEventListener('input', ()=>localStorage.setItem('kadima_address', address.value));
+  phone.addEventListener('input', ()=>localStorage.setItem('kadima_phone', phone.value));
 }
 
-function selectCategory(cat,btn){
- currentCategory=cat;
- document.querySelectorAll('.category-btn').forEach(b=>b.classList.remove('active'));
- btn.classList.add('active');
- renderMenu();
+function setLang(l,b){
+  lang=l;
+  document.querySelectorAll('.langs .btn').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  applyLang();
 }
 
-function renderMenu(){
- const menu=document.getElementById("menu");
- menu.innerHTML="";
- menuData[currentCategory].forEach(i=>{
-  cart[i[0]]=cart[i[0]]||0;
-  menu.innerHTML+=`
-   <div class="card">
-    <div class="title">${i[0]}</div>
-    <div class="price">${i[1]} сум</div>
-    <div class="controls">
-     <button class="minus" onclick="change('${i[0]}',-1)">−</button>
-     <span>${cart[i[0]]}</span>
-     <button class="plus" onclick="change('${i[0]}',1)">+</button>
-    </div>
-   </div>`;
- });
+function applyLang(){
+  btnDelivery.innerText=TEXT[lang].delivery;
+  btnPickup.innerText=TEXT[lang].pickup;
+  address.placeholder=TEXT[lang].address;
+  phone.placeholder=TEXT[lang].phone;
+  cartTitle.innerText=TEXT[lang].cart;
+  orderBtn.innerText=TEXT[lang].order;
+  stickyOrder.innerText=TEXT[lang].order;
+  comment.placeholder=TEXT[lang].comment;
+  payCash.innerText=TEXT[lang].cash;
+  payClick.innerText=TEXT[lang].click;
+  searchTitle.innerText = TEXT[lang].results;
+  popularTitle.innerText = TEXT[lang].popular;
+
+  renderPopular();
+  renderQuickFilters();
+  renderCats();
+  renderProducts();
+  updateTotal();
 }
 
-function change(n,d){
- cart[n]+=d;
- if(cart[n]<0)cart[n]=0;
- renderMenu();
- renderCart();
+function renderPopular(){
+  popularRow.innerHTML = '';
+  POPULAR.forEach(([n,p,img])=>{
+    cart[n]=cart[n]||0;
+    popularRow.innerHTML += `
+      <div class="pop-card" onclick="addPopular('${n}')">
+        <div class="pop-badge">🔥</div>
+        <div class="pop-img"><img src="${img}" onerror="this.src='logo.png'"></div>
+        <div class="pop-name">${escapeHtml(n)}</div>
+        <div class="pop-price">${formatSum(p)} <small>сум</small></div>
+      </div>
+    `;
+  });
+}
+function addPopular(n){
+  chg(n, 1);
+  if(isSearchOpen()) closeSearch();
 }
 
-function renderCart(){
- const div=document.getElementById("cart-items");
- div.innerHTML="";
- let total=0,empty=true;
- for(let i in cart){
-  if(cart[i]>0){
-   empty=false;
-   const p=findPrice(i);
-   total+=cart[i]*p;
-   div.innerHTML+=`<div class="cart-item"><span>${i} × ${cart[i]}</span><span>${cart[i]*p} сум</span></div>`;
+function renderQuickFilters(){
+  const keys = ['salads','hot','first','drinks'];
+  quickFilters.innerHTML = '';
+  keys.forEach(k=>{
+    if(!MENU[k]) return;
+    quickFilters.innerHTML += `<button class="qbtn" onclick="pickCategory('${k}')">${CATS[lang][k]}</button>`;
+  });
+}
+function pickCategory(k){
+  if(isSearchOpen()) closeSearch();
+  category = k;
+  renderCats();
+  renderProducts();
+}
+
+function renderCats(){
+  cats.innerHTML='';
+  for(let k in MENU){
+    cats.innerHTML+=`<button class="btn ${k===category?'active':''}" onclick="category='${k}';renderCats();renderProducts()">${CATS[lang][k] || k}</button>`;
   }
- }
- if(empty)div.innerText=texts[lang].empty;
- document.getElementById("total").innerText=total;
+  setTimeout(()=>{
+    const active = cats.querySelector('.btn.active');
+    if(active && active.scrollIntoView){
+      active.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
+    }
+  }, 50);
 }
 
-function findPrice(n){
- for(let c in menuData)for(let i of menuData[c])if(i[0]==n)return i[1];
- return 0;
+function cardHTML(n,p,img,q=''){
+  const nameHtml = highlight(n, q);
+  return `<div class="card">
+    <div class="img"><img src="${img}" onerror="this.src='logo.png'"></div>
+    <div>${nameHtml}</div>
+    <div class="price">${formatSum(p)} <small>сум</small></div>
+    <div class="counter">
+      <button onclick="chg('${n}',-1)">−</button>
+      <span id="c_${n}">${cart[n]||0}</span>
+      <button onclick="chg('${n}',1)">+</button>
+    </div>
+  </div>`;
 }
 
-function toggleAddress(){
- address.style.display=delivery.value==="delivery"?"block":"none";
+function renderProducts(){
+  products.innerHTML='';
+  MENU[category].forEach(([n,p,img])=>{
+    cart[n]=cart[n]||0;
+    products.innerHTML+=cardHTML(n,p,img,'');
+  });
 }
 
+function chg(n,v){
+  cart[n]=Math.max(0,(cart[n]||0)+v);
+  const el = document.getElementById('c_'+n);
+  if(el) el.innerText=cart[n];
+  updateTotal();
+}
+
+function price(n){
+  for(let c in MENU) for(let i of MENU[c]) if(i[0]==n) return i[1];
+  return 0;
+}
+
+function updateTotal(){
+  let s=0;
+  for(let k in cart) s += (cart[k]||0) * price(k);
+  total.innerText = formatSum(s);
+  stickyTotal.innerText = formatSum(s);
+}
+
+function setType(t,b){
+  if(isSearchOpen()) closeSearch();
+  type=t;
+  document.querySelectorAll('.types .btn').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+}
+function setPayment(p){
+  payment=p;
+  payCash.classList.toggle('active',p==='cash');
+  payClick.classList.toggle('active',p==='click');
+}
+
+/* ✅ Поиск */
+function isSearchOpen(){ return searchWrap.classList.contains('show'); }
+
+function toggleSearch(){
+  if(isSearchOpen()) closeSearch();
+  else openSearch();
+}
+function openSearch(){
+  searchWrap.classList.add('show');
+  searchTitle.classList.add('show');
+  cats.style.display = 'none';
+  quickFilters.style.display = 'none';
+  popularWrap.style.display = 'none';
+  searchInput.value = '';
+  searchInput.focus();
+  searchProducts();
+}
+function closeSearch(){
+  searchWrap.classList.remove('show');
+  searchTitle.classList.remove('show');
+  cats.style.display = '';
+  quickFilters.style.display = '';
+  popularWrap.style.display = '';
+  searchInput.value = '';
+  renderProducts();
+}
+function clearSearch(){
+  closeSearch();
+}
+
+function onSearchKey(e){
+  if(e.key === 'Enter'){
+    closeSearch();
+  }
+}
+
+function searchProducts(){
+  const q = (searchInput.value || '').trim().toLowerCase();
+  products.innerHTML='';
+
+  if(!q){
+    MENU[category].forEach(([n,p,img])=>{
+      cart[n]=cart[n]||0;
+      products.innerHTML += cardHTML(n,p,img,'');
+    });
+    return;
+  }
+
+  for(let c in MENU){
+    MENU[c].forEach(([n,p,img])=>{
+      if(String(n).toLowerCase().includes(q)){
+        cart[n]=cart[n]||0;
+        products.innerHTML += cardHTML(n,p,img,q);
+      }
+    });
+  }
+}
+
+/* ✅ авто-закрытие поиска при клике вне него */
+document.addEventListener('click', (e)=>{
+  if(!isSearchOpen()) return;
+  const t = e.target;
+  const insideSearch = searchWrap.contains(t) || searchTitle.contains(t);
+  const onBtn = t.closest && t.closest('.search-btn');
+  if(!insideSearch && !onBtn){
+    closeSearch();
+  }
+}, true);
+
+/* ✅✅✅ Вариант №2: номер KAD-DDMM-001 (счётчик в localStorage на этом телефоне) */
+function genOrderId(){
+  const d = new Date();
+  const dd = String(d.getDate()).padStart(2,'0');
+  const mm = String(d.getMonth()+1).padStart(2,'0');
+  const key = `kadima_seq_${d.getFullYear()}${mm}${dd}`; // счётчик на конкретную дату
+
+  let n = Number(localStorage.getItem(key) || 0) + 1;
+  localStorage.setItem(key, String(n));
+
+  const num = String(n).padStart(3,'0');
+  return `KAD-${dd}${mm}-${num}`; // пример: KAD-2801-001
+}
+
+function calcTotalNum(){
+  let s = 0;
+  for (const k in cart) s += (Number(cart[k] || 0) * price(k));
+  return s;
+}
+
+/* ✅ отправляем только выбранные позиции (qty > 0) */
 function sendOrder(){
- const phone=document.getElementById("phone").value.trim();
- if(!phone)return alert("Введите телефон");
- Telegram.WebApp.sendData(JSON.stringify({
-  order:cart,
-  total:Number(document.getElementById("total").innerText),
-  phone,
-  delivery:delivery.value,
-  address:address.value
- }));
- Telegram.WebApp.close();
+  popup.classList.add('show');
+
+  const cleanOrder = {};
+  for (const k in cart) {
+    const q = Number(cart[k] || 0);
+    if (q > 0) cleanOrder[k] = q;
+  }
+
+  if (Object.keys(cleanOrder).length === 0) {
+    popup.classList.remove('show');
+    alert(lang === 'ru' ? 'Корзина пустая' : (lang === 'uz' ? 'Savat bo‘sh' : 'Cart is empty'));
+    return;
+  }
+
+  const payload = {
+    tg: { id: tg_id, username: tg_username, first_name: tg_first_name },
+    order: cleanOrder,
+    total: total.innerText,
+    total_num: calcTotalNum(),
+    payment,
+    type,
+    address: address.value,
+    phone: phone.value,
+    comment: comment.value,
+    order_id: genOrderId()
+    /* ✅ created_at убрали полностью */
+  };
+
+  setTimeout(()=>{
+    Telegram.WebApp.sendData(JSON.stringify(payload));
+    Telegram.WebApp.close();
+  }, 700);
 }
 
-renderCategories();
-renderMenu();
+loadSaved();
+bindSave();
+applyLang();
 </script>
-
 </body>
 </html>
