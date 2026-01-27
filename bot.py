@@ -10,7 +10,8 @@ from aiogram.filters.command import CommandObject
 from aiogram.client.default import DefaultBotProperties
 from aiogram.types import (
     ReplyKeyboardMarkup, KeyboardButton, WebAppInfo,
-    InlineKeyboardMarkup, InlineKeyboardButton
+    InlineKeyboardMarkup, InlineKeyboardButton,
+    MenuButtonWebApp
 )
 
 logging.basicConfig(level=logging.INFO)
@@ -47,7 +48,7 @@ def allow_start(user_id: int, ttl: float = 2.0) -> bool:
 OPEN_BTN_TEXT = "Ochish • Открыть • Open"
 
 def kb_webapp_reply() -> ReplyKeyboardMarkup:
-    # ✅ кнопка WebApp в чате с ботом
+    # ✅ кнопка WebApp в чате с ботом (reply keyboard)
     return ReplyKeyboardMarkup(
         keyboard=[[KeyboardButton(text=OPEN_BTN_TEXT, web_app=WebAppInfo(url=WEBAPP_URL))]],
         resize_keyboard=True
@@ -55,7 +56,9 @@ def kb_webapp_reply() -> ReplyKeyboardMarkup:
 
 def kb_channel_button_to_bot() -> InlineKeyboardMarkup:
     """
-    ✅ СИНЯЯ кнопка в закрепе канала -> ведёт В БОТА и автоматически запускает /start с параметром "menu"
+    ✅ Кнопка в закрепе канала -> ведёт в бота
+    ВАЖНО: Telegram НЕ гарантирует авто-/start, если пользователь уже открывал бота ранее.
+    Поэтому ниже мы дополнительно делаем постоянную Menu-кнопку и команду /menu.
     """
     deeplink = f"https://t.me/{BOT_USERNAME}?start=menu"
     return InlineKeyboardMarkup(
@@ -65,7 +68,6 @@ def kb_channel_button_to_bot() -> InlineKeyboardMarkup:
 
 # ====== ТЕКСТ ======
 def intro_text() -> str:
-    # ✅ ВСТАВИЛИ ВЫБРАННЫЙ ВАРИАНТ
     return (
         "🇺🇿 <b>Assolomu aleykum!</b> 👋\n\n"
         "Buyurtma berish uchun quyidagi <b>“Ochish”</b> tugmasini bosing va menyuga o‘ting.\n\n"
@@ -82,6 +84,13 @@ def welcome_text() -> str:
         "✅ После заказа мы пришлём подтверждение сюда."
     )
 
+def fallback_tip_text() -> str:
+    # Это сообщение полезно тем, у кого диплинк не запустил /start
+    return (
+        "Если после перехода из канала не появилось приветствие и кнопка — нажмите <b>/menu</b>.\n"
+        "Также внизу чата всегда доступна кнопка <b>Меню</b>."
+    )
+
 
 # ====== /start ======
 @dp.message(CommandStart())
@@ -89,11 +98,19 @@ async def start(message: types.Message, command: CommandObject):
     if not allow_start(message.from_user.id, ttl=2.0):
         return
 
-    # если пришли из канала по кнопке -> /start menu
-    if (command.args or "").strip().lower() == "menu":
+    args = (command.args or "").strip().lower()
+
+    if args == "menu":
         await message.answer(intro_text(), reply_markup=kb_webapp_reply())
     else:
         await message.answer(welcome_text(), reply_markup=kb_webapp_reply())
+        await message.answer(fallback_tip_text())
+
+
+# ====== /menu (важно для тех, у кого диплинк не вызывает /start) ======
+@dp.message(Command("menu"))
+async def menu_cmd(message: types.Message):
+    await message.answer(intro_text(), reply_markup=kb_webapp_reply())
 
 
 # ====== ПОСТ В КАНАЛ ======
@@ -104,7 +121,8 @@ async def post_menu(message: types.Message):
 
     text = (
         "🍽 <b>O'ZBEGIM Cafe</b>\n\n"
-        "Нажмите кнопку ниже, чтобы перейти в меню:"
+        "Нажмите кнопку ниже, чтобы перейти в меню.\n"
+        "Если в боте не появится кнопка — нажмите <b>/menu</b> (это нормально: Telegram не всегда запускает /start повторно)."
     )
 
     try:
@@ -216,7 +234,24 @@ async def webapp_data(message: types.Message):
 
 
 # ====== ЗАПУСК ======
+async def on_startup():
+    """
+    ✅ Делает системную кнопку "Меню" внизу чата с ботом.
+    Работает даже тогда, когда Telegram не показал reply-клавиатуру после перехода из канала.
+    """
+    try:
+        await bot.set_chat_menu_button(
+            menu_button=MenuButtonWebApp(
+                text="Меню",
+                web_app=WebAppInfo(url=WEBAPP_URL)
+            )
+        )
+        logging.info("Menu button set OK")
+    except Exception:
+        logging.exception("Failed to set menu button")
+
 async def main():
+    await on_startup()
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)
 
