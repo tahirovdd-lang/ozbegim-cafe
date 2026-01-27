@@ -40,7 +40,7 @@
 body{
   margin:0;
   font-family:'Montserrat',sans-serif;
-  background: linear-gradient(180deg, #fff, var(--bg)); /* ✅ чуть богаче */
+  background: linear-gradient(180deg, #fff, var(--bg));
   color:var(--text);
   padding-bottom:88px;
 }
@@ -55,8 +55,6 @@ body{
   justify-content:center;
   padding:22px 16px;
   color:#fff;
-
-  /* если нет samarkand.jpg — всё равно будет красиво за счёт градиента */
   background:
     linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.55)),
     url("samarkand.jpg") center/cover no-repeat;
@@ -107,7 +105,7 @@ body{
   background:linear-gradient(135deg,var(--gold), #ffd77a);
 }
 
-/* ✅ ШАПКА — “богато”, и полоска атласа сверху */
+/* ✅ ШАПКА */
 .header{
   padding:16px 12px 26px;
   background:linear-gradient(135deg,var(--terracotta),var(--gold));
@@ -118,26 +116,32 @@ body{
   justify-content:center;
   position:relative;
   text-align:center;
-  overflow:hidden;
+  overflow:hidden; /* ✅ важно */
 }
+
+/* ✅✅✅ УСИЛЕННЫЙ АТЛАС В ШАПКЕ (твой запрос) */
 .header::before{
   content:"";
   position:absolute;
   left:0; right:0; top:0;
-  height:10px;               /* тонкая полоска */
+  height:14px;                 /* выше полоска */
   background: var(--atlas-pattern);
-  opacity:.12;
+  opacity:.28;                 /* заметно */
+  mix-blend-mode: soft-light;  /* “тканевый” эффект */
   pointer-events:none;
+  z-index:2;
 }
 .header::after{
-  /* мягкий “атлас” в шапке, очень слабый */
   content:"";
   position:absolute;
   inset:0;
   background: var(--atlas-pattern);
-  opacity:.06;
+  opacity:.18;                 /* заметно, но не тяжело */
+  mix-blend-mode: soft-light;
   pointer-events:none;
+  z-index:1;
 }
+
 .header img{position:absolute;left:12px;width:110px; z-index:5;}
 
 .brand-title{
@@ -272,7 +276,6 @@ body{
   overflow:hidden;
 }
 .card::after{
-  /* очень слабый атлас в угол (почти не видно) */
   content:"";
   position:absolute;
   right:-30px;
@@ -349,7 +352,6 @@ textarea.input{height:90px;}
   position:relative;
   overflow:hidden;
 }
-/* ✅ Popup “Заказ принят” — тонкая атлас-рамка/узор */
 .popup-box::before{
   content:"";
   position:absolute;
@@ -512,7 +514,6 @@ mark{background:rgba(212,160,23,.25);padding:0 .12em;border-radius:6px;}
 
 <body>
 
-<!-- ✅✅✅ Intro / Splash (можешь удалить, если не нужен) -->
 <div class="splash" id="splash">
   <div class="panel">
     <p class="title">O'ZBEGIM</p>
