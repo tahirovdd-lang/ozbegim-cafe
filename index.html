@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>KADIMA</title>
+<title>O'ZBEGIM</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
@@ -365,7 +365,7 @@ mark{background:rgba(212,160,23,.25);padding:0 .12em;border-radius:6px;}
 <div class="header">
   <img src="logo.png" onerror="this.src='logo.png'">
   <div>
-    <div class="brand-title">KADIMA</div>
+    <div class="brand-title">O'ZBEGIM</div>
     <div class="brand-sub">Signature taste</div>
     <div class="brand-phone">
       <a href="tel:+998905389999" onclick="callPhone(event)">+998 90 538 99 99</a>
@@ -535,14 +535,14 @@ function highlight(name, q){
 }
 
 function loadSaved(){
-  const a = localStorage.getItem('kadima_address') || '';
-  const p = localStorage.getItem('kadima_phone') || '';
+  const a = localStorage.getItem("o'zbegim_address") || '';
+  const p = localStorage.getItem("o'zbegim_phone") || '';
   if(a && !address.value) address.value = a;
   if(p && !phone.value) phone.value = p;
 }
 function bindSave(){
-  address.addEventListener('input', ()=>localStorage.setItem('kadima_address', address.value));
-  phone.addEventListener('input', ()=>localStorage.setItem('kadima_phone', phone.value));
+  address.addEventListener('input', ()=>localStorage.setItem("o'zbegim_address", address.value));
+  phone.addEventListener('input', ()=>localStorage.setItem("o'zbegim_phone", phone.value));
 }
 
 function setLang(l,b){
@@ -742,18 +742,18 @@ document.addEventListener('click', (e)=>{
   }
 }, true);
 
-/* ✅✅✅ Вариант №2: номер KAD-DDMM-001 (счётчик в localStorage на этом телефоне) */
+/* ✅✅✅ Вариант №2: номер OZB-DDMM-001 (счётчик в localStorage на этом телефоне) */
 function genOrderId(){
   const d = new Date();
   const dd = String(d.getDate()).padStart(2,'0');
   const mm = String(d.getMonth()+1).padStart(2,'0');
-  const key = `kadima_seq_${d.getFullYear()}${mm}${dd}`; // счётчик на конкретную дату
+  const key = `ozbegim_seq_${d.getFullYear()}${mm}${dd}`; // счётчик на конкретную дату
 
   let n = Number(localStorage.getItem(key) || 0) + 1;
   localStorage.setItem(key, String(n));
 
   const num = String(n).padStart(3,'0');
-  return `KAD-${dd}${mm}-${num}`; // пример: KAD-2801-001
+  return `OZB-${dd}${mm}-${num}`; // пример: OZB-2801-001
 }
 
 function calcTotalNum(){
