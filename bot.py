@@ -49,12 +49,14 @@ def kb_webapp_reply() -> ReplyKeyboardMarkup:
         resize_keyboard=True
     )
 
-
-def kb_channel_deeplink() -> InlineKeyboardMarkup:
-    # Откроет чат с ботом и (в клиентах, где поддерживается) предложит открыть WebApp
-    deeplink = f"https://t.me/{BOT_USERNAME}?startapp=menu"
+def kb_channel_button_to_bot() -> InlineKeyboardMarkup:
+    """
+    ✅ СИНЯЯ кнопка В ЗАКРЕПЕ КАНАЛА, которая ведёт В БОТА (не в WebApp).
+    Это inline-кнопка с url на бота.
+    """
+    bot_link = f"https://t.me/{BOT_USERNAME}"
     return InlineKeyboardMarkup(
-        inline_keyboard=[[InlineKeyboardButton(text="🍽 Открыть меню", url=deeplink)]]
+        inline_keyboard=[[InlineKeyboardButton(text="🔵 Перейти в бот", url=bot_link)]]
     )
 
 
@@ -82,15 +84,22 @@ async def startapp(message: types.Message):
     await message.answer(welcome_text(), reply_markup=kb_webapp_reply())
 
 
-# ====== ПОСТ В КАНАЛ ======
+# ====== ПОСТ В КАНАЛ (с закрепом и синей кнопкой в бот) ======
 @dp.message(Command("post_menu"))
 async def post_menu(message: types.Message):
     if message.from_user.id != ADMIN_ID:
         return await message.answer("⛔️ Нет доступа.")
 
-    text = "🍽 <b>O'ZBEGIM Cafe</b>\nНажмите кнопку ниже, чтобы открыть меню:"
+    text = (
+        "🍽 <b>O'ZBEGIM Cafe</b>\n\n"
+        "Чтобы открыть меню и оформить заказ — перейдите в бот:\n"
+        "👇 Нажмите синюю кнопку ниже"
+    )
+
     try:
-        sent = await bot.send_message(CHANNEL_ID, text, reply_markup=kb_channel_deeplink())
+        sent = await bot.send_message(CHANNEL_ID, text, reply_markup=kb_channel_button_to_bot())
+
+        # пробуем закрепить автоматически
         try:
             await bot.pin_chat_message(CHANNEL_ID, sent.message_id, disable_notification=True)
             await message.answer("✅ Пост отправлен в канал и закреплён.")
@@ -99,6 +108,7 @@ async def post_menu(message: types.Message):
                 "✅ Пост отправлен в канал.\n"
                 "⚠️ Не удалось закрепить — дай боту право «Закреплять сообщения» или закрепи вручную."
             )
+
     except Exception as e:
         logging.exception("CHANNEL POST ERROR")
         await message.answer(f"❌ Ошибка отправки в канал: <code>{e}</code>")
