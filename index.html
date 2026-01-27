@@ -9,6 +9,7 @@
 
 <style>
 :root{
+  /* ✅ БАЗА (твои) */
   --bg:#F8F3E9;
   --terracotta:#C76B2F;
   --gold:#D4A017;
@@ -24,17 +25,89 @@
   --r-lg:24px;
   --r-md:22px;
   --r-pill:28px;
+
+  /* ✅ НОВОЕ: “самаркандский синий” + палитра */
+  --samarkand-blue:#1f4aa8;
+  --atlas-red:#8b1e1e;
+  --sand:#f8f3e9;
+  --text:#2b2b2b;
+
+  /* ✅ НОВОЕ: атлас-паттерн (без файлов) */
+  --atlas-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260' viewBox='0 0 260 260'%3E%3Cpath d='M10 80 C60 20 120 20 170 80 S250 140 210 190 120 240 70 200 0 140 10 80Z' fill='%238b1e1e' fill-opacity='0.20'/%3E%3Cpath d='M30 120 C70 70 120 70 160 120 S220 170 190 210 120 240 80 215 10 170 30 120Z' fill='%231f4aa8' fill-opacity='0.16'/%3E%3Ccircle cx='210' cy='55' r='16' fill='%23d4a017' fill-opacity='0.18'/%3E%3Ccircle cx='60' cy='205' r='14' fill='%23d4a017' fill-opacity='0.14'/%3E%3C/svg%3E");
 }
 
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 body{
   margin:0;
   font-family:'Montserrat',sans-serif;
-  background:var(--bg);
-  color:#2b2b2b;
+  background: linear-gradient(180deg, #fff, var(--bg)); /* ✅ чуть богаче */
+  color:var(--text);
   padding-bottom:88px;
 }
 
+/* ✅✅✅ SPLASH (Самарканд/крепости) — акцент, не мешает меню */
+.splash{
+  position:fixed;
+  inset:0;
+  z-index:2000;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  padding:22px 16px;
+  color:#fff;
+
+  /* если нет samarkand.jpg — всё равно будет красиво за счёт градиента */
+  background:
+    linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.55)),
+    url("samarkand.jpg") center/cover no-repeat;
+}
+.splash .panel{
+  width:min(520px, 100%);
+  border-radius:26px;
+  background:rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.18);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding:16px;
+  position:relative;
+  overflow:hidden;
+}
+.splash .panel::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: var(--atlas-pattern);
+  opacity:.08;
+  pointer-events:none;
+}
+.splash .title{
+  font-family:'Lobster',cursive;
+  font-size:34px;
+  margin:0 0 6px;
+}
+.splash .subtitle{
+  margin:0 0 10px;
+  font-weight:800;
+  opacity:.92;
+}
+.splash .note{
+  font-size:12px;
+  font-weight:700;
+  opacity:.80;
+}
+.splash .btn{
+  width:100%;
+  margin-top:12px;
+  padding:12px 14px;
+  border-radius:16px;
+  border:0;
+  font-family:'Montserrat',sans-serif;
+  font-weight:900;
+  cursor:pointer;
+  background:linear-gradient(135deg,var(--gold), #ffd77a);
+}
+
+/* ✅ ШАПКА — “богато”, и полоска атласа сверху */
 .header{
   padding:16px 12px 26px;
   background:linear-gradient(135deg,var(--terracotta),var(--gold));
@@ -45,12 +118,40 @@ body{
   justify-content:center;
   position:relative;
   text-align:center;
+  overflow:hidden;
 }
-.header img{position:absolute;left:12px;width:110px;}
+.header::before{
+  content:"";
+  position:absolute;
+  left:0; right:0; top:0;
+  height:10px;               /* тонкая полоска */
+  background: var(--atlas-pattern);
+  opacity:.12;
+  pointer-events:none;
+}
+.header::after{
+  /* мягкий “атлас” в шапке, очень слабый */
+  content:"";
+  position:absolute;
+  inset:0;
+  background: var(--atlas-pattern);
+  opacity:.06;
+  pointer-events:none;
+}
+.header img{position:absolute;left:12px;width:110px; z-index:5;}
 
-.brand-title{font-family:'Lobster',cursive;font-size:36px;}
-.brand-sub{font-weight:800;font-size:15px;}
-
+.brand-title{
+  font-family:'Lobster',cursive;
+  font-size:36px;
+  position:relative;
+  z-index:6;
+}
+.brand-sub{
+  font-weight:800;
+  font-size:15px;
+  position:relative;
+  z-index:6;
+}
 .brand-phone{position:relative; z-index:50; pointer-events:auto;}
 .brand-phone a{
   color:white;
@@ -141,6 +242,16 @@ body{
   scroll-behavior:smooth;
 }
 
+/* ✅ Разделитель (если захочешь вставить между блоками) */
+.section-divider{
+  height:18px;
+  margin:14px 12px 10px;
+  border-radius:999px;
+  background: var(--atlas-pattern);
+  opacity:.09;
+  border:1px solid rgba(0,0,0,.04);
+}
+
 .products{
   display:grid;
   grid-template-columns:repeat(2,1fr);
@@ -148,6 +259,7 @@ body{
   padding:12px;
 }
 
+/* ✅ Карточки: “керамика” + мягкий hover */
 .card{
   border-radius:var(--r-lg);
   padding:12px;
@@ -156,6 +268,21 @@ body{
   border:1px solid var(--stroke);
   box-shadow: inset 0 0 0 2px var(--inner), 0 8px 18px rgba(120,70,20,.12);
   transition:.15s;
+  position:relative;
+  overflow:hidden;
+}
+.card::after{
+  /* очень слабый атлас в угол (почти не видно) */
+  content:"";
+  position:absolute;
+  right:-30px;
+  top:-30px;
+  width:120px;
+  height:120px;
+  background: var(--atlas-pattern);
+  opacity:.06;
+  transform: rotate(10deg);
+  pointer-events:none;
 }
 .card:active{transform:scale(.99);}
 
@@ -209,7 +336,7 @@ textarea.input{height:90px;}
 }
 .order-btn:active{transform:scale(.99);}
 
-.popup{position:fixed;inset:0;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:.3s;}
+.popup{position:fixed;inset:0;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:.3s; z-index:1500;}
 .popup.show{opacity:1;pointer-events:auto;}
 .popup-box{
   background:white;
@@ -219,6 +346,17 @@ textarea.input{height:90px;}
   font-weight:700;
   border:1px solid var(--stroke);
   box-shadow: inset 0 0 0 2px var(--inner), 0 10px 22px rgba(0,0,0,.10);
+  position:relative;
+  overflow:hidden;
+}
+/* ✅ Popup “Заказ принят” — тонкая атлас-рамка/узор */
+.popup-box::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: var(--atlas-pattern);
+  opacity:.08;
+  pointer-events:none;
 }
 
 .search-wrap{
@@ -295,6 +433,17 @@ mark{background:rgba(212,160,23,.25);padding:0 .12em;border-radius:6px;}
   cursor:pointer;
   transition:.15s;
   position:relative;
+  overflow:hidden;
+}
+.pop-card::after{
+  content:"";
+  position:absolute;
+  right:-34px; top:-34px;
+  width:120px; height:120px;
+  background: var(--atlas-pattern);
+  opacity:.06;
+  pointer-events:none;
+  transform: rotate(8deg);
 }
 .pop-card:active{transform:scale(.99);}
 .pop-img{
@@ -317,6 +466,7 @@ mark{background:rgba(212,160,23,.25);padding:0 .12em;border-radius:6px;}
   padding:10px 12px;
   background:rgba(248,243,233,.88);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   z-index:999;
   border-top:1px solid rgba(199,107,47,.25);
 }
@@ -362,9 +512,21 @@ mark{background:rgba(212,160,23,.25);padding:0 .12em;border-radius:6px;}
 
 <body>
 
+<!-- ✅✅✅ Intro / Splash (можешь удалить, если не нужен) -->
+<div class="splash" id="splash">
+  <div class="panel">
+    <p class="title">O'ZBEGIM</p>
+    <p class="subtitle">Миллий таомлар • Signature taste</p>
+    <p class="note">Самарканд — сердце Великого Шёлкового пути</p>
+    <button class="btn" style="min-width:unset; border:none;" onclick="closeSplash()">
+      🍽 Открыть меню
+    </button>
+  </div>
+</div>
+
 <div class="header">
   <img src="logo.png" onerror="this.src='logo.png'">
-  <div>
+  <div style="position:relative; z-index:6;">
     <div class="brand-title">O'ZBEGIM</div>
     <div class="brand-sub">Signature taste</div>
     <div class="brand-phone">
@@ -427,6 +589,21 @@ mark{background:rgba(212,160,23,.25);padding:0 .12em;border-radius:6px;}
 
 <script>
 Telegram.WebApp.ready();
+
+/* ✅ Splash: показывать 1 раз за сессию */
+function closeSplash(){
+  const el = document.getElementById('splash');
+  if(el) el.style.display = 'none';
+  try{ sessionStorage.setItem('ozbegim_splash','1'); }catch(_){}
+}
+(function initSplash(){
+  try{
+    if(sessionStorage.getItem('ozbegim_splash') === '1'){
+      const el = document.getElementById('splash');
+      if(el) el.style.display = 'none';
+    }
+  }catch(_){}
+})();
 
 /* ✅ звонок из WebApp */
 function callPhone(e){
