@@ -17,29 +17,37 @@ if not BOT_TOKEN:
 
 # ====== НАСТРОЙКИ ======
 BOT_USERNAME = "Uzbegim_kafe_bot"          # без @
-ADMIN_ID = 6013591658                     # твой id
-CHANNEL_ID = "@Ozbegimsignature"          # канал (здесь не используется, оставил для твоих будущих задач)
+ADMIN_ID = 6013591658
 WEBAPP_URL = "https://tahirovdd-lang.github.io/ozbegim-cafe/?v=1"
 
-bot = Bot(token=BOT_TOKEN, default=DefaultBotProperties(parse_mode="HTML"))
+bot = Bot(
+    token=BOT_TOKEN,
+    default=DefaultBotProperties(parse_mode="HTML")
+)
 dp = Dispatcher()
 
-# ====== ТЕКСТЫ 3 ЯЗЫКА (как было) ======
+# ====== ПРИВЕТСТВИЕ (3 ЯЗЫКА + ФЛАГИ) ======
 WELCOME_3LANG = (
-    "🇷🇺 <b>Добро пожаловать в O'ZBEGIM!</b>\n"
-    "Нажмите кнопку <b>🍽 Меню</b> ниже.\n\n"
-    "🇺🇿 <b>O'ZBEGIM ga xush kelibsiz!</b>\n"
-    "<b>🍽 Menyu</b> tugmasini bosing.\n\n"
-    "🇬🇧 <b>Welcome to O'ZBEGIM!</b>\n"
-    "Tap <b>🍽 Menu</b> below."
+    "🇷🇺 <b>Добро пожаловать в O'ZBEGIM!</b> 👋\n"
+    "Выберите любимые блюда и оформите заказ — просто нажмите «Открыть» ниже.\n\n"
+    "🇺🇿 <b>O'ZBEGIM ga xush kelibsiz!</b> 👋\n"
+    "Sevimli taomlaringizni tanlang va buyurtma bering — "
+    "buning uchun pastdagi «Ochish» tugmasini bosing.\n\n"
+    "🇬🇧 <b>Welcome to O'ZBEGIM!</b> 👋\n"
+    "Choose your favorite dishes and place an order — just tap “Open” below."
 )
 
-# Кнопка меню (внизу) с текстом на 3 языках
-MENU_BTN_TEXT_3LANG = "🍽 Меню / 🍽 Menyu / 🍽 Menu"
+# ====== КНОПКА МЕНЮ (НИЖНЯЯ) ======
+MENU_BTN_TEXT = "Ochish / Открыть / Open"
 
 def menu_kb() -> ReplyKeyboardMarkup:
     return ReplyKeyboardMarkup(
-        keyboard=[[KeyboardButton(text=MENU_BTN_TEXT_3LANG, web_app=WebAppInfo(url=WEBAPP_URL))]],
+        keyboard=[
+            [KeyboardButton(
+                text=MENU_BTN_TEXT,
+                web_app=WebAppInfo(url=WEBAPP_URL)
+            )]
+        ],
         resize_keyboard=True
     )
 
@@ -49,9 +57,6 @@ async def send_welcome(message: types.Message):
 # ========= START =========
 @dp.message(CommandStart())
 async def start(message: types.Message, command: CommandObject):
-    # Если человек пришёл из канала по ссылке вида:
-    # https://t.me/Uzbegim_kafe_bot?start=menu
-    # тогда command.args == "menu"
     await send_welcome(message)
 
 # ========= /menu =========
@@ -59,11 +64,10 @@ async def start(message: types.Message, command: CommandObject):
 async def menu_cmd(message: types.Message):
     await send_welcome(message)
 
-# ========= Нажатие на кнопку меню (текст) =========
-@dp.message(F.text == MENU_BTN_TEXT_3LANG)
+# ========= НАЖАТИЕ КНОПКИ (ТЕКСТ) =========
+@dp.message(F.text == MENU_BTN_TEXT)
 async def menu_button(message: types.Message):
-    # Не обязательно что-то отвечать — WebApp откроется автоматически,
-    # но можно оставить подсказку/тишину. Я оставлю тишину.
+    # WebApp откроется автоматически
     pass
 
 # ========= ПРИЁМ ДАННЫХ ИЗ WEBAPP =========
@@ -74,31 +78,42 @@ async def webapp_order(message: types.Message):
     try:
         data = json.loads(raw)
     except Exception:
-        data = {"raw": raw}
+        data = {}
 
-    pretty = json.dumps(data, ensure_ascii=False, indent=2)
+    # Ответ пользователю
+    await message.answer(
+        "✅ Заказ принят! Спасибо за ваш выбор 😊",
+        reply_markup=menu_kb()
+    )
 
-    await message.answer("✅ Заказ получен! Спасибо 😊", reply_markup=menu_kb())
+    # Красивое сообщение админу (НЕ код, НЕ <pre>)
+    order = data.get("order", {})
+    items = "\n".join(
+        [f"• {name} × {qty}" for name, qty in order.items()]
+    ) if order else "• —"
 
-    try:
-        await bot.send_message(
-            ADMIN_ID,
-            "🧾 <b>Новый заказ из WebApp</b>\n"
-            f"👤 От: {message.from_user.full_name} (id: <code>{message.from_user.id}</code>)\n\n"
-            f"<pre>{pretty}</pre>"
-        )
-    except Exception as e:
-        logging.exception("Не удалось отправить заказ админу: %s", e)
+    text_admin = (
+        "📩 <b>НОВЫЙ ЗАКАЗ</b>\n\n"
+        f"👤 Клиент: {message.from_user.full_name}\n"
+        f"🆔 ID: <code>{message.from_user.id}</code>\n"
+        f"📞 Телефон: <b>{data.get('phone','—')}</b>\n"
+        f"🚚 Тип: <b>{data.get('type','—')}</b>\n"
+        f"📍 Адрес: <b>{data.get('address','—')}</b>\n"
+        f"💳 Оплата: <b>{data.get('payment','—')}</b>\n\n"
+        f"{items}\n\n"
+        f"💰 <b>{data.get('total','—')}</b> сум"
+    )
 
-# ========= fallback: если человек написал что-то без /start =========
+    await bot.send_message(ADMIN_ID, text_admin)
+
+# ========= FALLBACK =========
 @dp.message()
 async def fallback(message: types.Message):
-    # Чтобы не было ситуации “перешёл в бот, дальше ничего не происходит”,
-    # если человек напишет любое сообщение — покажем меню.
+    # Если пользователь написал что-то без /start
     await send_welcome(message)
 
 async def main():
-    logging.info("🚀 Bot started (polling)")
+    logging.info("🚀 Bot started")
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
