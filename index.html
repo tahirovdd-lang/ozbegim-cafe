@@ -1,51 +1,44 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
 <title>O'ZBEGIM</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  /* ✅ БАЗА (твои) */
-  --bg:#F8F3E9;
-  --terracotta:#C76B2F;
-  --gold:#D4A017;
-  --green:#1F4D3A;
-  --meat:#8B1E1E;
+  /* Национальная палитра (современно, без “старых теней”) */
+  --sand:#fbf7ef;
+  --text:#1f1f1f;
+  --muted: rgba(0,0,0,.55);
 
-  --stroke: rgba(199,107,47,.35);
-  --stroke-strong: rgba(199,107,47,.50);
-  --inner: rgba(255,255,255,.70);
-  --shadow: rgba(120,70,20,.10);
-  --shadow-strong: rgba(120,70,20,.18);
+  --gold:#D4A017;            /* солнце/плов */
+  --samarkand:#1f4aa8;       /* Самаркандский синий */
+  --green:#1F4D3A;           /* чай/оазис */
+  --atlas-red:#8B1E1E;       /* атлас/узор */
 
-  --r-lg:24px;
-  --r-md:22px;
-  --r-pill:28px;
+  --card-bg: rgba(255,255,255,.82);
+  --line: rgba(0,0,0,.07);
+  --shadow: 0 14px 34px rgba(0,0,0,.10);
 
-  /* ✅ НОВОЕ: “самаркандский синий” + палитра */
-  --samarkand-blue:#1f4aa8;
-  --atlas-red:#8b1e1e;
-  --sand:#f8f3e9;
-  --text:#2b2b2b;
-
-  /* ✅ НОВОЕ: атлас-паттерн (без файлов) */
-  --atlas-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260' viewBox='0 0 260 260'%3E%3Cpath d='M10 80 C60 20 120 20 170 80 S250 140 210 190 120 240 70 200 0 140 10 80Z' fill='%238b1e1e' fill-opacity='0.20'/%3E%3Cpath d='M30 120 C70 70 120 70 160 120 S220 170 190 210 120 240 80 215 10 170 30 120Z' fill='%231f4aa8' fill-opacity='0.16'/%3E%3Ccircle cx='210' cy='55' r='16' fill='%23d4a017' fill-opacity='0.18'/%3E%3Ccircle cx='60' cy='205' r='14' fill='%23d4a017' fill-opacity='0.14'/%3E%3C/svg%3E");
+  --r-lg:26px;
+  --r-md:20px;
+  --r-sm:16px;
 }
 
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+*{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 body{
   margin:0;
   font-family:'Montserrat',sans-serif;
-  background: linear-gradient(180deg, #fff, var(--bg));
+  background: radial-gradient(1200px 600px at 50% -120px, rgba(31,74,168,.14), transparent 60%),
+              linear-gradient(180deg, #fff, var(--sand));
   color:var(--text);
   padding-bottom:88px;
 }
 
-/* ✅✅✅ SPLASH (Самарканд/крепости) — акцент, не мешает меню */
+/* ===== SPLASH (Samarkand) ===== */
 .splash{
   position:fixed;
   inset:0;
@@ -56,398 +49,385 @@ body{
   padding:22px 16px;
   color:#fff;
   background:
-    linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.55)),
+    linear-gradient(180deg, rgba(0,0,0,.62), rgba(0,0,0,.48)),
     url("samarkand.jpg") center/cover no-repeat;
 }
 .splash .panel{
   width:min(520px, 100%);
-  border-radius:26px;
-  background:rgba(255,255,255,.10);
+  border-radius:28px;
+  padding:16px 16px 14px;
   border:1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.10);
+  box-shadow: 0 20px 60px rgba(0,0,0,.25);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  padding:16px;
-  position:relative;
-  overflow:hidden;
-}
-.splash .panel::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background: var(--atlas-pattern);
-  opacity:.08;
-  pointer-events:none;
 }
 .splash .title{
   font-family:'Lobster',cursive;
-  font-size:34px;
+  font-size:36px;
   margin:0 0 6px;
+  letter-spacing:.3px;
 }
 .splash .subtitle{
   margin:0 0 10px;
-  font-weight:800;
+  font-weight:900;
   opacity:.92;
 }
 .splash .note{
+  margin:0;
   font-size:12px;
   font-weight:700;
-  opacity:.80;
+  opacity:.78;
 }
 .splash .btn{
   width:100%;
   margin-top:12px;
   padding:12px 14px;
-  border-radius:16px;
+  border-radius:18px;
   border:0;
   font-family:'Montserrat',sans-serif;
   font-weight:900;
   cursor:pointer;
-  background:linear-gradient(135deg,var(--gold), #ffd77a);
+  background:linear-gradient(135deg, var(--gold), #ffd77a);
 }
 
-/* ✅ ШАПКА */
+/* ===== HEADER (твой запрос: фото атласа в шапке) =====
+   ПОЛОЖИ ФАЙЛ atlas.jpg рядом с index.html
+*/
 .header{
-  padding:16px 12px 26px;
-  background:linear-gradient(135deg,var(--terracotta),var(--gold));
-  color:white;
-  box-shadow:0 6px 18px rgba(120,70,20,.25);
+  padding:18px 14px 30px;
+  color:#fff;
+  position:relative;
+  text-align:center;
   display:flex;
   align-items:center;
   justify-content:center;
-  position:relative;
-  text-align:center;
-  overflow:hidden; /* ✅ важно */
-}
+  overflow:hidden;
 
-/* ✅✅✅ УСИЛЕННЫЙ АТЛАС В ШАПКЕ (твой запрос) */
-.header::before{
-  content:"";
-  position:absolute;
-  left:0; right:0; top:0;
-  height:14px;                 /* выше полоска */
-  background: var(--atlas-pattern);
-  opacity:.28;                 /* заметно */
-  mix-blend-mode: soft-light;  /* “тканевый” эффект */
-  pointer-events:none;
-  z-index:2;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.56), rgba(0,0,0,.34)),
+    url("atlas.jpg") center/cover no-repeat;
+
+  box-shadow: 0 16px 34px rgba(0,0,0,.18);
+  border-bottom: 1px solid rgba(255,255,255,.16);
 }
 .header::after{
   content:"";
   position:absolute;
   inset:0;
-  background: var(--atlas-pattern);
-  opacity:.18;                 /* заметно, но не тяжело */
-  mix-blend-mode: soft-light;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   pointer-events:none;
-  z-index:1;
 }
-
-.header img{position:absolute;left:12px;width:110px; z-index:5;}
+.header::before{
+  /* тонкий национальный акцент снизу (золото) */
+  content:"";
+  position:absolute;
+  left:0; right:0; bottom:0;
+  height:16px;
+  background: linear-gradient(90deg, rgba(212,160,23,0), rgba(212,160,23,.42), rgba(212,160,23,0));
+  opacity:.75;
+  pointer-events:none;
+}
+.header img{
+  position:absolute;
+  left:12px;
+  width:92px;
+  z-index:5;
+  filter: drop-shadow(0 10px 18px rgba(0,0,0,.25));
+}
 
 .brand-title{
   font-family:'Lobster',cursive;
-  font-size:36px;
+  font-size:38px;
+  letter-spacing:.5px;
+  text-shadow: 0 10px 20px rgba(0,0,0,.25);
   position:relative;
   z-index:6;
 }
 .brand-sub{
-  font-weight:800;
-  font-size:15px;
+  font-weight:900;
+  font-size:14px;
+  opacity:.92;
   position:relative;
   z-index:6;
 }
-.brand-phone{position:relative; z-index:50; pointer-events:auto;}
+.brand-phone{ position:relative; z-index:50; pointer-events:auto; }
 .brand-phone a{
-  color:white;
+  color:#fff;
   text-decoration:none;
   font-size:15px;
-  font-weight:700;
+  font-weight:900;
   position:relative;
   z-index:51;
-  pointer-events:auto;
-  cursor:pointer;
+  opacity:.95;
 }
 
 .search-btn{
   position:absolute;
   right:14px;
-  bottom:10px;
-  width:36px;
-  height:36px;
+  bottom:12px;
+  width:38px;
+  height:38px;
   border-radius:50%;
   display:flex;
   align-items:center;
   justify-content:center;
   font-size:16px;
-  font-weight:700;
+  font-weight:900;
   cursor:pointer;
   z-index:60;
 
-  color:#333;
-  background:#fffdf9;
-  border:1px solid var(--stroke);
-  box-shadow: inset 0 0 0 2px var(--inner), 0 6px 14px var(--shadow);
+  color:#fff;
+  background: rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.22);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 14px 30px rgba(0,0,0,.18);
   transition:.15s;
 }
-.search-btn:active{transform:scale(.97);}
+.search-btn:active{ transform:scale(.97); }
 
+/* ===== Layout blocks ===== */
 .langs,.types,.payments{
   display:flex;
-  gap:12px;
-  padding:12px;
+  gap:10px;
+  padding:12px 12px 6px;
   justify-content:center;
 }
 
+/* Современные кнопки (без “старого” объёма) */
 .btn{
-  padding:12px 20px;
-  border-radius:var(--r-pill);
-  font-weight:700;
-  min-width:120px;
+  padding:12px 16px;
+  border-radius:18px;
+  font-weight:900;
+  min-width:118px;
   text-align:center;
   cursor:pointer;
   transition:.15s;
 
-  border:1px solid var(--stroke);
-  background:#fffdf9;
-  box-shadow: inset 0 0 0 2px var(--inner), 0 6px 14px var(--shadow);
+  border:1px solid var(--line);
+  background: rgba(255,255,255,.86);
+  box-shadow: 0 10px 24px rgba(0,0,0,.06);
 }
-.btn:active{transform:scale(.98);}
+.btn:active{ transform:scale(.98); }
 .btn.active{
-  background:linear-gradient(135deg,var(--terracotta),var(--gold));
-  color:white;
-  border:1px solid rgba(255,255,255,.55);
-  box-shadow: inset 0 0 0 2px rgba(255,255,255,.45), 0 8px 18px var(--shadow-strong);
+  background: linear-gradient(135deg, var(--samarkand), var(--gold));
+  color:#fff;
+  border:1px solid rgba(255,255,255,.20);
+  box-shadow: 0 14px 30px rgba(31,74,168,.18);
 }
 
 .input{
   margin:8px auto;
   display:block;
-  padding:14px;
-  width:85%;
-  border-radius:var(--r-md);
+  padding:14px 14px;
+  width:88%;
+  border-radius:18px;
   font-size:15px;
 
-  border:1px solid var(--stroke);
-  background:#fffdf9;
-  box-shadow: inset 0 0 0 2px var(--inner), 0 6px 14px var(--shadow);
+  border:1px solid var(--line);
+  background: rgba(255,255,255,.90);
+  box-shadow: 0 10px 24px rgba(0,0,0,.06);
   outline:none;
   transition:.15s;
 }
 .input:focus{
-  border-color: var(--stroke-strong);
-  box-shadow: inset 0 0 0 2px var(--inner), 0 10px 22px var(--shadow-strong);
+  border-color: rgba(31,74,168,.35);
+  box-shadow: 0 14px 30px rgba(31,74,168,.12);
 }
 
 .categories{
   display:flex;
-  gap:12px;
-  padding:14px;
+  gap:10px;
+  padding:12px 12px 4px;
   overflow-x:auto;
   scroll-behavior:smooth;
-}
-
-/* ✅ Разделитель (если захочешь вставить между блоками) */
-.section-divider{
-  height:18px;
-  margin:14px 12px 10px;
-  border-radius:999px;
-  background: var(--atlas-pattern);
-  opacity:.09;
-  border:1px solid rgba(0,0,0,.04);
 }
 
 .products{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:16px;
+  gap:14px;
   padding:12px;
 }
 
-/* ✅ Карточки: “керамика” + мягкий hover */
+/* Карточки современно: glass, меньше рамок */
 .card{
-  border-radius:var(--r-lg);
-  padding:12px;
+  border-radius:24px;
+  padding:12px 10px;
   text-align:center;
-  background:#fffdf9;
-  border:1px solid var(--stroke);
-  box-shadow: inset 0 0 0 2px var(--inner), 0 8px 18px rgba(120,70,20,.12);
+  background: var(--card-bg);
+  border:1px solid rgba(0,0,0,.06);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   transition:.15s;
-  position:relative;
-  overflow:hidden;
 }
-.card::after{
-  content:"";
-  position:absolute;
-  right:-30px;
-  top:-30px;
-  width:120px;
-  height:120px;
-  background: var(--atlas-pattern);
-  opacity:.06;
-  transform: rotate(10deg);
-  pointer-events:none;
-}
-.card:active{transform:scale(.99);}
+.card:active{ transform:scale(.99); }
 
-.img{height:76px;display:flex;align-items:center;justify-content:center;}
-.img img{max-width:62px;opacity:.9;}
+.img{ height:78px; display:flex; align-items:center; justify-content:center; }
+.img img{ max-width:66px; opacity:.95; }
 
-.price{font-weight:800;color:var(--meat);margin-top:6px;}
-.price small{font-weight:700;opacity:.75;margin-left:4px;}
+.price{ font-weight:900; color:var(--atlas-red); margin-top:6px; }
+.price small{ font-weight:800; opacity:.75; margin-left:4px; }
 
-.counter{display:flex;justify-content:center;gap:10px;margin-top:8px;align-items:center;}
+.counter{ display:flex; justify-content:center; gap:10px; margin-top:8px; align-items:center; }
 .counter button{
-  width:32px;
-  height:32px;
+  width:34px;
+  height:34px;
   border-radius:50%;
   cursor:pointer;
 
-  border:1px solid rgba(255,255,255,.6);
-  background:var(--green);
+  border:1px solid rgba(255,255,255,.22);
+  background: linear-gradient(135deg, var(--green), #2e7d32);
   color:white;
   font-size:16px;
-  box-shadow:0 6px 14px var(--shadow);
+  box-shadow: 0 12px 22px rgba(31,77,58,.18);
   transition:.15s;
 }
-.counter button:active{transform:scale(.96);}
+.counter button:active{ transform:scale(.96); }
 
 .cart{
-  background:#fffdf9;
+  background: rgba(255,255,255,.86);
   margin:12px;
   padding:16px;
-  border-radius:var(--r-lg);
-  border:1px solid var(--stroke);
-  box-shadow: inset 0 0 0 2px var(--inner), 0 8px 18px rgba(120,70,20,.12);
+  border-radius:26px;
+  border:1px solid rgba(0,0,0,.06);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
-textarea.input{height:90px;}
+textarea.input{ height:90px; }
 
 .order-btn{
   width:100%;
   padding:18px;
   margin-top:14px;
-  border-radius:var(--r-lg);
+  border-radius:24px;
   cursor:pointer;
   color:white;
   font-size:17px;
-  font-weight:800;
+  font-weight:900;
 
-  border:1px solid rgba(255,255,255,.55);
-  background:linear-gradient(135deg,var(--green),#2e7d32);
-  box-shadow: inset 0 0 0 2px rgba(255,255,255,.22), 0 10px 22px rgba(31,77,58,.18);
+  border:1px solid rgba(255,255,255,.18);
+  background: linear-gradient(135deg, var(--samarkand), var(--gold));
+  box-shadow: 0 18px 36px rgba(31,74,168,.18);
   transition:.15s;
 }
-.order-btn:active{transform:scale(.99);}
+.order-btn:active{ transform:scale(.99); }
 
-.popup{position:fixed;inset:0;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:.3s; z-index:1500;}
-.popup.show{opacity:1;pointer-events:auto;}
-.popup-box{
-  background:white;
-  padding:26px;
-  border-radius:var(--r-lg);
-  text-align:center;
-  font-weight:700;
-  border:1px solid var(--stroke);
-  box-shadow: inset 0 0 0 2px var(--inner), 0 10px 22px rgba(0,0,0,.10);
-  position:relative;
-  overflow:hidden;
-}
-.popup-box::before{
-  content:"";
-  position:absolute;
+.popup{
+  position:fixed;
   inset:0;
-  background: var(--atlas-pattern);
-  opacity:.08;
+  background:rgba(0,0,0,.45);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
   pointer-events:none;
+  transition:.3s;
+  z-index:1500;
+}
+.popup.show{ opacity:1; pointer-events:auto; }
+.popup-box{
+  background: rgba(255,255,255,.92);
+  padding:26px;
+  border-radius:26px;
+  text-align:center;
+  font-weight:900;
+  border:1px solid rgba(0,0,0,.08);
+  box-shadow: 0 20px 60px rgba(0,0,0,.22);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .search-wrap{
-  width:85%;
+  width:88%;
   margin:8px auto;
   position:relative;
   display:none;
   z-index:70;
 }
-.search-wrap.show{display:block;}
-.search-wrap input{width:100%;margin:0;padding-right:44px;}
+.search-wrap.show{ display:block; }
+.search-wrap input{ width:100%; margin:0; padding-right:44px; }
+
 .search-clear{
   position:absolute;
   right:10px;
   top:50%;
   transform:translateY(-50%);
-  width:30px;
-  height:30px;
+  width:32px;
+  height:32px;
   border-radius:50%;
   display:flex;
   align-items:center;
   justify-content:center;
   cursor:pointer;
 
-  border:1px solid var(--stroke);
-  background:#fffdf9;
-  box-shadow: inset 0 0 0 2px var(--inner), 0 6px 14px var(--shadow);
+  border:1px solid rgba(0,0,0,.08);
+  background: rgba(255,255,255,.92);
+  box-shadow: 0 10px 22px rgba(0,0,0,.08);
   transition:.15s;
 }
-.search-clear:active{transform:translateY(-50%) scale(.96);}
+.search-clear:active{ transform:translateY(-50%) scale(.96); }
 
 .search-title{
-  width:85%;
+  width:88%;
   margin:10px auto 0;
-  font-weight:800;
-  opacity:.9;
+  font-weight:900;
+  opacity:.92;
   display:none;
   z-index:70;
   position:relative;
 }
-.search-title.show{display:block;}
 
-mark{background:rgba(212,160,23,.25);padding:0 .12em;border-radius:6px;}
+.search-title.show{ display:block; }
+mark{ background:rgba(212,160,23,.28); padding:0 .14em; border-radius:8px; }
 
 .quick-filters{
   display:flex;
   gap:10px;
-  padding:0 12px 10px;
+  padding:6px 12px 8px;
   overflow-x:auto;
 }
 .qbtn{
-  border:1px solid var(--stroke);
-  background:#fffdf9;
-  box-shadow: inset 0 0 0 2px var(--inner), 0 6px 14px var(--shadow);
+  border:1px solid rgba(0,0,0,.08);
+  background: rgba(255,255,255,.86);
+  box-shadow: 0 10px 22px rgba(0,0,0,.06);
   border-radius:999px;
   padding:10px 14px;
-  font-weight:800;
+  font-weight:900;
   cursor:pointer;
   white-space:nowrap;
   transition:.15s;
 }
-.qbtn:active{transform:scale(.98);}
+.qbtn:active{ transform:scale(.98); }
 
-.popular-wrap{width:100%;padding:4px 12px 6px;}
-.popular-title{width:100%;font-weight:900;padding:8px 2px 10px;display:flex;align-items:center;gap:8px;}
-.popular-row{display:flex;gap:12px;overflow-x:auto;padding:2px 2px 10px;}
+.popular-wrap{ width:100%; padding:4px 12px 4px; }
+.popular-title{
+  width:100%;
+  font-weight:900;
+  padding:8px 2px 10px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.popular-row{ display:flex; gap:12px; overflow-x:auto; padding:2px 2px 10px; }
 .pop-card{
   min-width:150px;
-  border-radius:var(--r-lg);
+  border-radius:24px;
   padding:10px;
-  background:#fffdf9;
-  border:1px solid var(--stroke);
-  box-shadow: inset 0 0 0 2px var(--inner), 0 8px 18px rgba(120,70,20,.12);
+  background: var(--card-bg);
+  border:1px solid rgba(0,0,0,.06);
+  box-shadow: var(--shadow);
   cursor:pointer;
   transition:.15s;
   position:relative;
   overflow:hidden;
 }
-.pop-card::after{
-  content:"";
-  position:absolute;
-  right:-34px; top:-34px;
-  width:120px; height:120px;
-  background: var(--atlas-pattern);
-  opacity:.06;
-  pointer-events:none;
-  transform: rotate(8deg);
-}
-.pop-card:active{transform:scale(.99);}
+.pop-card:active{ transform:scale(.99); }
 .pop-img{
   height:74px;
   border-radius:18px;
@@ -455,73 +435,72 @@ mark{background:rgba(212,160,23,.25);padding:0 .12em;border-radius:6px;}
   display:flex;
   align-items:center;
   justify-content:center;
-  background:rgba(199,107,47,.08);
+  background: rgba(31,74,168,.10);
 }
-.pop-img img{width:100%;height:100%;object-fit:cover;}
-.pop-name{font-weight:900;margin-top:8px;}
-.pop-price{font-weight:900;color:var(--meat);margin-top:4px;}
-.pop-badge{position:absolute;left:10px;top:10px;font-size:18px;pointer-events:none;}
+.pop-img img{ width:100%; height:100%; object-fit:cover; }
+.pop-name{ font-weight:900; margin-top:8px; }
+.pop-price{ font-weight:900; color:var(--atlas-red); margin-top:4px; }
+.pop-badge{ position:absolute; left:10px; top:10px; font-size:18px; pointer-events:none; }
 
+/* Sticky checkout */
 .sticky-checkout{
   position:fixed;
   left:0; right:0; bottom:0;
   padding:10px 12px;
-  background:rgba(248,243,233,.88);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(251,247,239,.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   z-index:999;
-  border-top:1px solid rgba(199,107,47,.25);
+  border-top:1px solid rgba(0,0,0,.06);
 }
 .sticky-inner{
   max-width:520px;
   margin:0 auto;
-  border-radius:18px;
+  border-radius:20px;
   padding:10px 12px;
-  background:#fffdf9;
-  border:1px solid var(--stroke);
-  box-shadow: inset 0 0 0 2px var(--inner), 0 10px 22px rgba(120,70,20,.12);
+  background: rgba(255,255,255,.88);
+  border:1px solid rgba(0,0,0,.06);
+  box-shadow: 0 16px 34px rgba(0,0,0,.10);
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:12px;
 }
-.sticky-sum{font-weight:900;line-height:1.1;}
-.sticky-sum small{display:block;font-weight:800;opacity:.75;margin-top:2px;}
+.sticky-sum{ font-weight:900; line-height:1.1; }
+.sticky-sum small{ display:block; font-weight:800; opacity:.70; margin-top:2px; }
 .sticky-btn{
   padding:12px 14px;
-  border-radius:16px;
-  border:1px solid rgba(255,255,255,.55);
-  background:linear-gradient(135deg,var(--green),#2e7d32);
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,.18);
+  background: linear-gradient(135deg, var(--samarkand), var(--gold));
   color:#fff;
   font-weight:900;
   cursor:pointer;
-  box-shadow: inset 0 0 0 2px rgba(255,255,255,.20), 0 10px 22px rgba(31,77,58,.18);
+  box-shadow: 0 16px 34px rgba(31,74,168,.16);
   transition:.15s;
   white-space:nowrap;
 }
-.sticky-btn:active{transform:scale(.99);}
+.sticky-btn:active{ transform:scale(.99); }
 
 @media (hover:hover){
-  .btn:hover{box-shadow: inset 0 0 0 2px var(--inner), 0 10px 22px var(--shadow-strong);}
-  .card:hover{transform:translateY(-2px); box-shadow: inset 0 0 0 2px var(--inner), 0 12px 26px rgba(120,70,20,.16);}
-  .qbtn:hover{box-shadow: inset 0 0 0 2px var(--inner), 0 10px 22px var(--shadow-strong);}
-  .search-btn:hover{box-shadow: inset 0 0 0 2px var(--inner), 0 10px 22px var(--shadow-strong);}
-  .sticky-btn:hover{box-shadow: inset 0 0 0 2px rgba(255,255,255,.22), 0 14px 28px rgba(31,77,58,.22);}
-  .pop-card:hover{transform:translateY(-2px);}
+  .btn:hover{ box-shadow: 0 14px 30px rgba(0,0,0,.10); }
+  .card:hover{ transform:translateY(-2px); box-shadow: 0 18px 46px rgba(0,0,0,.14); }
+  .qbtn:hover{ box-shadow: 0 14px 30px rgba(0,0,0,.10); }
+  .sticky-btn:hover{ box-shadow: 0 18px 44px rgba(31,74,168,.20); }
+  .pop-card:hover{ transform:translateY(-2px); box-shadow: 0 18px 46px rgba(0,0,0,.14); }
 }
 </style>
 </head>
 
 <body>
 
+<!-- Splash (можешь удалить, если не нужен) -->
 <div class="splash" id="splash">
   <div class="panel">
     <p class="title">O'ZBEGIM</p>
     <p class="subtitle">Миллий таомлар • Signature taste</p>
     <p class="note">Самарканд — сердце Великого Шёлкового пути</p>
-    <button class="btn" style="min-width:unset; border:none;" onclick="closeSplash()">
-      🍽 Открыть меню
-    </button>
+    <button class="btn" style="min-width:unset; border:none;" onclick="closeSplash()">🍽 Открыть меню</button>
   </div>
 </div>
 
@@ -591,7 +570,7 @@ mark{background:rgba(212,160,23,.25);padding:0 .12em;border-radius:6px;}
 <script>
 Telegram.WebApp.ready();
 
-/* ✅ Splash: показывать 1 раз за сессию */
+/* Splash: показывать 1 раз за сессию */
 function closeSplash(){
   const el = document.getElementById('splash');
   if(el) el.style.display = 'none';
@@ -606,7 +585,7 @@ function closeSplash(){
   }catch(_){}
 })();
 
-/* ✅ звонок из WebApp */
+/* звонок из WebApp */
 function callPhone(e){
   try{ e.preventDefault(); e.stopPropagation(); }catch(_){}
   const tel = "tel:+998905389999";
@@ -638,7 +617,7 @@ const CATS={
   en:{salads:'🥗 Salads',sauce:'🥣 Sauces',first:'🍜 First dishes',hot:'🍲 Hot dishes',garnish:'🍟 Side dishes',drinks:'🥤 Drinks'}
 };
 
-/* ✅ МЕНЮ */
+/* МЕНЮ */
 const MENU = {
   salads:[
     ['Весенний',25000,'logo.png'],
@@ -686,7 +665,7 @@ const MENU = {
   ]
 };
 
-/* ✅ Популярное */
+/* Популярное */
 const POPULAR = [
   ['Плов 0.5',50000,'logo.png'],
   ['Манты 1шт',10000,'logo.png'],
@@ -712,7 +691,7 @@ function highlight(name, q){
   return `${before}<mark>${mid}</mark>${after}`;
 }
 
-/* ✅ localStorage keys без апострофа */
+/* localStorage keys */
 function loadSaved(){
   const a = localStorage.getItem("ozbegim_address") || '';
   const p = localStorage.getItem("ozbegim_phone") || '';
@@ -852,7 +831,7 @@ function setPayment(p){
   payClick.classList.toggle('active',p==='click');
 }
 
-/* ✅ Поиск */
+/* Поиск */
 function isSearchOpen(){ return searchWrap.classList.contains('show'); }
 
 function toggleSearch(){
@@ -878,14 +857,10 @@ function closeSearch(){
   searchInput.value = '';
   renderProducts();
 }
-function clearSearch(){
-  closeSearch();
-}
+function clearSearch(){ closeSearch(); }
 
 function onSearchKey(e){
-  if(e.key === 'Enter'){
-    closeSearch();
-  }
+  if(e.key === 'Enter') closeSearch();
 }
 
 function searchProducts(){
@@ -910,18 +885,16 @@ function searchProducts(){
   }
 }
 
-/* ✅ авто-закрытие поиска при клике вне него */
+/* авто-закрытие поиска при клике вне него */
 document.addEventListener('click', (e)=>{
   if(!isSearchOpen()) return;
   const t = e.target;
   const insideSearch = searchWrap.contains(t) || searchTitle.contains(t);
   const onBtn = t.closest && t.closest('.search-btn');
-  if(!insideSearch && !onBtn){
-    closeSearch();
-  }
+  if(!insideSearch && !onBtn) closeSearch();
 }, true);
 
-/* ✅✅✅ Вариант №2: номер OZB-DDMM-001 (счётчик в localStorage на этом телефоне) */
+/* номер OZB-DDMM-001 */
 function genOrderId(){
   const d = new Date();
   const dd = String(d.getDate()).padStart(2,'0');
@@ -941,7 +914,7 @@ function calcTotalNum(){
   return s;
 }
 
-/* ✅ отправляем только выбранные позиции (qty > 0) */
+/* отправляем только qty > 0 */
 function sendOrder(){
   popup.classList.add('show');
 
