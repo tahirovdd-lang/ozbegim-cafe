@@ -20,7 +20,7 @@ if not BOT_TOKEN:
 # ====== НАСТРОЙКИ ======
 BOT_USERNAME = "Uzbegim_kafe_bot"          # без @
 ADMIN_ID = 6013591658                     # твой id
-CHANNEL_ID = "@Ozbegimsignature"          # канал
+CHANNEL_ID = "@Ozbegimsignature"          # канал (может не использоваться в этом файле)
 WEBAPP_URL = "https://tahirovdd-lang.github.io/ozbegim-cafe/?v=1"  # WebApp
 
 bot = Bot(token=BOT_TOKEN, default=DefaultBotProperties(parse_mode="HTML"))
@@ -42,13 +42,10 @@ def menu_kb() -> ReplyKeyboardMarkup:
     )
 
 def channel_button_kb() -> InlineKeyboardMarkup:
-    # Кнопка, которая будет видна справа от закрепа (как у Kadima)
-    # Вариант 1 (прямо открыть сайт): WEBAPP_URL
-    # Вариант 2 (открыть бота): deep-link на бота -> покажет кнопку меню
-    # Если хочешь как у Kadima (кнопка сверху в канале) — чаще всего достаточно WEBAPP_URL.
+    # Эта inline-кнопка — если ты захочешь прикреплять в пост/закреп в канале
     return InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text="🍽 Открыть меню", url=WEBAPP_URL)]
-        # если надо именно в бота:
+        # или если нужно вести в бота:
         # [InlineKeyboardButton(text="🍽 Открыть меню", url=f"https://t.me/{BOT_USERNAME}?start=menu")]
     ])
 
@@ -61,8 +58,44 @@ async def start(message: types.Message):
 async def menu_cmd(message: types.Message):
     await message.answer(WELCOME_3LANG, reply_markup=menu_kb())
 
-# ========= ПРИЁМ ЗАКАЗОВ ИЗ WEBAPP =========
+# ========= ПРИЁМ ДАННЫХ ИЗ WEBAPP =========
 @dp.message(F.web_app_data)
-async def webapp_orde_
+async def webapp_order(message: types.Message):
+    """
+    Ожидаем JSON из Telegram WebApp:
+    Telegram.WebApp.sendData(JSON.stringify({...}))
+    """
+    raw = message.web_app_data.data
 
+    try:
+        data = json.loads(raw)
+    except Exception:
+        data = {"raw": raw}
 
+    # Красивый текст админу
+    pretty = json.dumps(data, ensure_ascii=False, indent=2)
+
+    await message.answer("✅ Заказ получен! Спасибо 😊")
+
+    # Отправим админу
+    try:
+        await bot.send_message(
+            ADMIN_ID,
+            "🧾 <b>Новый заказ из WebApp</b>\n"
+            f"👤 От: {message.from_user.full_name} (id: <code>{message.from_user.id}</code>)\n\n"
+            f"<pre>{pretty}</pre>"
+        )
+    except Exception as e:
+        logging.exception("Не удалось отправить заказ админу: %s", e)
+
+# ========= (необязательно) TEST =========
+@dp.message(Command("ping"))
+async def ping(message: types.Message):
+    await message.answer("pong ✅")
+
+async def main():
+    logging.info("🚀 Bot started")
+    await dp.start_polling(bot)
+
+if __name__ == "__main__":
+    asyncio.run(main())
