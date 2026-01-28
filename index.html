@@ -81,14 +81,14 @@ body{
   left:10px;
   top:50%;
   transform:translateY(-50%);
-  width:128px;          /* было 92px — увеличили */
-  max-width:42vw;       /* чтобы на маленьких экранах не ломало */
+  width:128px;
+  max-width:42vw;
   height:auto;
   z-index:5;
   filter: drop-shadow(0 12px 22px rgba(0,0,0,.28));
 }
 
-/* ✅ O'ZBEGIM — новый шрифт + чуть “дороже” */
+/* ✅ O'ZBEGIM — сдвиг вправо ~ “на 1 букву” */
 .brand-title{
   font-family:'Yeseva One', serif;
   font-size:40px;
@@ -98,6 +98,9 @@ body{
   position:relative;
   z-index:6;
   line-height:1.0;
+
+  /* 🔥 ВОТ ЭТО: сдвигаем чуть вправо */
+  transform: translateX(10px);
 }
 
 /* ✅ УБРАЛИ taste: подзаголовок скрываем */
@@ -224,6 +227,8 @@ body{
 .price small{ font-weight:800; opacity:.75; margin-left:4px; }
 
 .counter{ display:flex; justify-content:center; gap:10px; margin-top:8px; align-items:center; }
+
+/* ✅ КНОПКИ +/- как категории (samarkand+gold) */
 .counter button{
   width:34px;
   height:34px;
@@ -231,10 +236,10 @@ body{
   cursor:pointer;
 
   border:1px solid rgba(255,255,255,.22);
-  background: linear-gradient(135deg, var(--green), #2e7d32);
+  background: linear-gradient(135deg, var(--samarkand), var(--gold));
   color:white;
   font-size:16px;
-  box-shadow: 0 12px 22px rgba(31,77,58,.18);
+  box-shadow: 0 12px 22px rgba(31,74,168,.18);
   transition:.15s;
 }
 .counter button:active{ transform:scale(.96); }
