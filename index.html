@@ -9,17 +9,15 @@
 
 <style>
 :root{
-  /* Национальная палитра (современно, без “старых теней”) */
   --sand:#fbf7ef;
   --text:#1f1f1f;
-  --muted: rgba(0,0,0,.55);
 
-  --gold:#D4A017;            /* солнце/плов */
-  --samarkand:#1f4aa8;       /* Самаркандский синий */
-  --green:#1F4D3A;           /* чай/оазис */
-  --atlas-red:#8B1E1E;       /* атлас/узор */
+  --gold:#D4A017;
+  --samarkand:#1f4aa8;
+  --green:#1F4D3A;
+  --atlas-red:#8B1E1E;
 
-  --card-bg: rgba(255,255,255,.82);
+  --card-bg: rgba(255,255,255,.84);
   --line: rgba(0,0,0,.07);
   --shadow: 0 14px 34px rgba(0,0,0,.10);
 
@@ -32,68 +30,14 @@
 body{
   margin:0;
   font-family:'Montserrat',sans-serif;
-  background: radial-gradient(1200px 600px at 50% -120px, rgba(31,74,168,.14), transparent 60%),
-              linear-gradient(180deg, #fff, var(--sand));
+  background:
+    radial-gradient(1200px 600px at 50% -120px, rgba(31,74,168,.14), transparent 60%),
+    linear-gradient(180deg, #fff, var(--sand));
   color:var(--text);
   padding-bottom:88px;
 }
 
-/* ===== SPLASH (Samarkand) ===== */
-.splash{
-  position:fixed;
-  inset:0;
-  z-index:2000;
-  display:flex;
-  align-items:flex-end;
-  justify-content:center;
-  padding:22px 16px;
-  color:#fff;
-  background:
-    linear-gradient(180deg, rgba(0,0,0,.62), rgba(0,0,0,.48)),
-    url("samarkand.jpg") center/cover no-repeat;
-}
-.splash .panel{
-  width:min(520px, 100%);
-  border-radius:28px;
-  padding:16px 16px 14px;
-  border:1px solid rgba(255,255,255,.18);
-  background: rgba(255,255,255,.10);
-  box-shadow: 0 20px 60px rgba(0,0,0,.25);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-.splash .title{
-  font-family:'Lobster',cursive;
-  font-size:36px;
-  margin:0 0 6px;
-  letter-spacing:.3px;
-}
-.splash .subtitle{
-  margin:0 0 10px;
-  font-weight:900;
-  opacity:.92;
-}
-.splash .note{
-  margin:0;
-  font-size:12px;
-  font-weight:700;
-  opacity:.78;
-}
-.splash .btn{
-  width:100%;
-  margin-top:12px;
-  padding:12px 14px;
-  border-radius:18px;
-  border:0;
-  font-family:'Montserrat',sans-serif;
-  font-weight:900;
-  cursor:pointer;
-  background:linear-gradient(135deg, var(--gold), #ffd77a);
-}
-
-/* ===== HEADER (твой запрос: фото атласа в шапке) =====
-   ПОЛОЖИ ФАЙЛ atlas.jpg рядом с index.html
-*/
+/* ===== HEADER: фон = atlas.jpg ===== */
 .header{
   padding:18px 14px 30px;
   color:#fff;
@@ -120,7 +64,6 @@ body{
   pointer-events:none;
 }
 .header::before{
-  /* тонкий национальный акцент снизу (золото) */
   content:"";
   position:absolute;
   left:0; right:0; bottom:0;
@@ -163,6 +106,7 @@ body{
   opacity:.95;
 }
 
+/* Search icon = glass */
 .search-btn{
   position:absolute;
   right:14px;
@@ -188,15 +132,13 @@ body{
 }
 .search-btn:active{ transform:scale(.97); }
 
-/* ===== Layout blocks ===== */
+/* ===== Buttons ===== */
 .langs,.types,.payments{
   display:flex;
   gap:10px;
   padding:12px 12px 6px;
   justify-content:center;
 }
-
-/* Современные кнопки (без “старого” объёма) */
 .btn{
   padding:12px 16px;
   border-radius:18px;
@@ -218,6 +160,7 @@ body{
   box-shadow: 0 14px 30px rgba(31,74,168,.18);
 }
 
+/* ===== Inputs ===== */
 .input{
   margin:8px auto;
   display:block;
@@ -252,7 +195,7 @@ body{
   padding:12px;
 }
 
-/* Карточки современно: glass, меньше рамок */
+/* ===== Cards ===== */
 .card{
   border-radius:24px;
   padding:12px 10px;
@@ -288,6 +231,7 @@ body{
 }
 .counter button:active{ transform:scale(.96); }
 
+/* ===== Cart ===== */
 .cart{
   background: rgba(255,255,255,.86);
   margin:12px;
@@ -318,6 +262,7 @@ textarea.input{ height:90px; }
 }
 .order-btn:active{ transform:scale(.99); }
 
+/* ===== Popup ===== */
 .popup{
   position:fixed;
   inset:0;
@@ -343,6 +288,7 @@ textarea.input{ height:90px; }
   -webkit-backdrop-filter: blur(10px);
 }
 
+/* ===== Search ===== */
 .search-wrap{
   width:88%;
   margin:8px auto;
@@ -382,10 +328,11 @@ textarea.input{ height:90px; }
   z-index:70;
   position:relative;
 }
-
 .search-title.show{ display:block; }
+
 mark{ background:rgba(212,160,23,.28); padding:0 .14em; border-radius:8px; }
 
+/* ===== Quick filters + Popular ===== */
 .quick-filters{
   display:flex;
   gap:10px;
@@ -442,7 +389,7 @@ mark{ background:rgba(212,160,23,.28); padding:0 .14em; border-radius:8px; }
 .pop-price{ font-weight:900; color:var(--atlas-red); margin-top:4px; }
 .pop-badge{ position:absolute; left:10px; top:10px; font-size:18px; pointer-events:none; }
 
-/* Sticky checkout */
+/* ===== Sticky checkout ===== */
 .sticky-checkout{
   position:fixed;
   left:0; right:0; bottom:0;
@@ -493,16 +440,6 @@ mark{ background:rgba(212,160,23,.28); padding:0 .14em; border-radius:8px; }
 </head>
 
 <body>
-
-<!-- Splash (можешь удалить, если не нужен) -->
-<div class="splash" id="splash">
-  <div class="panel">
-    <p class="title">O'ZBEGIM</p>
-    <p class="subtitle">Миллий таомлар • Signature taste</p>
-    <p class="note">Самарканд — сердце Великого Шёлкового пути</p>
-    <button class="btn" style="min-width:unset; border:none;" onclick="closeSplash()">🍽 Открыть меню</button>
-  </div>
-</div>
 
 <div class="header">
   <img src="logo.png" onerror="this.src='logo.png'">
@@ -569,21 +506,6 @@ mark{ background:rgba(212,160,23,.28); padding:0 .14em; border-radius:8px; }
 
 <script>
 Telegram.WebApp.ready();
-
-/* Splash: показывать 1 раз за сессию */
-function closeSplash(){
-  const el = document.getElementById('splash');
-  if(el) el.style.display = 'none';
-  try{ sessionStorage.setItem('ozbegim_splash','1'); }catch(_){}
-}
-(function initSplash(){
-  try{
-    if(sessionStorage.getItem('ozbegim_splash') === '1'){
-      const el = document.getElementById('splash');
-      if(el) el.style.display = 'none';
-    }
-  }catch(_){}
-})();
 
 /* звонок из WebApp */
 function callPhone(e){
