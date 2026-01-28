@@ -5,7 +5,9 @@
 <title>O'ZBEGIM</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Lobster&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
+
+<!-- ✅ Новый более “восточный” шрифт для O'ZBEGIM -->
+<link href="https://fonts.googleapis.com/css2?family=Yeseva+One&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -72,30 +74,36 @@ body{
   opacity:.75;
   pointer-events:none;
 }
+
+/* ✅ ЛОГО — максимально крупно, но не меняя высоту шапки */
 .header img{
   position:absolute;
-  left:12px;
-  width:92px;
+  left:10px;
+  top:50%;
+  transform:translateY(-50%);
+  width:128px;          /* было 92px — увеличили */
+  max-width:42vw;       /* чтобы на маленьких экранах не ломало */
+  height:auto;
   z-index:5;
-  filter: drop-shadow(0 10px 18px rgba(0,0,0,.25));
+  filter: drop-shadow(0 12px 22px rgba(0,0,0,.28));
 }
 
+/* ✅ O'ZBEGIM — новый шрифт + чуть “дороже” */
 .brand-title{
-  font-family:'Lobster',cursive;
-  font-size:38px;
-  letter-spacing:.5px;
-  text-shadow: 0 10px 20px rgba(0,0,0,.25);
+  font-family:'Yeseva One', serif;
+  font-size:40px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  text-shadow: 0 12px 22px rgba(0,0,0,.28);
   position:relative;
   z-index:6;
+  line-height:1.0;
 }
-.brand-sub{
-  font-weight:900;
-  font-size:14px;
-  opacity:.92;
-  position:relative;
-  z-index:6;
-}
-.brand-phone{ position:relative; z-index:50; pointer-events:auto; }
+
+/* ✅ УБРАЛИ taste: подзаголовок скрываем */
+.brand-sub{ display:none; }
+
+.brand-phone{ position:relative; z-index:50; pointer-events:auto; margin-top:8px; }
 .brand-phone a{
   color:#fff;
   text-decoration:none;
@@ -445,9 +453,10 @@ mark{ background:rgba(212,160,23,.28); padding:0 .14em; border-radius:8px; }
   <img src="logo.png" onerror="this.src='logo.png'">
   <div style="position:relative; z-index:6;">
     <div class="brand-title">O'ZBEGIM</div>
-    <div class="brand-sub">Signature taste</div>
+    <!-- taste убрали -->
+    <div class="brand-sub"></div>
     <div class="brand-phone">
-      <a href="tel:+998905389999" onclick="callPhone(event)">+998 90 538 99 99</a>
+      <a href="tel:+998913197007" onclick="callPhone(event)">+998 91 319 70 07</a>
     </div>
   </div>
   <div class="search-btn" onclick="toggleSearch()">🔍</div>
@@ -510,7 +519,7 @@ Telegram.WebApp.ready();
 /* звонок из WebApp */
 function callPhone(e){
   try{ e.preventDefault(); e.stopPropagation(); }catch(_){}
-  const tel = "tel:+998905389999";
+  const tel = "tel:+998913197007";
   try{
     if (window.Telegram && Telegram.WebApp && typeof Telegram.WebApp.openLink === "function"){
       Telegram.WebApp.openLink(tel);
