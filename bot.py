@@ -5,11 +5,9 @@ import asyncio
 
 from aiogram import Bot, Dispatcher, F, types
 from aiogram.filters import CommandStart, Command
+from aiogram.filters.command import CommandObject
 from aiogram.client.default import DefaultBotProperties
-from aiogram.types import (
-    ReplyKeyboardMarkup, KeyboardButton, WebAppInfo,
-    InlineKeyboardMarkup, InlineKeyboardButton
-)
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, WebAppInfo
 
 logging.basicConfig(level=logging.INFO)
 
@@ -20,12 +18,13 @@ if not BOT_TOKEN:
 # ====== НАСТРОЙКИ ======
 BOT_USERNAME = "Uzbegim_kafe_bot"          # без @
 ADMIN_ID = 6013591658                     # твой id
-CHANNEL_ID = "@Ozbegimsignature"          # канал (может не использоваться в этом файле)
-WEBAPP_URL = "https://tahirovdd-lang.github.io/ozbegim-cafe/?v=1"  # WebApp
+CHANNEL_ID = "@Ozbegimsignature"          # канал (здесь не используется, оставил для твоих будущих задач)
+WEBAPP_URL = "https://tahirovdd-lang.github.io/ozbegim-cafe/?v=1"
 
 bot = Bot(token=BOT_TOKEN, default=DefaultBotProperties(parse_mode="HTML"))
 dp = Dispatcher()
 
+# ====== ТЕКСТЫ 3 ЯЗЫКА (как было) ======
 WELCOME_3LANG = (
     "🇷🇺 <b>Добро пожаловать в O'ZBEGIM!</b>\n"
     "Нажмите кнопку <b>🍽 Меню</b> ниже.\n\n"
@@ -35,36 +34,41 @@ WELCOME_3LANG = (
     "Tap <b>🍽 Menu</b> below."
 )
 
+# Кнопка меню (внизу) с текстом на 3 языках
+MENU_BTN_TEXT_3LANG = "🍽 Меню / 🍽 Menyu / 🍽 Menu"
+
 def menu_kb() -> ReplyKeyboardMarkup:
     return ReplyKeyboardMarkup(
-        keyboard=[[KeyboardButton(text="🍽 Меню", web_app=WebAppInfo(url=WEBAPP_URL))]],
+        keyboard=[[KeyboardButton(text=MENU_BTN_TEXT_3LANG, web_app=WebAppInfo(url=WEBAPP_URL))]],
         resize_keyboard=True
     )
 
-def channel_button_kb() -> InlineKeyboardMarkup:
-    # Эта inline-кнопка — если ты захочешь прикреплять в пост/закреп в канале
-    return InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="🍽 Открыть меню", url=WEBAPP_URL)]
-        # или если нужно вести в бота:
-        # [InlineKeyboardButton(text="🍽 Открыть меню", url=f"https://t.me/{BOT_USERNAME}?start=menu")]
-    ])
-
-# ========= START / MENU =========
-@dp.message(CommandStart())
-async def start(message: types.Message):
+async def send_welcome(message: types.Message):
     await message.answer(WELCOME_3LANG, reply_markup=menu_kb())
 
+# ========= START =========
+@dp.message(CommandStart())
+async def start(message: types.Message, command: CommandObject):
+    # Если человек пришёл из канала по ссылке вида:
+    # https://t.me/Uzbegim_kafe_bot?start=menu
+    # тогда command.args == "menu"
+    await send_welcome(message)
+
+# ========= /menu =========
 @dp.message(Command("menu"))
 async def menu_cmd(message: types.Message):
-    await message.answer(WELCOME_3LANG, reply_markup=menu_kb())
+    await send_welcome(message)
+
+# ========= Нажатие на кнопку меню (текст) =========
+@dp.message(F.text == MENU_BTN_TEXT_3LANG)
+async def menu_button(message: types.Message):
+    # Не обязательно что-то отвечать — WebApp откроется автоматически,
+    # но можно оставить подсказку/тишину. Я оставлю тишину.
+    pass
 
 # ========= ПРИЁМ ДАННЫХ ИЗ WEBAPP =========
 @dp.message(F.web_app_data)
 async def webapp_order(message: types.Message):
-    """
-    Ожидаем JSON из Telegram WebApp:
-    Telegram.WebApp.sendData(JSON.stringify({...}))
-    """
     raw = message.web_app_data.data
 
     try:
@@ -72,12 +76,10 @@ async def webapp_order(message: types.Message):
     except Exception:
         data = {"raw": raw}
 
-    # Красивый текст админу
     pretty = json.dumps(data, ensure_ascii=False, indent=2)
 
-    await message.answer("✅ Заказ получен! Спасибо 😊")
+    await message.answer("✅ Заказ получен! Спасибо 😊", reply_markup=menu_kb())
 
-    # Отправим админу
     try:
         await bot.send_message(
             ADMIN_ID,
@@ -88,13 +90,15 @@ async def webapp_order(message: types.Message):
     except Exception as e:
         logging.exception("Не удалось отправить заказ админу: %s", e)
 
-# ========= (необязательно) TEST =========
-@dp.message(Command("ping"))
-async def ping(message: types.Message):
-    await message.answer("pong ✅")
+# ========= fallback: если человек написал что-то без /start =========
+@dp.message()
+async def fallback(message: types.Message):
+    # Чтобы не было ситуации “перешёл в бот, дальше ничего не происходит”,
+    # если человек напишет любое сообщение — покажем меню.
+    await send_welcome(message)
 
 async def main():
-    logging.info("🚀 Bot started")
+    logging.info("🚀 Bot started (polling)")
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
