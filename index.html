@@ -6,7 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-<!-- ✅ Новый более “восточный” шрифт для O'ZBEGIM -->
 <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
 
 <style>
@@ -39,7 +38,7 @@ body{
   padding-bottom:88px;
 }
 
-/* ===== HEADER: фон = atlas.jpg ===== */
+/* ===== HEADER ===== */
 .header{
   padding:18px 14px 30px;
   color:#fff;
@@ -75,7 +74,6 @@ body{
   pointer-events:none;
 }
 
-/* ✅ ЛОГО — максимально крупно, но не меняя высоту шапки */
 .header img{
   position:absolute;
   left:10px;
@@ -88,7 +86,7 @@ body{
   filter: drop-shadow(0 12px 22px rgba(0,0,0,.28));
 }
 
-/* ✅ O'ZBEGIM — сдвиг вправо ~ “на 1 букву” */
+/* ✅ O'ZBEGIM — сдвинули правее (на “1 букву”) */
 .brand-title{
   font-family:'Yeseva One', serif;
   font-size:40px;
@@ -98,12 +96,9 @@ body{
   position:relative;
   z-index:6;
   line-height:1.0;
-
-  /* 🔥 ВОТ ЭТО: сдвигаем чуть вправо */
-  transform: translateX(10px);
+  transform: translateX(16px);
 }
 
-/* ✅ УБРАЛИ taste: подзаголовок скрываем */
 .brand-sub{ display:none; }
 
 .brand-phone{ position:relative; z-index:50; pointer-events:auto; margin-top:8px; }
@@ -117,7 +112,7 @@ body{
   opacity:.95;
 }
 
-/* Search icon = glass */
+/* Search */
 .search-btn{
   position:absolute;
   right:14px;
@@ -227,8 +222,6 @@ body{
 .price small{ font-weight:800; opacity:.75; margin-left:4px; }
 
 .counter{ display:flex; justify-content:center; gap:10px; margin-top:8px; align-items:center; }
-
-/* ✅ КНОПКИ +/- как категории (samarkand+gold) */
 .counter button{
   width:34px;
   height:34px;
@@ -255,7 +248,6 @@ body{
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
-
 textarea.input{ height:90px; }
 
 .order-btn{
@@ -345,26 +337,7 @@ textarea.input{ height:90px; }
 
 mark{ background:rgba(212,160,23,.28); padding:0 .14em; border-radius:8px; }
 
-/* ===== Quick filters + Popular ===== */
-.quick-filters{
-  display:flex;
-  gap:10px;
-  padding:6px 12px 8px;
-  overflow-x:auto;
-}
-.qbtn{
-  border:1px solid rgba(0,0,0,.08);
-  background: rgba(255,255,255,.86);
-  box-shadow: 0 10px 22px rgba(0,0,0,.06);
-  border-radius:999px;
-  padding:10px 14px;
-  font-weight:900;
-  cursor:pointer;
-  white-space:nowrap;
-  transition:.15s;
-}
-.qbtn:active{ transform:scale(.98); }
-
+/* ===== Popular ===== */
 .popular-wrap{ width:100%; padding:4px 12px 4px; }
 .popular-title{
   width:100%;
@@ -445,7 +418,6 @@ mark{ background:rgba(212,160,23,.28); padding:0 .14em; border-radius:8px; }
 @media (hover:hover){
   .btn:hover{ box-shadow: 0 14px 30px rgba(0,0,0,.10); }
   .card:hover{ transform:translateY(-2px); box-shadow: 0 18px 46px rgba(0,0,0,.14); }
-  .qbtn:hover{ box-shadow: 0 14px 30px rgba(0,0,0,.10); }
   .sticky-btn:hover{ box-shadow: 0 18px 44px rgba(31,74,168,.20); }
   .pop-card:hover{ transform:translateY(-2px); box-shadow: 0 18px 46px rgba(0,0,0,.14); }
 }
@@ -458,7 +430,6 @@ mark{ background:rgba(212,160,23,.28); padding:0 .14em; border-radius:8px; }
   <img src="logo.png" onerror="this.src='logo.png'">
   <div style="position:relative; z-index:6;">
     <div class="brand-title">O'ZBEGIM</div>
-    <!-- taste убрали -->
     <div class="brand-sub"></div>
     <div class="brand-phone">
       <a href="tel:+998913197007" onclick="callPhone(event)">+998 91 319 70 07</a>
@@ -484,7 +455,7 @@ mark{ background:rgba(212,160,23,.28); padding:0 .14em; border-radius:8px; }
   <div class="popular-row" id="popularRow"></div>
 </div>
 
-<div class="quick-filters" id="quickFilters"></div>
+<!-- ✅ УБРАЛИ блок quick-filters (дублировал категории) -->
 
 <div class="types">
   <button class="btn active" id="btnDelivery" onclick="setType('delivery',this)"></button>
@@ -627,7 +598,7 @@ function highlight(name, q){
   return `${before}<mark>${mid}</mark>${after}`;
 }
 
-/* localStorage keys */
+/* localStorage */
 function loadSaved(){
   const a = localStorage.getItem("ozbegim_address") || '';
   const p = localStorage.getItem("ozbegim_phone") || '';
@@ -661,7 +632,6 @@ function applyLang(){
   popularTitle.innerText = TEXT[lang].popular;
 
   renderPopular();
-  renderQuickFilters();
   renderCats();
   renderProducts();
   updateTotal();
@@ -684,21 +654,6 @@ function renderPopular(){
 function addPopular(n){
   chg(n, 1);
   if(isSearchOpen()) closeSearch();
-}
-
-function renderQuickFilters(){
-  const keys = ['salads','hot','first','drinks'];
-  quickFilters.innerHTML = '';
-  keys.forEach(k=>{
-    if(!MENU[k]) return;
-    quickFilters.innerHTML += `<button class="qbtn" onclick="pickCategory('${k}')">${CATS[lang][k]}</button>`;
-  });
-}
-function pickCategory(k){
-  if(isSearchOpen()) closeSearch();
-  category = k;
-  renderCats();
-  renderProducts();
 }
 
 function renderCats(){
@@ -767,7 +722,7 @@ function setPayment(p){
   payClick.classList.toggle('active',p==='click');
 }
 
-/* Поиск */
+/* Search */
 function isSearchOpen(){ return searchWrap.classList.contains('show'); }
 
 function toggleSearch(){
@@ -778,7 +733,6 @@ function openSearch(){
   searchWrap.classList.add('show');
   searchTitle.classList.add('show');
   cats.style.display = 'none';
-  quickFilters.style.display = 'none';
   popularWrap.style.display = 'none';
   searchInput.value = '';
   searchInput.focus();
@@ -788,7 +742,6 @@ function closeSearch(){
   searchWrap.classList.remove('show');
   searchTitle.classList.remove('show');
   cats.style.display = '';
-  quickFilters.style.display = '';
   popularWrap.style.display = '';
   searchInput.value = '';
   renderProducts();
@@ -821,7 +774,6 @@ function searchProducts(){
   }
 }
 
-/* авто-закрытие поиска при клике вне него */
 document.addEventListener('click', (e)=>{
   if(!isSearchOpen()) return;
   const t = e.target;
@@ -830,7 +782,7 @@ document.addEventListener('click', (e)=>{
   if(!insideSearch && !onBtn) closeSearch();
 }, true);
 
-/* номер OZB-DDMM-001 */
+/* order id */
 function genOrderId(){
   const d = new Date();
   const dd = String(d.getDate()).padStart(2,'0');
@@ -850,7 +802,7 @@ function calcTotalNum(){
   return s;
 }
 
-/* отправляем только qty > 0 */
+/* send */
 function sendOrder(){
   popup.classList.add('show');
 
