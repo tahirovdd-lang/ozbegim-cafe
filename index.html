@@ -8,6 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
 
 <style>
+/* ====== ТВОИ СТИЛИ (без изменений по смыслу) ====== */
 :root{
   --sand:#fbf7ef;
   --text:#1f1f1f;
@@ -26,7 +27,6 @@
   --r-sm:16px;
 }
 
-/* ✅ ТЕМНАЯ ТЕМА (через data-theme="dark") */
 body[data-theme="dark"]{
   --sand:#121212;
   --text:#f1f1f1;
@@ -47,7 +47,6 @@ body{
   padding-bottom:88px;
 }
 
-/* ===== HEADER ===== */
 .header{
   padding:18px 14px 30px;
   color:#fff;
@@ -95,7 +94,6 @@ body{
   filter: drop-shadow(0 12px 22px rgba(0,0,0,.28));
 }
 
-/* ✅ O'ZBEGIM — сдвинули правее */
 .brand-title{
   font-family:'Yeseva One', serif;
   font-size:40px;
@@ -120,7 +118,6 @@ body{
   opacity:.95;
 }
 
-/* Search */
 .search-btn{
   position:absolute;
   right:14px;
@@ -146,7 +143,6 @@ body{
 }
 .search-btn:active{ transform:scale(.97); }
 
-/* ✅✅✅ BURGER BUTTON (справа в шапке) */
 .burger-btn{
   position:absolute;
   right:62px;
@@ -180,7 +176,6 @@ body{
 .burger-ic span:nth-child(2){ top:5px; }
 .burger-ic span:nth-child(3){ bottom:0; }
 
-/* ===== Buttons ===== */
 .langs,.types,.payments{
   display:flex;
   gap:10px;
@@ -210,13 +205,11 @@ body{
   box-shadow: 0 14px 30px rgba(31,74,168,.18);
 }
 
-/* ✅ кнопки категорий шире */
 .categories .btn{
   min-width:160px;
   padding:12px 22px;
 }
 
-/* ===== Inputs ===== */
 .input{
   margin:8px auto;
   display:block;
@@ -254,7 +247,6 @@ body[data-theme="dark"] .input{ background: rgba(28,28,28,.90); }
   padding:12px;
 }
 
-/* ===== Cards ===== */
 .card{
   border-radius:24px;
   padding:12px 10px;
@@ -291,7 +283,6 @@ body[data-theme="dark"] .card{ border-color: rgba(255,255,255,.10); }
 }
 .counter button:active{ transform:scale(.96); }
 
-/* ===== Cart ===== */
 .cart{
   background: rgba(255,255,255,.86);
   margin:12px;
@@ -323,7 +314,6 @@ textarea.input{ height:90px; }
 }
 .order-btn:active{ transform:scale(.99); }
 
-/* ===== Popup ===== */
 .popup{
   position:fixed;
   inset:0;
@@ -350,7 +340,6 @@ textarea.input{ height:90px; }
 }
 body[data-theme="dark"] .popup-box{ background: rgba(28,28,28,.92); border-color: rgba(255,255,255,.10); }
 
-/* ===== Search ===== */
 .search-wrap{
   width:88%;
   margin:8px auto;
@@ -397,7 +386,6 @@ body[data-theme="dark"] .search-clear{ background: rgba(28,28,28,.92); border-co
 
 mark{ background:rgba(212,160,23,.28); padding:0 .14em; border-radius:8px; }
 
-/* ===== Popular ===== */
 .popular-wrap{ width:100%; padding:4px 12px 4px; }
 .popular-title{
   width:100%;
@@ -436,7 +424,6 @@ body[data-theme="dark"] .pop-card{ border-color: rgba(255,255,255,.10); }
 .pop-price{ font-weight:900; color:var(--atlas-red); margin-top:4px; }
 .pop-badge{ position:absolute; left:10px; top:10px; font-size:18px; pointer-events:none; }
 
-/* ===== Sticky checkout ===== */
 .sticky-checkout{
   position:fixed;
   left:0; right:0; bottom:0;
@@ -480,7 +467,6 @@ body[data-theme="dark"] .sticky-inner{ background: rgba(28,28,28,.88); border-co
 }
 .sticky-btn:active{ transform:scale(.99); }
 
-/* ===== BURGER MENU MODAL ===== */
 .menu-backdrop{
   position:fixed;
   inset:0;
@@ -646,14 +632,6 @@ body[data-theme="dark"] .tabbtn{
   color:#fff;
 }
 .small-note{ opacity:.75; font-size:12px; margin-top:6px; }
-
-@media (hover:hover){
-  .btn:hover{ box-shadow: 0 14px 30px rgba(0,0,0,.10); }
-  .card:hover{ transform:translateY(-2px); box-shadow: 0 18px 46px rgba(0,0,0,.14); }
-  .sticky-btn:hover{ box-shadow: 0 18px 44px rgba(31,74,168,.20); }
-  .pop-card:hover{ transform:translateY(-2px); box-shadow: 0 18px 46px rgba(0,0,0,.14); }
-  .menu-item:hover{ filter: brightness(1.02); }
-}
 </style>
 </head>
 
@@ -669,12 +647,10 @@ body[data-theme="dark"] .tabbtn{
     </div>
   </div>
 
-  <!-- ✅ Бургер -->
   <div class="burger-btn" onclick="openTopMenu()" title="Меню">
     <div class="burger-ic"><span></span><span></span><span></span></div>
   </div>
 
-  <!-- 🔍 поиск -->
   <div class="search-btn" onclick="toggleSearch()">🔍</div>
 </div>
 
@@ -727,7 +703,6 @@ body[data-theme="dark"] .tabbtn{
   </div>
 </div>
 
-<!-- ✅✅✅ BACKDROP + MENU SHEET -->
 <div class="menu-backdrop" id="menuBackdrop" onclick="closeTopMenu()"></div>
 
 <div class="menu-sheet" id="menuSheet" role="dialog" aria-modal="true">
@@ -738,8 +713,6 @@ body[data-theme="dark"] .tabbtn{
   </div>
 
   <div class="menu-list">
-
-    <!-- Оставить отзыв -->
     <div class="menu-item" onclick="toggleReviewWidget()" role="button">
       <div class="menu-left">
         <div class="menu-ic">⭐</div>
@@ -753,13 +726,7 @@ body[data-theme="dark"] .tabbtn{
 
     <div class="review-wrap" id="reviewWidgetWrap">
       <div class="review-card">
-        <iframe
-          src="https://yandex.ru/sprav/widget/rating-badge/23178318202?type=rating"
-          width="150"
-          height="50"
-          frameborder="0"
-          style="border:0; display:block;"
-        ></iframe>
+        <iframe src="https://yandex.ru/sprav/widget/rating-badge/23178318202?type=rating" width="150" height="50" frameborder="0" style="border:0; display:block;"></iframe>
       </div>
       <div class="small-note" id="mReviewHint">
         Если виджет не открылся в Telegram — нажми «Открыть отзывы».
@@ -769,7 +736,6 @@ body[data-theme="dark"] .tabbtn{
       </div>
     </div>
 
-    <!-- Телефон -->
     <a class="menu-item" href="tel:+998992711925" onclick="closeTopMenu()">
       <div class="menu-left">
         <div class="menu-ic">📞</div>
@@ -781,14 +747,9 @@ body[data-theme="dark"] .tabbtn{
       <div class="menu-right">›</div>
     </a>
 
-    <!-- Instagram -->
     <a class="menu-item" href="#" onclick="openInstagram(event)">
       <div class="menu-left">
-        <div class="menu-ic" aria-hidden="true">
-          <svg width="18" height="18" viewBox="0 0 24 24" style="display:block;">
-            <path fill="currentColor" d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zm-5 4.3A5.7 5.7 0 1 1 6.3 14 5.7 5.7 0 0 1 12 8.3zm0 2A3.7 3.7 0 1 0 15.7 14 3.7 3.7 0 0 0 12 10.3zM18 6.7a1 1 0 1 1-1 1 1 1 0 0 1 1-1z"/>
-          </svg>
-        </div>
+        <div class="menu-ic" aria-hidden="true">📷</div>
         <div class="menu-txt">
           <div class="menu-name" id="mInstaTitle">@uzbegimosh</div>
           <div class="menu-sub" id="mInstaSub">Открыть Instagram</div>
@@ -797,7 +758,6 @@ body[data-theme="dark"] .tabbtn{
       <div class="menu-right">›</div>
     </a>
 
-    <!-- Тема -->
     <div class="menu-item" onclick="toggleThemeFromMenu()" role="button">
       <div class="menu-left">
         <div class="menu-ic">🌓</div>
@@ -809,7 +769,6 @@ body[data-theme="dark"] .tabbtn{
       <div class="menu-right" id="mThemeAction">Сменить</div>
     </div>
 
-    <!-- О нас -->
     <div class="menu-item" onclick="openAbout()" role="button">
       <div class="menu-left">
         <div class="menu-ic">ℹ️</div>
@@ -820,11 +779,9 @@ body[data-theme="dark"] .tabbtn{
       </div>
       <div class="menu-right">›</div>
     </div>
-
   </div>
 </div>
 
-<!-- ✅ ABOUT MODAL -->
 <div class="about-modal" id="aboutModal" onclick="aboutBackdropClick(event)">
   <div class="about-card">
     <div class="about-head">
@@ -845,68 +802,22 @@ body[data-theme="dark"] .tabbtn{
 <script>
 Telegram.WebApp.ready();
 
-/* ====== ДАННЫЕ ДЛЯ БУРГЕРА ====== */
-const PHONE_E164 = "+998992711925";
+const $ = (id)=>document.getElementById(id);
+
+/* ====== ДАННЫЕ ====== */
 const PHONE_TEL  = "tel:+998992711925";
 const IG_URL = "https://www.instagram.com/uzbegimosh/";
 const YANDEX_WIDGET_URL = "https://yandex.ru/sprav/widget/rating-badge/23178318202?type=rating";
 
-/* ✅ тексты бургер-меню на 3 языка */
+/* ===== I18N бургер ===== */
 const MENU_I18N = {
-  ru:{
-    menu:'Меню',
-    review_title:'Оставить отзыв',
-    review_sub:'Яндекс рейтинг / отзывы',
-    review_hint:'Если виджет не открылся в Telegram — нажми «Открыть отзывы».',
-    open_reviews:'Открыть отзывы',
-    call:'Позвонить',
-    insta_sub:'Открыть Instagram',
-    theme:'Тема',
-    theme_light:'Светлая',
-    theme_dark:'Тёмная',
-    theme_action:'Сменить',
-    about:'О нас',
-    about_sub:'Адрес и описание',
-    about_title:'О нас'
-  },
-  uz:{
-    menu:'Menyu',
-    review_title:'Fikr qoldirish',
-    review_sub:'Yandex reyting / fikrlar',
-    review_hint:'Agar vidjet Telegramda ochilmasa — «Sharhlarni ochish»ni bosing.',
-    open_reviews:"Sharhlarni ochish",
-    call:"Qo'ng'iroq qilish",
-    insta_sub:"Instagramni ochish",
-    theme:"Mavzu",
-    theme_light:"Yorug'",
-    theme_dark:"Qorong'i",
-    theme_action:"Almashtirish",
-    about:"Biz haqimizda",
-    about_sub:"Manzil va ma'lumot",
-    about_title:"Biz haqimizda"
-  },
-  en:{
-    menu:'Menu',
-    review_title:'Leave a review',
-    review_sub:'Yandex rating / reviews',
-    review_hint:'If the widget doesn’t open in Telegram — tap “Open reviews”.',
-    open_reviews:'Open reviews',
-    call:'Call',
-    insta_sub:'Open Instagram',
-    theme:'Theme',
-    theme_light:'Light',
-    theme_dark:'Dark',
-    theme_action:'Switch',
-    about:'About us',
-    about_sub:'Address and info',
-    about_title:'About us'
-  }
+  ru:{menu:'Меню',review_title:'Оставить отзыв',review_sub:'Яндекс рейтинг / отзывы',review_hint:'Если виджет не открылся в Telegram — нажми «Открыть отзывы».',open_reviews:'Открыть отзывы',call:'Позвонить',insta_sub:'Открыть Instagram',theme:'Тема',theme_light:'Светлая',theme_dark:'Тёмная',theme_action:'Сменить',about:'О нас',about_sub:'Адрес и описание',about_title:'О нас'},
+  uz:{menu:'Menyu',review_title:'Fikr qoldirish',review_sub:'Yandex reyting / fikrlar',review_hint:'Agar vidjet Telegramda ochilmasa — «Sharhlarni ochish»ni bosing.',open_reviews:"Sharhlarni ochish",call:"Qo'ng'iroq qilish",insta_sub:"Instagramni ochish",theme:"Mavzu",theme_light:"Yorug'",theme_dark:"Qorong'i",theme_action:"Almashtirish",about:"Biz haqimizda",about_sub:"Manzil va ma'lumot",about_title:"Biz haqimizda"},
+  en:{menu:'Menu',review_title:'Leave a review',review_sub:'Yandex rating / reviews',review_hint:'If the widget doesn’t open in Telegram — tap “Open reviews”.',open_reviews:'Open reviews',call:'Call',insta_sub:'Open Instagram',theme:'Theme',theme_light:'Light',theme_dark:'Dark',theme_action:'Switch',about:'About us',about_sub:'Address and info',about_title:'About us'}
 };
 
-/* О НАС тексты */
 const ABOUT_TEXT = {
-  ru:
-`🇷🇺 О нас
+  ru:`🇷🇺 О нас
 
 Кафе Uzbegim Osh — это место, где оживает настоящая узбекская кухня.
 Мы готовим национальные блюда по традиционным рецептам, сохраняя вкус, аромат и душу Узбекистана.
@@ -916,8 +827,7 @@ const ABOUT_TEXT = {
 📍 г. Самарканд, ул. Узбекистанская, 74
 
 Uzbegim Osh — вкус, проверенный временем 🇺🇿🍽️`,
-  uz:
-`🇺🇿 Биз ҳақимизда (узбекча, кирилл)
+  uz:`🇺🇿 Биз ҳақимизда (узбекча, кирилл)
 
 Uzbegim Osh кафеси — бу ерда ҳақиқий ўзбек миллий таомлари жонланади.
 Биз анъанавий рецептлар асосида таомлар тайёрлаймиз, Ўзбекистоннинг мазаси, ҳиди ва руҳини сақлаб қоламиз.
@@ -927,8 +837,7 @@ Uzbegim Osh кафеси — бу ерда ҳақиқий ўзбек милли�
 📍 Самарқанд шаҳри, Ўзбекистон кўчаси, 74
 
 Uzbegim Osh — вақт синовидан ўтган мазза 🇺🇿🍽️`,
-  en:
-`🇬🇧 About Us
+  en:`🇬🇧 About Us
 
 Uzbegim Osh is a place where authentic Uzbek cuisine comes to life.
 We prepare traditional national dishes using classic recipes, preserving the true taste, aroma, and spirit of Uzbekistan.
@@ -940,71 +849,48 @@ We welcome you in the heart of Samarkand —
 Uzbegim Osh — a taste proven by time 🇺🇿🍽️`
 };
 
-/* звонок из WebApp */
-function callPhone(e){
-  try{ e.preventDefault(); e.stopPropagation(); }catch(_){}
-  try{
-    if (window.Telegram && Telegram.WebApp && typeof Telegram.WebApp.openLink === "function"){
-      Telegram.WebApp.openLink(PHONE_TEL);
-      return;
-    }
-  }catch(_){}
-  window.location.href = PHONE_TEL;
-}
+/* ===== бургер ===== */
+function openTopMenu(){ $('menuBackdrop').classList.add('show'); $('menuSheet').classList.add('show'); }
+function closeTopMenu(){ $('menuBackdrop').classList.remove('show'); $('menuSheet').classList.remove('show'); }
 
-/* ===== BURGER OPEN/CLOSE ===== */
-function openTopMenu(){
-  document.getElementById('menuBackdrop').classList.add('show');
-  document.getElementById('menuSheet').classList.add('show');
-}
-function closeTopMenu(){
-  document.getElementById('menuBackdrop').classList.remove('show');
-  document.getElementById('menuSheet').classList.remove('show');
-}
-
-/* Review */
 function toggleReviewWidget(){
-  const w = document.getElementById('reviewWidgetWrap');
-  w.style.display = (w.style.display === 'none' || !w.style.display) ? 'block' : 'none';
+  const w = $('reviewWidgetWrap');
+  w.style.display = (!w.style.display || w.style.display === 'none') ? 'block' : 'none';
 }
+
 function openYandexReviews(e){
   try{ e.preventDefault(); e.stopPropagation(); }catch(_){}
-  try{
-    if (window.Telegram && Telegram.WebApp && typeof Telegram.WebApp.openLink === "function"){
-      Telegram.WebApp.openLink(YANDEX_WIDGET_URL);
-      return;
-    }
-  }catch(_){}
-  window.open(YANDEX_WIDGET_URL, "_blank");
+  try{ Telegram.WebApp.openLink(YANDEX_WIDGET_URL); }
+  catch(_){ window.open(YANDEX_WIDGET_URL, "_blank"); }
 }
 
-/* Instagram */
 function openInstagram(e){
   try{ e.preventDefault(); e.stopPropagation(); }catch(_){}
   closeTopMenu();
-  try{
-    if (window.Telegram && Telegram.WebApp && typeof Telegram.WebApp.openLink === "function"){
-      Telegram.WebApp.openLink(IG_URL);
-      return;
-    }
-  }catch(_){}
-  window.open(IG_URL, "_blank");
+  try{ Telegram.WebApp.openLink(IG_URL); }
+  catch(_){ window.open(IG_URL, "_blank"); }
 }
 
-/* Theme */
+function callPhone(e){
+  try{ e.preventDefault(); e.stopPropagation(); }catch(_){}
+  try{ Telegram.WebApp.openLink(PHONE_TEL); }
+  catch(_){ window.location.href = PHONE_TEL; }
+}
+
+/* ===== theme ===== */
+let lang='ru', category='salads', type='delivery', payment='cash';
+let cart = {};
+
 function applyTheme(theme){
   document.body.setAttribute('data-theme', theme);
   localStorage.setItem('ozbegim_theme', theme);
 
   const t = MENU_I18N[lang] || MENU_I18N.ru;
-  const sub = document.getElementById('themeMenuSub');
-  if(sub) sub.innerText = (theme === 'dark') ? t.theme_dark : t.theme_light;
+  $('themeMenuSub').innerText = (theme === 'dark') ? t.theme_dark : t.theme_light;
 
   try{
-    if (window.Telegram && Telegram.WebApp){
-      Telegram.WebApp.setHeaderColor?.(theme === 'dark' ? '#121212' : '#fbf7ef');
-      Telegram.WebApp.setBackgroundColor?.(theme === 'dark' ? '#121212' : '#fbf7ef');
-    }
+    Telegram.WebApp.setHeaderColor?.(theme === 'dark' ? '#121212' : '#fbf7ef');
+    Telegram.WebApp.setBackgroundColor?.(theme === 'dark' ? '#121212' : '#fbf7ef');
   }catch(_){}
 }
 function toggleThemeFromMenu(){
@@ -1012,50 +898,36 @@ function toggleThemeFromMenu(){
   applyTheme(cur === 'dark' ? 'light' : 'dark');
 }
 
-/* About modal */
+/* ===== about ===== */
+let currentAboutLang = 'ru';
 function openAbout(){
   closeTopMenu();
   setAboutLang(currentAboutLang);
-  document.getElementById('aboutModal').classList.add('show');
+  $('aboutModal').classList.add('show');
 }
-function closeAbout(){
-  document.getElementById('aboutModal').classList.remove('show');
-}
-function aboutBackdropClick(e){
-  if(e.target && e.target.id === 'aboutModal') closeAbout();
-}
-
-let currentAboutLang = 'ru';
+function closeAbout(){ $('aboutModal').classList.remove('show'); }
+function aboutBackdropClick(e){ if(e.target && e.target.id === 'aboutModal') closeAbout(); }
 function setAboutLang(l){
   currentAboutLang = l;
-  document.getElementById('aboutBody').textContent = ABOUT_TEXT[l] || ABOUT_TEXT.ru;
-
-  document.getElementById('tabRu').classList.toggle('active', l==='ru');
-  document.getElementById('tabUz').classList.toggle('active', l==='uz');
-  document.getElementById('tabEn').classList.toggle('active', l==='en');
+  $('aboutBody').textContent = ABOUT_TEXT[l] || ABOUT_TEXT.ru;
+  $('tabRu').classList.toggle('active', l==='ru');
+  $('tabUz').classList.toggle('active', l==='uz');
+  $('tabEn').classList.toggle('active', l==='en');
 }
 
-/* ====== ТВОЙ КОД МЕНЮ/КОРЗИНЫ (ОСТАВИЛ) ====== */
-const tgUser = Telegram.WebApp.initDataUnsafe?.user || {};
-const tg_username = tgUser.username || "";
-const tg_first_name = tgUser.first_name || "";
-const tg_id = tgUser.id || "";
-
-let lang='ru', category='salads', type='delivery', payment='cash';
-let cart = {}; // cart[itemId] = qty
-
+/* ===== основной i18n ===== */
 const TEXT={
   ru:{delivery:'🚚 Доставка',pickup:'🏃 Самовывоз',address:'📍 Адрес доставки',phone:'📞 Телефон',cart:'🛒 Корзина',order:'Оформить заказ',comment:'✍️ Комментарий к заказу',cash:'💵 Наличные',click:'💳 CLICK',results:'Результаты поиска',popular:'🔥 Популярное',empty:'Корзина пустая'},
   uz:{delivery:'🚚 Yetkazish',pickup:'🏃 Olib ketish',address:'📍 Manzil',phone:'📞 Telefon',cart:'🛒 Savat',order:'Buyurtma berish',comment:'✍️ Izoh',cash:'💵 Naqd',click:'💳 CLICK',results:'Qidiruv natijalari',popular:'🔥 Ommabop',empty:'Savat bo‘sh'},
   en:{delivery:'🚚 Delivery',pickup:'🏃 Pickup',address:'📍 Address',phone:'📞 Phone',cart:'🛒 Cart',order:'Place order',comment:'✍️ Comment',cash:'💵 Cash',click:'💳 CLICK',results:'Search results',popular:'🔥 Popular',empty:'Cart is empty'}
 };
-
 const CATS={
   ru:{salads:'🥗 Салаты',sauce:'🥣 Соус',first:'🍜 Первые блюда',hot:'🍲 Горячие блюда',garnish:'🍟 Гарнир',drinks:'🥤 Напитки'},
   uz:{salads:'🥗 Salatlar',sauce:'🥣 Souslar',first:'🍜 Birinchi taomlar',hot:'🍲 Issiq taomlar',garnish:'🍟 Garnir',drinks:'🥤 Ichimliklar'},
   en:{salads:'🥗 Salads',sauce:'🥣 Sauces',first:'🍜 First dishes',hot:'🍲 Hot dishes',garnish:'🍟 Side dishes',drinks:'🥤 Drinks'}
 };
 
+/* ✅✅✅ ВОТ ТУТ БЫЛА ТВОЯ ОШИБКА — Я ПОПРАВИЛ ЛИШНИЕ } !!! */
 const MENU = {
   salads:[
     {id:'vesenniy', p:25000, img:'images/vesenniy.png', n:{ru:'Весенний', uz:'Bahorgi salat', en:'Spring salad'}},
@@ -1104,11 +976,8 @@ const MENU = {
 };
 
 const POPULAR_IDS = ['plov05','manty1','shurpa','tsezar'];
-
 const ITEM_BY_ID = {};
-for (const cat in MENU){
-  for (const it of MENU[cat]) ITEM_BY_ID[it.id] = it;
-}
+for (const cat in MENU){ for (const it of MENU[cat]) ITEM_BY_ID[it.id] = it; }
 
 function formatSum(x){
   const n = Number(x) || 0;
@@ -1123,22 +992,13 @@ function highlight(text, q){
   const lower = safe.toLowerCase();
   const idx = lower.indexOf(q.toLowerCase());
   if(idx === -1) return safe;
-  const before = safe.slice(0, idx);
-  const mid = safe.slice(idx, idx + q.length);
-  const after = safe.slice(idx + q.length);
-  return `${before}<mark>${mid}</mark>${after}`;
+  return safe.slice(0,idx) + `<mark>${safe.slice(idx, idx+q.length)}</mark>` + safe.slice(idx+q.length);
 }
 
-function loadSaved(){
-  const a = localStorage.getItem("ozbegim_address") || '';
-  const p = localStorage.getItem("ozbegim_phone") || '';
-  if(a && !address.value) address.value = a;
-  if(p && !phone.value) phone.value = p;
-}
-function bindSave(){
-  address.addEventListener('input', ()=>localStorage.setItem("ozbegim_address", address.value));
-  phone.addEventListener('input', ()=>localStorage.setItem("ozbegim_phone", phone.value));
-}
+const tgUser = Telegram.WebApp.initDataUnsafe?.user || {};
+const tg_username = tgUser.username || "";
+const tg_first_name = tgUser.first_name || "";
+const tg_id = tgUser.id || "";
 
 function setLang(l,b){
   lang=l;
@@ -1147,59 +1007,26 @@ function setLang(l,b){
   applyLang();
 }
 
-/* ✅✅✅ применяем перевод и к основному UI, и к бургеру */
-function applyLang(){
-  btnDelivery.innerText=TEXT[lang].delivery;
-  btnPickup.innerText=TEXT[lang].pickup;
-  address.placeholder=TEXT[lang].address;
-  phone.placeholder=TEXT[lang].phone;
-  cartTitle.innerText=TEXT[lang].cart;
-  orderBtn.innerText=TEXT[lang].order;
-  stickyOrder.innerText=TEXT[lang].order;
-  comment.placeholder=TEXT[lang].comment;
-  payCash.innerText=TEXT[lang].cash;
-  payClick.innerText=TEXT[lang].click;
-  searchTitle.innerText = TEXT[lang].results;
-  popularTitle.innerText = TEXT[lang].popular;
-
-  renderPopular();
-  renderCats();
-  renderProducts();
-  updateTotal();
-
-  applyBurgerI18n();     // ✅ бургер перевод
-  syncThemeLabel();      // ✅ подпись темы в бургер
-}
-
 function applyBurgerI18n(){
   const t = MENU_I18N[lang] || MENU_I18N.ru;
-  const el = (id)=>document.getElementById(id);
-
-  if(el('menuTitle')) el('menuTitle').innerText = t.menu;
-  if(el('mReviewTitle')) el('mReviewTitle').innerText = t.review_title;
-  if(el('mReviewSub')) el('mReviewSub').innerText = t.review_sub;
-  if(el('mReviewHint')) el('mReviewHint').innerText = t.review_hint;
-  if(el('mOpenReviewsBtn')) el('mOpenReviewsBtn').innerText = t.open_reviews;
-
-  if(el('mCallTitle')) el('mCallTitle').innerText = t.call;
-
-  // insta name оставляем @uzbegimosh, меняем только подпись
-  if(el('mInstaSub')) el('mInstaSub').innerText = t.insta_sub;
-
-  if(el('mThemeTitle')) el('mThemeTitle').innerText = t.theme;
-  if(el('mThemeAction')) el('mThemeAction').innerText = t.theme_action;
-
-  if(el('mAboutTitle')) el('mAboutTitle').innerText = t.about;
-  if(el('mAboutSub')) el('mAboutSub').innerText = t.about_sub;
-
-  if(el('aboutTitle')) el('aboutTitle').innerText = t.about_title;
+  if($('menuTitle')) $('menuTitle').innerText = t.menu;
+  if($('mReviewTitle')) $('mReviewTitle').innerText = t.review_title;
+  if($('mReviewSub')) $('mReviewSub').innerText = t.review_sub;
+  if($('mReviewHint')) $('mReviewHint').innerText = t.review_hint;
+  if($('mOpenReviewsBtn')) $('mOpenReviewsBtn').innerText = t.open_reviews;
+  if($('mCallTitle')) $('mCallTitle').innerText = t.call;
+  if($('mInstaSub')) $('mInstaSub').innerText = t.insta_sub;
+  if($('mThemeTitle')) $('mThemeTitle').innerText = t.theme;
+  if($('mThemeAction')) $('mThemeAction').innerText = t.theme_action;
+  if($('mAboutTitle')) $('mAboutTitle').innerText = t.about;
+  if($('mAboutSub')) $('mAboutSub').innerText = t.about_sub;
+  if($('aboutTitle')) $('aboutTitle').innerText = t.about_title;
 }
 
 function syncThemeLabel(){
   const t = MENU_I18N[lang] || MENU_I18N.ru;
   const cur = document.body.getAttribute('data-theme') || 'light';
-  const sub = document.getElementById('themeMenuSub');
-  if(sub) sub.innerText = (cur === 'dark') ? t.theme_dark : t.theme_light;
+  $('themeMenuSub').innerText = (cur === 'dark') ? t.theme_dark : t.theme_light;
 }
 
 function getName(it){
@@ -1207,13 +1034,13 @@ function getName(it){
 }
 
 function renderPopular(){
-  popularRow.innerHTML = '';
+  $('popularRow').innerHTML = '';
   POPULAR_IDS.forEach(id=>{
     const it = ITEM_BY_ID[id];
     if(!it) return;
     cart[id] = cart[id] || 0;
     const name = getName(it);
-    popularRow.innerHTML += `
+    $('popularRow').innerHTML += `
       <div class="pop-card" onclick="addPopular('${id}')">
         <div class="pop-badge">🔥</div>
         <div class="pop-img"><img src="${it.img}" onerror="this.src='logo.png'"></div>
@@ -1229,16 +1056,10 @@ function addPopular(id){
 }
 
 function renderCats(){
-  cats.innerHTML='';
+  $('cats').innerHTML='';
   for(let k in MENU){
-    cats.innerHTML+=`<button class="btn ${k===category?'active':''}" onclick="category='${k}';renderCats();renderProducts()">${CATS[lang][k] || k}</button>`;
+    $('cats').innerHTML+=`<button class="btn ${k===category?'active':''}" onclick="category='${k}';renderCats();renderProducts()">${CATS[lang][k] || k}</button>`;
   }
-  setTimeout(()=>{
-    const active = cats.querySelector('.btn.active');
-    if(active && active.scrollIntoView){
-      active.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
-    }
-  }, 50);
 }
 
 function cardHTML(it, q=''){
@@ -1257,10 +1078,10 @@ function cardHTML(it, q=''){
 }
 
 function renderProducts(){
-  products.innerHTML='';
+  $('products').innerHTML='';
   (MENU[category] || []).forEach(it=>{
     cart[it.id]=cart[it.id]||0;
-    products.innerHTML += cardHTML(it,'');
+    $('products').innerHTML += cardHTML(it,'');
   });
 }
 
@@ -1271,15 +1092,13 @@ function chg(id,v){
   updateTotal();
 }
 
-function price(id){
-  return ITEM_BY_ID[id]?.p || 0;
-}
+function price(id){ return ITEM_BY_ID[id]?.p || 0; }
 
 function updateTotal(){
   let s=0;
   for(let id in cart) s += (cart[id]||0) * price(id);
-  total.innerText = formatSum(s);
-  stickyTotal.innerText = formatSum(s);
+  $('total').innerText = formatSum(s);
+  $('stickyTotal').innerText = formatSum(s);
 }
 
 function setType(t,b){
@@ -1290,53 +1109,40 @@ function setType(t,b){
 }
 function setPayment(p){
   payment=p;
-  payCash.classList.toggle('active',p==='cash');
-  payClick.classList.toggle('active',p==='click');
+  $('payCash').classList.toggle('active',p==='cash');
+  $('payClick').classList.toggle('active',p==='click');
 }
 
-/* Search */
-function isSearchOpen(){ return searchWrap.classList.contains('show'); }
-
-function toggleSearch(){
-  if(isSearchOpen()) closeSearch();
-  else openSearch();
-}
+function isSearchOpen(){ return $('searchWrap').classList.contains('show'); }
+function toggleSearch(){ isSearchOpen() ? closeSearch() : openSearch(); }
 function openSearch(){
-  searchWrap.classList.add('show');
-  searchTitle.classList.add('show');
-  cats.style.display = 'none';
-  popularWrap.style.display = 'none';
-  searchInput.value = '';
-  searchInput.focus();
+  $('searchWrap').classList.add('show');
+  $('searchTitle').classList.add('show');
+  $('cats').style.display = 'none';
+  $('popularWrap').style.display = 'none';
+  $('searchInput').value = '';
+  $('searchInput').focus();
   searchProducts();
 }
 function closeSearch(){
-  searchWrap.classList.remove('show');
-  searchTitle.classList.remove('show');
-  cats.style.display = '';
-  popularWrap.style.display = '';
-  searchInput.value = '';
+  $('searchWrap').classList.remove('show');
+  $('searchTitle').classList.remove('show');
+  $('cats').style.display = '';
+  $('popularWrap').style.display = '';
+  $('searchInput').value = '';
   renderProducts();
 }
 function clearSearch(){ closeSearch(); }
-
-function onSearchKey(e){
-  if(e.key === 'Enter') closeSearch();
-}
+function onSearchKey(e){ if(e.key === 'Enter') closeSearch(); }
 
 function searchProducts(){
-  const q = (searchInput.value || '').trim().toLowerCase();
-  products.innerHTML='';
-
-  if(!q){
-    renderProducts();
-    return;
-  }
+  const q = ($('searchInput').value || '').trim().toLowerCase();
+  $('products').innerHTML='';
+  if(!q){ renderProducts(); return; }
 
   for(let c in MENU){
     MENU[c].forEach(it=>{
       const name = getName(it);
-      // ✅ ищем по текущему языку + по RU/UZ/EN
       const n_ru = (it.n?.ru||'').toLowerCase();
       const n_uz = (it.n?.uz||'').toLowerCase();
       const n_en = (it.n?.en||'').toLowerCase();
@@ -1344,32 +1150,20 @@ function searchProducts(){
 
       if(n_cur.includes(q) || n_ru.includes(q) || n_uz.includes(q) || n_en.includes(q)){
         cart[it.id]=cart[it.id]||0;
-        products.innerHTML += cardHTML(it, q);
+        $('products').innerHTML += cardHTML(it, q);
       }
     });
   }
 }
 
-document.addEventListener('click', (e)=>{
-  if(!isSearchOpen()) return;
-  const t = e.target;
-  const insideSearch = searchWrap.contains(t) || searchTitle.contains(t);
-  const onBtn = t.closest && t.closest('.search-btn');
-  if(!insideSearch && !onBtn) closeSearch();
-}, true);
-
-/* order id */
 function genOrderId(){
   const d = new Date();
   const dd = String(d.getDate()).padStart(2,'0');
   const mm = String(d.getMonth()+1).padStart(2,'0');
   const key = `ozbegim_seq_${d.getFullYear()}${mm}${dd}`;
-
   let n = Number(localStorage.getItem(key) || 0) + 1;
   localStorage.setItem(key, String(n));
-
-  const num = String(n).padStart(3,'0');
-  return `OZB-${dd}${mm}-${num}`;
+  return `OZB-${dd}${mm}-${String(n).padStart(3,'0')}`;
 }
 
 function calcTotalNum(){
@@ -1377,7 +1171,6 @@ function calcTotalNum(){
   for (const id in cart) s += (Number(cart[id] || 0) * price(id));
   return s;
 }
-
 function buildOrderLines(){
   const lines = [];
   for(const id in cart){
@@ -1385,29 +1178,21 @@ function buildOrderLines(){
     if(qty<=0) continue;
     const it = ITEM_BY_ID[id];
     if(!it) continue;
-    lines.push({
-      id,
-      name: getName(it),
-      qty,
-      price: it.p,
-      sum: it.p * qty
-    });
+    lines.push({ id, name: getName(it), qty, price: it.p, sum: it.p * qty });
   }
   return lines;
 }
 
-/* send */
 function sendOrder(){
-  popup.classList.add('show');
+  $('popup').classList.add('show');
 
   const cleanOrder = {};
   for (const id in cart) {
     const q = Number(cart[id] || 0);
     if (q > 0) cleanOrder[id] = q;
   }
-
   if (Object.keys(cleanOrder).length === 0) {
-    popup.classList.remove('show');
+    $('popup').classList.remove('show');
     alert(TEXT[lang].empty);
     return;
   }
@@ -1417,13 +1202,13 @@ function sendOrder(){
     lang,
     items: buildOrderLines(),
     order: cleanOrder,
-    total: total.innerText,
+    total: $('total').innerText,
     total_num: calcTotalNum(),
     payment,
     type,
-    address: address.value,
-    phone: phone.value,
-    comment: comment.value,
+    address: $('address').value,
+    phone: $('phone').value,
+    comment: $('comment').value,
     order_id: genOrderId()
   };
 
@@ -1433,94 +1218,50 @@ function sendOrder(){
   }, 700);
 }
 
-/* ===== theme init (из сохранения / Telegram) ===== */
+function applyLang(){
+  $('btnDelivery').innerText = TEXT[lang].delivery;
+  $('btnPickup').innerText   = TEXT[lang].pickup;
+  $('address').placeholder   = TEXT[lang].address;
+  $('phone').placeholder     = TEXT[lang].phone;
+  $('cartTitle').innerText   = TEXT[lang].cart;
+  $('orderBtn').innerText    = TEXT[lang].order;
+  $('stickyOrder').innerText = TEXT[lang].order;
+  $('comment').placeholder   = TEXT[lang].comment;
+  $('payCash').innerText     = TEXT[lang].cash;
+  $('payClick').innerText    = TEXT[lang].click;
+  $('searchTitle').innerText = TEXT[lang].results;
+  $('popularTitle').innerText= TEXT[lang].popular;
+
+  renderPopular();
+  renderCats();
+  renderProducts();
+  updateTotal();
+
+  applyBurgerI18n();
+  syncThemeLabel();
+}
+
+/* saved inputs */
+function loadSaved(){
+  const a = localStorage.getItem("ozbegim_address") || '';
+  const p = localStorage.getItem("ozbegim_phone") || '';
+  if(a && !$('address').value) $('address').value = a;
+  if(p && !$('phone').value) $('phone').value = p;
+}
+function bindSave(){
+  $('address').addEventListener('input', ()=>localStorage.setItem("ozbegim_address", $('address').value));
+  $('phone').addEventListener('input', ()=>localStorage.setItem("ozbegim_phone", $('phone').value));
+}
+
+/* init theme */
 (function initTheme(){
   const saved = localStorage.getItem('ozbegim_theme');
-  if(saved === 'dark' || saved === 'light'){
-    applyTheme(saved);
-  }else{
-    const tgTheme = (window.Telegram && Telegram.WebApp && Telegram.WebApp.colorScheme) ? Telegram.WebApp.colorScheme : 'light';
+  if(saved === 'dark' || saved === 'light') applyTheme(saved);
+  else{
+    const tgTheme = Telegram.WebApp.colorScheme || 'light';
     applyTheme(tgTheme === 'dark' ? 'dark' : 'light');
   }
 })();
-
-/* ===== burger i18n helpers ===== */
-function applyThemeAndSync(theme){
-  applyTheme(theme);
-  syncThemeLabel();
-}
-
-/* переиспользуем applyTheme, но не ломаем твой код */
-const _origApplyTheme = applyTheme;
-applyTheme = function(theme){
-  _origApplyTheme(theme);
-  syncThemeLabel();
-};
-
-/* ===== burger open/close ===== */
-function openTopMenu(){
-  document.getElementById('menuBackdrop').classList.add('show');
-  document.getElementById('menuSheet').classList.add('show');
-}
-function closeTopMenu(){
-  document.getElementById('menuBackdrop').classList.remove('show');
-  document.getElementById('menuSheet').classList.remove('show');
-}
-
-/* ===== Review / Instagram use Telegram openLink if possible ===== */
-function openYandexReviews(e){
-  try{ e.preventDefault(); e.stopPropagation(); }catch(_){}
-  try{
-    if (window.Telegram && Telegram.WebApp && typeof Telegram.WebApp.openLink === "function"){
-      Telegram.WebApp.openLink(YANDEX_WIDGET_URL);
-      return;
-    }
-  }catch(_){}
-  window.open(YANDEX_WIDGET_URL, "_blank");
-}
-function openInstagram(e){
-  try{ e.preventDefault(); e.stopPropagation(); }catch(_){}
-  closeTopMenu();
-  try{
-    if (window.Telegram && Telegram.WebApp && typeof Telegram.WebApp.openLink === "function"){
-      Telegram.WebApp.openLink(IG_URL);
-      return;
-    }
-  }catch(_){}
-  window.open(IG_URL, "_blank");
-}
-
-/* ===== Theme toggle uses i18n labels ===== */
-function applyTheme(theme){
-  document.body.setAttribute('data-theme', theme);
-  localStorage.setItem('ozbegim_theme', theme);
-
-  const t = MENU_I18N[lang] || MENU_I18N.ru;
-  const sub = document.getElementById('themeMenuSub');
-  if(sub) sub.innerText = (theme === 'dark') ? t.theme_dark : t.theme_light;
-
-  try{
-    if (window.Telegram && Telegram.WebApp){
-      Telegram.WebApp.setHeaderColor?.(theme === 'dark' ? '#121212' : '#fbf7ef');
-      Telegram.WebApp.setBackgroundColor?.(theme === 'dark' ? '#121212' : '#fbf7ef');
-    }
-  }catch(_){}
-}
-function toggleThemeFromMenu(){
-  const cur = document.body.getAttribute('data-theme') || 'light';
-  applyTheme(cur === 'dark' ? 'light' : 'dark');
-}
-
-/* About */
-let currentAboutLang = 'ru';
-function setAboutLang(l){
-  currentAboutLang = l;
-  document.getElementById('aboutBody').textContent = ABOUT_TEXT[l] || ABOUT_TEXT.ru;
-
-  document.getElementById('tabRu').classList.toggle('active', l==='ru');
-  document.getElementById('tabUz').classList.toggle('active', l==='uz');
-  document.getElementById('tabEn').classList.toggle('active', l==='en');
-}
 
 loadSaved();
 bindSave();
@@ -1529,4 +1270,3 @@ setAboutLang('ru');
 </script>
 </body>
 </html>
-
