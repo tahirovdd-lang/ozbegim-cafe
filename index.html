@@ -3,12 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <title>O'ZBEGIM</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+<!-- ✅ Важно: чтобы не открывалось “на 50%” в телефоне/Telegram -->
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet" />
 
 <style>
-/* ====== ТВОИ СТИЛИ (без изменений по смыслу) ====== */
 :root{
   --sand:#fbf7ef;
   --text:#1f1f1f;
@@ -34,15 +36,21 @@ body[data-theme="dark"]{
   --line: rgba(255,255,255,.12);
   --shadow: 0 18px 44px rgba(0,0,0,.35);
 }
+
 *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html, body{ width:100%; height:100%; margin:0; padding:0; }
+html{
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
 body{
-  margin:0;
   font-family:'Montserrat',sans-serif;
   background:
     radial-gradient(1200px 600px at 50% -120px, rgba(31,74,168,.14), transparent 60%),
     linear-gradient(180deg, #fff, var(--sand));
   color:var(--text);
-  padding-bottom:88px;
+  padding-bottom:96px;
 }
 
 .header{
@@ -80,13 +88,13 @@ body{
   pointer-events:none;
 }
 
-/* ✅ ЛОГО: меньше + красивая полупрозрачная рамка */
+/* ✅ ЛОГО: меньше + полупрозрачная рамка */
 .header img{
   position:absolute;
   left:10px;
   top:50%;
   transform:translateY(-50%);
-  width:92px;            /* было 128 */
+  width:88px;
   max-width:30vw;
   height:auto;
   z-index:5;
@@ -102,14 +110,14 @@ body{
 
 .brand-title{
   font-family:'Yeseva One', serif;
-  font-size:40px;
+  font-size:38px;
   letter-spacing:1px;
   text-transform:uppercase;
   text-shadow: 0 12px 22px rgba(0,0,0,.28);
   position:relative;
   z-index:6;
   line-height:1.0;
-  transform: translateX(32px);
+  transform: translateX(28px);
 }
 .brand-sub{ display:none; }
 
@@ -124,7 +132,7 @@ body{
   opacity:.95;
 }
 
-/* ✅ Геолокация: правый верхний угол */
+/* ✅ Геолокация: правый верх */
 .geo-btn{
   position:absolute;
   right:14px;
@@ -214,7 +222,6 @@ body{
   padding:12px 12px 6px;
   justify-content:center;
 }
-
 .btn{
   padding:12px 16px;
   border-radius:18px;
@@ -235,13 +242,6 @@ body{
   color:#fff;
   border:1px solid rgba(255,255,255,.20);
   box-shadow: 0 14px 30px rgba(31,74,168,.18);
-}
-
-/* ✅ Шрифт в категориях чуть больше */
-.categories .btn{
-  min-width:160px;
-  padding:14px 22px;
-  font-size:15px;
 }
 
 .input{
@@ -267,10 +267,18 @@ body[data-theme="dark"] .input{ background: rgba(28,28,28,.90); }
 
 .categories{
   display:flex;
-  gap:10px;
-  padding:12px 12px 4px;
+  gap:8px;
+  padding:10px 12px 4px;
   overflow-x:auto;
   scroll-behavior:smooth;
+}
+
+/* ✅ Кнопки категорий МЕНЬШЕ */
+.categories .btn{
+  min-width:132px;
+  padding:10px 14px;
+  border-radius:16px;
+  font-size:13.5px;
 }
 
 .products{
@@ -294,7 +302,6 @@ body[data-theme="dark"] .input{ background: rgba(28,28,28,.90); }
 body[data-theme="dark"] .card{ border-color: rgba(255,255,255,.10); }
 .card:active{ transform:scale(.99); }
 
-/* ✅ Иконки блюд больше */
 .img{ height:110px; display:flex; align-items:center; justify-content:center; }
 .img img{ max-width:96px; opacity:.95; }
 
@@ -443,8 +450,6 @@ mark{ background:rgba(212,160,23,.28); padding:0 .14em; border-radius:8px; }
 }
 body[data-theme="dark"] .pop-card{ border-color: rgba(255,255,255,.10); }
 .pop-card:active{ transform:scale(.99); }
-
-/* ✅ Иконки в популярном больше */
 .pop-img{
   height:110px;
   border-radius:18px;
@@ -455,7 +460,6 @@ body[data-theme="dark"] .pop-card{ border-color: rgba(255,255,255,.10); }
   background: rgba(31,74,168,.10);
 }
 .pop-img img{ width:100%; height:100%; object-fit:cover; }
-
 .pop-name{ font-weight:900; margin-top:10px; }
 .pop-price{ font-weight:900; color:var(--atlas-red); margin-top:6px; }
 .pop-badge{ position:absolute; left:10px; top:10px; font-size:18px; pointer-events:none; }
@@ -621,7 +625,6 @@ body[data-theme="dark"] .review-card{ background:#0f0f0f; border-color: rgba(255
   padding:18px 14px;
 }
 .about-modal.show{ display:block; }
-
 .about-card{
   max-width:760px;
   margin:0 auto;
@@ -637,11 +640,9 @@ body[data-theme="dark"] .about-card{
   background: rgba(28,28,28,.92);
   border-color: rgba(255,255,255,.10);
 }
-
 .about-head{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:6px; }
 .about-head b{ font-size:16px; }
 .about-body{ font-size:14px; line-height:1.45; white-space:pre-wrap; }
-
 .about-tabs{
   display:flex;
   gap:10px;
@@ -669,7 +670,7 @@ body[data-theme="dark"] .tabbtn{
 }
 .small-note{ opacity:.75; font-size:12px; margin-top:6px; }
 
-/* ✅ Модалка для юрлиц */
+/* ✅ Юр.лица */
 .legal-modal{
   position:fixed;
   inset:0;
@@ -701,6 +702,17 @@ body[data-theme="dark"] .legal-card{
   margin-top:12px;
 }
 .legal-actions .tabbtn{ flex:1 1 auto; }
+
+/* ✅ Сильнее адаптация под маленькие телефоны */
+@media (max-width:380px){
+  .brand-title{ font-size:32px; transform: translateX(22px); }
+  .header img{ width:76px; padding:7px; border-radius:16px; }
+  .geo-btn,.burger-btn,.search-btn{ width:36px; height:36px; }
+  .products{ gap:12px; }
+  .img{ height:96px; }
+  .img img{ max-width:88px; }
+  .categories .btn{ min-width:122px; font-size:13px; padding:9px 12px; }
+}
 </style>
 </head>
 
@@ -716,7 +728,6 @@ body[data-theme="dark"] .legal-card{
     </div>
   </div>
 
-  <!-- ✅ Геолокация: правый верх -->
   <div class="geo-btn" onclick="openMap()" title="Маршрут">📍</div>
 
   <div class="burger-btn" onclick="openTopMenu()" title="Меню">
@@ -751,7 +762,6 @@ body[data-theme="dark"] .legal-card{
 <input id="address" class="input">
 <input id="phone" class="input">
 
-<!-- ✅ КАТЕГОРИИ И БЛЮДА ВЕРНУЛ: этот блок на месте -->
 <div class="categories" id="cats"></div>
 <div class="products" id="products"></div>
 
@@ -799,7 +809,8 @@ body[data-theme="dark"] .legal-card{
 
     <div class="review-wrap" id="reviewWidgetWrap">
       <div class="review-card">
-        <iframe src="https://yandex.ru/sprav/widget/rating-badge/23178318202?type=rating" width="150" height="50" frameborder="0" style="border:0; display:block;"></iframe>
+        <iframe src="https://yandex.ru/sprav/widget/rating-badge/23178318202?type=rating"
+                width="150" height="50" frameborder="0" style="border:0; display:block;"></iframe>
       </div>
       <div class="small-note" id="mReviewHint">
         Если виджет не открылся в Telegram — нажми «Открыть отзывы».
@@ -809,7 +820,6 @@ body[data-theme="dark"] .legal-card{
       </div>
     </div>
 
-    <!-- ✅ Для юр.лиц -->
     <div class="menu-item" onclick="openLegal()" role="button">
       <div class="menu-left">
         <div class="menu-ic">🏢</div>
@@ -834,7 +844,7 @@ body[data-theme="dark"] .legal-card{
 
     <a class="menu-item" href="#" onclick="openInstagram(event)">
       <div class="menu-left">
-        <div class="menu-ic" aria-hidden="true">📷</div>
+        <div class="menu-ic">📷</div>
         <div class="menu-txt">
           <div class="menu-name" id="mInstaTitle">@uzbegimosh</div>
           <div class="menu-sub" id="mInstaSub">Открыть Instagram</div>
@@ -884,7 +894,6 @@ body[data-theme="dark"] .legal-card{
   </div>
 </div>
 
-<!-- ✅ Модалка "Для юр.лиц" -->
 <div class="legal-modal" id="legalModal" onclick="legalBackdropClick(event)">
   <div class="legal-card">
     <div class="about-head">
@@ -896,28 +905,32 @@ body[data-theme="dark"] .legal-card{
     <div class="legal-actions">
       <button class="tabbtn" onclick="contactManager()">Связаться с менеджером</button>
       <button class="tabbtn" onclick="openTelLegal()">Позвонить</button>
-      <button class="tabbtn" onclick="openMailLegal()">Написать на почту</button>
+      <button class="tabbtn" onclick="openMailLegal()">Почта</button>
     </div>
   </div>
 </div>
 
 <script>
 Telegram.WebApp.ready();
+Telegram.WebApp.expand?.(); // ✅ раскрыть на весь экран в Telegram
 
 const $ = (id)=>document.getElementById(id);
 
-/* ====== ДАННЫЕ ====== */
 const PHONE_TEL  = "tel:+998992711925";
 const IG_URL = "https://www.instagram.com/uzbegimosh/";
 const YANDEX_WIDGET_URL = "https://yandex.ru/sprav/widget/rating-badge/23178318202?type=rating";
 const MAP_URL = "https://yandex.uz/maps/org/23178318202/?ll=66.950144%2C39.645189&z=16.65";
 
-/* ✅ Юр.лица / менеджер */
 const LEGAL_PHONE = "+998 91 319 70 07";
 const LEGAL_MAIL  = "uzbegimsignature@gmail.com";
-const ADMIN_TG_ID = "6013591658"; // как ты попросил
+const ADMIN_TG_ID = "6013591658";
 
-/* ===== I18N бургер ===== */
+function openMap(){
+  try{ Telegram.WebApp.openLink(MAP_URL); }
+  catch(_){ window.open(MAP_URL, "_blank"); }
+}
+
+/* i18n */
 const MENU_I18N = {
   ru:{menu:'Меню',review_title:'Оставить отзыв',review_sub:'Яндекс рейтинг / отзывы',review_hint:'Если виджет не открылся в Telegram — нажми «Открыть отзывы».',open_reviews:'Открыть отзывы',call:'Позвонить',insta_sub:'Открыть Instagram',theme:'Тема',theme_light:'Светлая',theme_dark:'Тёмная',theme_action:'Сменить',about:'О нас',about_sub:'Адрес и описание',about_title:'О нас',legal_title:'Для юридических лиц',legal_sub:'Связаться с менеджером'},
   uz:{menu:'Menyu',review_title:'Fikr qoldirish',review_sub:'Yandex reyting / fikrlar',review_hint:'Agar vidjet Telegramda ochilmasa — «Sharhlarni ochish»ni bosing.',open_reviews:"Sharhlarni ochish",call:"Qo'ng'iroq qilish",insta_sub:"Instagramni ochish",theme:"Mavzu",theme_light:"Yorug'",theme_dark:"Qorong'i",theme_action:"Almashtirish",about:"Biz haqimizda",about_sub:"Manzil va ma'lumot",about_title:"Biz haqimizda",legal_title:"Yuridik shaxslar uchun",legal_sub:"Menejer bilan bog'lanish"},
@@ -957,120 +970,18 @@ We welcome you in the heart of Samarkand —
 Uzbegim Osh — a taste proven by time 🇺🇿🍽️`
 };
 
-function openMap(){
-  try{ Telegram.WebApp.openLink(MAP_URL); }
-  catch(_){ window.open(MAP_URL, "_blank"); }
-}
-
-/* ===== бургер ===== */
-function openTopMenu(){ $('menuBackdrop').classList.add('show'); $('menuSheet').classList.add('show'); }
-function closeTopMenu(){ $('menuBackdrop').classList.remove('show'); $('menuSheet').classList.remove('show'); }
-
-function toggleReviewWidget(){
-  const w = $('reviewWidgetWrap');
-  w.style.display = (!w.style.display || w.style.display === 'none') ? 'block' : 'none';
-}
-function openYandexReviews(e){
-  try{ e.preventDefault(); e.stopPropagation(); }catch(_){}
-  try{ Telegram.WebApp.openLink(YANDEX_WIDGET_URL); }
-  catch(_){ window.open(YANDEX_WIDGET_URL, "_blank"); }
-}
-function openInstagram(e){
-  try{ e.preventDefault(); e.stopPropagation(); }catch(_){}
-  closeTopMenu();
-  try{ Telegram.WebApp.openLink(IG_URL); }
-  catch(_){ window.open(IG_URL, "_blank"); }
-}
-function callPhone(e){
-  try{ e.preventDefault(); e.stopPropagation(); }catch(_){}
-  try{ Telegram.WebApp.openLink(PHONE_TEL); }
-  catch(_){ window.location.href = PHONE_TEL; }
-}
-
-/* ✅ Юр.лица: модалка + контакты */
-function openLegal(){
-  closeTopMenu();
-  const t = MENU_I18N[lang] || MENU_I18N.ru;
-  $('legalTitle').innerText = t.legal_title || 'Для юридических лиц';
-
-  const body = {
-    ru:`Связаться с менеджером\n\nТел: ${LEGAL_PHONE}\nПочта: ${LEGAL_MAIL}`,
-    uz:`Menejer bilan bog'lanish\n\nTel: ${LEGAL_PHONE}\nPochta: ${LEGAL_MAIL}`,
-    en:`Contact manager\n\nPhone: ${LEGAL_PHONE}\nEmail: ${LEGAL_MAIL}`
-  };
-
-  $('legalBody').textContent = body[lang] || body.ru;
-  $('legalModal').classList.add('show');
-}
-function closeLegal(){ $('legalModal').classList.remove('show'); }
-function legalBackdropClick(e){ if(e.target && e.target.id === 'legalModal') closeLegal(); }
-function contactManager(){
-  // ссылка на админа (ID)
-  const link = `https://t.me/${ADMIN_TG_ID}`;
-  try{ Telegram.WebApp.openLink(link); }catch(_){ window.open(link, "_blank"); }
-}
-function openTelLegal(){
-  const tel = `tel:${LEGAL_PHONE.replace(/\s+/g,'')}`;
-  try{ Telegram.WebApp.openLink(tel); }catch(_){ window.location.href = tel; }
-}
-function openMailLegal(){
-  const mail = `mailto:${LEGAL_MAIL}`;
-  try{ Telegram.WebApp.openLink(mail); }catch(_){ window.location.href = mail; }
-}
-
-/* ===== theme ===== */
-let lang='ru', category='salads', type='delivery', payment='cash';
-let cart = {};
-
-function applyTheme(theme){
-  document.body.setAttribute('data-theme', theme);
-  localStorage.setItem('ozbegim_theme', theme);
-
-  const t = MENU_I18N[lang] || MENU_I18N.ru;
-  $('themeMenuSub').innerText = (theme === 'dark') ? t.theme_dark : t.theme_light;
-
-  try{
-    Telegram.WebApp.setHeaderColor?.(theme === 'dark' ? '#121212' : '#fbf7ef');
-    Telegram.WebApp.setBackgroundColor?.(theme === 'dark' ? '#121212' : '#fbf7ef');
-  }catch(_){}
-}
-function toggleThemeFromMenu(){
-  const cur = document.body.getAttribute('data-theme') || 'light';
-  applyTheme(cur === 'dark' ? 'light' : 'dark');
-}
-
-/* ===== about ===== */
-let currentAboutLang = 'ru';
-function openAbout(){
-  closeTopMenu();
-  setAboutLang(currentAboutLang);
-  $('aboutModal').classList.add('show');
-}
-function closeAbout(){ $('aboutModal').classList.remove('show'); }
-function aboutBackdropClick(e){ if(e.target && e.target.id === 'aboutModal') closeAbout(); }
-function setAboutLang(l){
-  currentAboutLang = l;
-  $('aboutBody').textContent = ABOUT_TEXT[l] || ABOUT_TEXT.ru;
-  $('tabRu').classList.toggle('active', l==='ru');
-  $('tabUz').classList.toggle('active', l==='uz');
-  $('tabEn').classList.toggle('active', l==='en');
-}
-
-/* ===== основной i18n ===== */
 const TEXT={
   ru:{delivery:'🚚 Доставка',pickup:'🏃 Самовывоз',address:'📍 Адрес доставки',phone:'📞 Телефон',cart:'🛒 Корзина',order:'Оформить заказ',comment:'✍️ Комментарий к заказу',cash:'💵 Наличные',click:'💳 CLICK',results:'Результаты поиска',popular:'🔥 Популярное',empty:'Корзина пустая'},
   uz:{delivery:'🚚 Yetkazish',pickup:'🏃 Olib ketish',address:'📍 Manzil',phone:'📞 Telefon',cart:'🛒 Savat',order:'Buyurtma berish',comment:'✍️ Izoh',cash:'💵 Naqd',click:'💳 CLICK',results:'Qidiruv natijalari',popular:'🔥 Ommabop',empty:'Savat bo‘sh'},
   en:{delivery:'🚚 Delivery',pickup:'🏃 Pickup',address:'📍 Address',phone:'📞 Phone',cart:'🛒 Cart',order:'Place order',comment:'✍️ Comment',cash:'💵 Cash',click:'💳 CLICK',results:'Search results',popular:'🔥 Popular',empty:'Cart is empty'}
 };
 
-/* ✅ Категории = как в твоей таблице */
 const CATS={
   ru:{salads:'🥗 Салаты',cold:'🥒 Холодные закуски',first:'🍜 Первые блюда',second:'🍲 Вторые блюда',drinks:'🥤 Напитки',water:'💧 Минеральная вода',energy:'⚡ Энергетические напитки'},
   uz:{salads:'🥗 Salatlar',cold:'🥒 Sovuq zakuskalar',first:'🍜 Birinchi taomlar',second:'🍲 Ikkinchi taomlar',drinks:'🥤 Ichimliklar',water:'💧 Mineral suv',energy:'⚡ Energetik ichimliklar'},
   en:{salads:'🥗 Salads',cold:'🥒 Cold snacks',first:'🍜 First dishes',second:'🍲 Main dishes',drinks:'🥤 Drinks',water:'💧 Mineral water',energy:'⚡ Energy drinks'}
 };
 
-/* ✅✅✅ МЕНЮ: категории и блюда ВЕРНУЛ (как ты прислал) */
 const MENU = {
   salads:[
     {id:'chalop', p:15000, img:'images/chalop.jpg', n:{ru:'Чалоп', uz:'Chalop', en:'Chalop'}},
@@ -1129,10 +1040,8 @@ const MENU = {
   ]
 };
 
-/* ✅ Популярное */
 const POPULAR_IDS = ['plov_05','lagman','shurpa','achichuk'];
 
-/* ====== ДАЛЬШЕ ТВОЙ JS (без ломания логики) ====== */
 const ITEM_BY_ID = {};
 for (const cat in MENU){ for (const it of MENU[cat]) ITEM_BY_ID[it.id] = it; }
 
@@ -1157,32 +1066,120 @@ const tg_username = tgUser.username || "";
 const tg_first_name = tgUser.first_name || "";
 const tg_id = tgUser.id || "";
 
+function openTopMenu(){ $('menuBackdrop').classList.add('show'); $('menuSheet').classList.add('show'); }
+function closeTopMenu(){ $('menuBackdrop').classList.remove('show'); $('menuSheet').classList.remove('show'); }
+
+function toggleReviewWidget(){
+  const w = $('reviewWidgetWrap');
+  w.style.display = (!w.style.display || w.style.display === 'none') ? 'block' : 'none';
+}
+function openYandexReviews(e){
+  try{ e.preventDefault(); e.stopPropagation(); }catch(_){}
+  try{ Telegram.WebApp.openLink(YANDEX_WIDGET_URL); }
+  catch(_){ window.open(YANDEX_WIDGET_URL, "_blank"); }
+}
+function openInstagram(e){
+  try{ e.preventDefault(); e.stopPropagation(); }catch(_){}
+  closeTopMenu();
+  try{ Telegram.WebApp.openLink(IG_URL); }
+  catch(_){ window.open(IG_URL, "_blank"); }
+}
+function callPhone(e){
+  try{ e.preventDefault(); e.stopPropagation(); }catch(_){}
+  try{ Telegram.WebApp.openLink(PHONE_TEL); }
+  catch(_){ window.location.href = PHONE_TEL; }
+}
+
+function openLegal(){
+  closeTopMenu();
+  const t = MENU_I18N[lang] || MENU_I18N.ru;
+  $('legalTitle').innerText = t.legal_title || 'Для юридических лиц';
+
+  const body = {
+    ru:`Связаться с менеджером\n\nТел: ${LEGAL_PHONE}\nПочта: ${LEGAL_MAIL}`,
+    uz:`Menejer bilan bog'lanish\n\nTel: ${LEGAL_PHONE}\nPochta: ${LEGAL_MAIL}`,
+    en:`Contact manager\n\nPhone: ${LEGAL_PHONE}\nEmail: ${LEGAL_MAIL}`
+  };
+  $('legalBody').textContent = body[lang] || body.ru;
+  $('legalModal').classList.add('show');
+}
+function closeLegal(){ $('legalModal').classList.remove('show'); }
+function legalBackdropClick(e){ if(e.target && e.target.id === 'legalModal') closeLegal(); }
+function contactManager(){
+  const link = `https://t.me/${ADMIN_TG_ID}`;
+  try{ Telegram.WebApp.openLink(link); }catch(_){ window.open(link, "_blank"); }
+}
+function openTelLegal(){
+  const tel = `tel:${LEGAL_PHONE.replace(/\s+/g,'')}`;
+  try{ Telegram.WebApp.openLink(tel); }catch(_){ window.location.href = tel; }
+}
+function openMailLegal(){
+  const mail = `mailto:${LEGAL_MAIL}`;
+  try{ Telegram.WebApp.openLink(mail); }catch(_){ window.location.href = mail; }
+}
+
+/* theme */
+let lang='ru', category='salads', type='delivery', payment='cash';
+let cart = {};
+
+function applyTheme(theme){
+  document.body.setAttribute('data-theme', theme);
+  localStorage.setItem('ozbegim_theme', theme);
+
+  const t = MENU_I18N[lang] || MENU_I18N.ru;
+  $('themeMenuSub').innerText = (theme === 'dark') ? t.theme_dark : t.theme_light;
+
+  try{
+    Telegram.WebApp.setHeaderColor?.(theme === 'dark' ? '#121212' : '#fbf7ef');
+    Telegram.WebApp.setBackgroundColor?.(theme === 'dark' ? '#121212' : '#fbf7ef');
+  }catch(_){}
+}
+function toggleThemeFromMenu(){
+  const cur = document.body.getAttribute('data-theme') || 'light';
+  applyTheme(cur === 'dark' ? 'light' : 'dark');
+}
+
+let currentAboutLang = 'ru';
+function openAbout(){
+  closeTopMenu();
+  setAboutLang(currentAboutLang);
+  $('aboutModal').classList.add('show');
+}
+function closeAbout(){ $('aboutModal').classList.remove('show'); }
+function aboutBackdropClick(e){ if(e.target && e.target.id === 'aboutModal') closeAbout(); }
+function setAboutLang(l){
+  currentAboutLang = l;
+  $('aboutBody').textContent = ABOUT_TEXT[l] || ABOUT_TEXT.ru;
+  $('tabRu').classList.toggle('active', l==='ru');
+  $('tabUz').classList.toggle('active', l==='uz');
+  $('tabEn').classList.toggle('active', l==='en');
+}
+
+/* main */
 function setLang(l,b){
   lang=l;
   document.querySelectorAll('.langs .btn').forEach(x=>x.classList.remove('active'));
   b.classList.add('active');
   applyLang();
 }
-
 function applyBurgerI18n(){
   const t = MENU_I18N[lang] || MENU_I18N.ru;
-  if($('menuTitle')) $('menuTitle').innerText = t.menu;
-  if($('mReviewTitle')) $('mReviewTitle').innerText = t.review_title;
-  if($('mReviewSub')) $('mReviewSub').innerText = t.review_sub;
-  if($('mReviewHint')) $('mReviewHint').innerText = t.review_hint;
-  if($('mOpenReviewsBtn')) $('mOpenReviewsBtn').innerText = t.open_reviews;
-  if($('mCallTitle')) $('mCallTitle').innerText = t.call;
-  if($('mInstaSub')) $('mInstaSub').innerText = t.insta_sub;
-  if($('mThemeTitle')) $('mThemeTitle').innerText = t.theme;
-  if($('mThemeAction')) $('mThemeAction').innerText = t.theme_action;
-  if($('mAboutTitle')) $('mAboutTitle').innerText = t.about;
-  if($('mAboutSub')) $('mAboutSub').innerText = t.about_sub;
-  if($('aboutTitle')) $('aboutTitle').innerText = t.about_title;
+  $('menuTitle').innerText = t.menu;
+  $('mReviewTitle').innerText = t.review_title;
+  $('mReviewSub').innerText = t.review_sub;
+  $('mReviewHint').innerText = t.review_hint;
+  $('mOpenReviewsBtn').innerText = t.open_reviews;
+  $('mCallTitle').innerText = t.call;
+  $('mInstaSub').innerText = t.insta_sub;
+  $('mThemeTitle').innerText = t.theme;
+  $('mThemeAction').innerText = t.theme_action;
+  $('mAboutTitle').innerText = t.about;
+  $('mAboutSub').innerText = t.about_sub;
+  $('aboutTitle').innerText = t.about_title;
 
-  if($('mLegalTitle')) $('mLegalTitle').innerText = t.legal_title;
-  if($('mLegalSub')) $('mLegalSub').innerText = t.legal_sub;
+  $('mLegalTitle').innerText = t.legal_title;
+  $('mLegalSub').innerText = t.legal_sub;
 }
-
 function syncThemeLabel(){
   const t = MENU_I18N[lang] || MENU_I18N.ru;
   const cur = document.body.getAttribute('data-theme') || 'light';
@@ -1221,7 +1218,6 @@ function renderCats(){
     $('cats').innerHTML+=`<button class="btn ${k===category?'active':''}" onclick="category='${k}';renderCats();renderProducts()">${CATS[lang][k] || k}</button>`;
   }
 }
-
 function cardHTML(it, q=''){
   const name = getName(it);
   const nameHtml = highlight(name, q);
@@ -1236,7 +1232,6 @@ function cardHTML(it, q=''){
     </div>
   </div>`;
 }
-
 function renderProducts(){
   $('products').innerHTML='';
   (MENU[category] || []).forEach(it=>{
@@ -1244,16 +1239,13 @@ function renderProducts(){
     $('products').innerHTML += cardHTML(it,'');
   });
 }
-
 function chg(id,v){
   cart[id]=Math.max(0,(cart[id]||0)+v);
   const el = document.getElementById('c_'+id);
   if(el) el.innerText=cart[id];
   updateTotal();
 }
-
 function price(id){ return ITEM_BY_ID[id]?.p || 0; }
-
 function updateTotal(){
   let s=0;
   for(let id in cart) s += (cart[id]||0) * price(id);
@@ -1261,7 +1253,6 @@ function updateTotal(){
   $('stickyTotal').innerText = formatSum(s);
 }
 
-/* ✅ Самовывоз: скрываем адрес */
 function applyTypeUI(){
   if(type === 'pickup'){
     $('address').style.display = 'none';
@@ -1336,7 +1327,6 @@ function genOrderId(){
   localStorage.setItem(key, String(n));
   return `OZB-${dd}${mm}-${String(n).padStart(3,'0')}`;
 }
-
 function calcTotalNum(){
   let s = 0;
   for (const id in cart) s += (Number(cart[id] || 0) * price(id));
@@ -1353,7 +1343,6 @@ function buildOrderLines(){
   }
   return lines;
 }
-
 function sendOrder(){
   $('popup').classList.add('show');
 
