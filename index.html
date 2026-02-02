@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <title>O'ZBEGIM</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Yeseva+One&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Yeseva+One&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet" />
 
 <style>
 /* ====== ТВОИ СТИЛИ (без изменений по смыслу) ====== */
@@ -26,7 +26,6 @@
   --r-md:20px;
   --r-sm:16px;
 }
-
 body[data-theme="dark"]{
   --sand:#121212;
   --text:#f1f1f1;
@@ -35,7 +34,6 @@ body[data-theme="dark"]{
   --line: rgba(255,255,255,.12);
   --shadow: 0 18px 44px rgba(0,0,0,.35);
 }
-
 *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 body{
   margin:0;
@@ -46,7 +44,6 @@ body{
   color:var(--text);
   padding-bottom:88px;
 }
-
 .header{
   padding:18px 14px 30px;
   color:#fff;
@@ -81,7 +78,6 @@ body{
   opacity:.75;
   pointer-events:none;
 }
-
 .header img{
   position:absolute;
   left:10px;
@@ -93,7 +89,6 @@ body{
   z-index:5;
   filter: drop-shadow(0 12px 22px rgba(0,0,0,.28));
 }
-
 .brand-title{
   font-family:'Yeseva One', serif;
   font-size:40px;
@@ -182,7 +177,6 @@ body{
   padding:12px 12px 6px;
   justify-content:center;
 }
-
 .btn{
   padding:12px 16px;
   border-radius:18px;
@@ -204,12 +198,10 @@ body{
   border:1px solid rgba(255,255,255,.20);
   box-shadow: 0 14px 30px rgba(31,74,168,.18);
 }
-
 .categories .btn{
   min-width:160px;
   padding:12px 22px;
 }
-
 .input{
   margin:8px auto;
   display:block;
@@ -226,12 +218,10 @@ body{
   color:var(--text);
 }
 body[data-theme="dark"] .input{ background: rgba(28,28,28,.90); }
-
 .input:focus{
   border-color: rgba(31,74,168,.35);
   box-shadow: 0 14px 30px rgba(31,74,168,.12);
 }
-
 .categories{
   display:flex;
   gap:10px;
@@ -239,14 +229,12 @@ body[data-theme="dark"] .input{ background: rgba(28,28,28,.90); }
   overflow-x:auto;
   scroll-behavior:smooth;
 }
-
 .products{
   display:grid;
   grid-template-columns:repeat(2,1fr);
   gap:14px;
   padding:12px;
 }
-
 .card{
   border-radius:24px;
   padding:12px 10px;
@@ -370,7 +358,6 @@ body[data-theme="dark"] .popup-box{ background: rgba(28,28,28,.92); border-color
   color:#111;
 }
 body[data-theme="dark"] .search-clear{ background: rgba(28,28,28,.92); border-color: rgba(255,255,255,.10); color:#f1f1f1; }
-
 .search-clear:active{ transform:translateY(-50%) scale(.96); }
 
 .search-title{
@@ -601,7 +588,6 @@ body[data-theme="dark"] .about-card{
   background: rgba(28,28,28,.92);
   border-color: rgba(255,255,255,.10);
 }
-
 .about-head{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:6px; }
 .about-head b{ font-size:16px; }
 .about-body{ font-size:14px; line-height:1.45; white-space:pre-wrap; }
@@ -857,20 +843,17 @@ function toggleReviewWidget(){
   const w = $('reviewWidgetWrap');
   w.style.display = (!w.style.display || w.style.display === 'none') ? 'block' : 'none';
 }
-
 function openYandexReviews(e){
   try{ e.preventDefault(); e.stopPropagation(); }catch(_){}
   try{ Telegram.WebApp.openLink(YANDEX_WIDGET_URL); }
   catch(_){ window.open(YANDEX_WIDGET_URL, "_blank"); }
 }
-
 function openInstagram(e){
   try{ e.preventDefault(); e.stopPropagation(); }catch(_){}
   closeTopMenu();
   try{ Telegram.WebApp.openLink(IG_URL); }
   catch(_){ window.open(IG_URL, "_blank"); }
 }
-
 function callPhone(e){
   try{ e.preventDefault(); e.stopPropagation(); }catch(_){}
   try{ Telegram.WebApp.openLink(PHONE_TEL); }
@@ -921,61 +904,77 @@ const TEXT={
   uz:{delivery:'🚚 Yetkazish',pickup:'🏃 Olib ketish',address:'📍 Manzil',phone:'📞 Telefon',cart:'🛒 Savat',order:'Buyurtma berish',comment:'✍️ Izoh',cash:'💵 Naqd',click:'💳 CLICK',results:'Qidiruv natijalari',popular:'🔥 Ommabop',empty:'Savat bo‘sh'},
   en:{delivery:'🚚 Delivery',pickup:'🏃 Pickup',address:'📍 Address',phone:'📞 Phone',cart:'🛒 Cart',order:'Place order',comment:'✍️ Comment',cash:'💵 Cash',click:'💳 CLICK',results:'Search results',popular:'🔥 Popular',empty:'Cart is empty'}
 };
+
+/* ✅ Категории = как в твоей таблице */
 const CATS={
-  ru:{salads:'🥗 Салаты',sauce:'🥣 Соус',first:'🍜 Первые блюда',hot:'🍲 Горячие блюда',garnish:'🍟 Гарнир',drinks:'🥤 Напитки'},
-  uz:{salads:'🥗 Salatlar',sauce:'🥣 Souslar',first:'🍜 Birinchi taomlar',hot:'🍲 Issiq taomlar',garnish:'🍟 Garnir',drinks:'🥤 Ichimliklar'},
-  en:{salads:'🥗 Salads',sauce:'🥣 Sauces',first:'🍜 First dishes',hot:'🍲 Hot dishes',garnish:'🍟 Side dishes',drinks:'🥤 Drinks'}
+  ru:{salads:'🥗 Салаты',cold:'🥒 Холодные закуски',first:'🍜 Первые блюда',second:'🍲 Вторые блюда',drinks:'🥤 Напитки',water:'💧 Минеральная вода',energy:'⚡ Энергетические напитки'},
+  uz:{salads:'🥗 Salatlar',cold:'🥒 Sovuq zakuskalar',first:'🍜 Birinchi taomlar',second:'🍲 Ikkinchi taomlar',drinks:'🥤 Ichimliklar',water:'💧 Mineral suv',energy:'⚡ Energetik ichimliklar'},
+  en:{salads:'🥗 Salads',cold:'🥒 Cold snacks',first:'🍜 First dishes',second:'🍲 Main dishes',drinks:'🥤 Drinks',water:'💧 Mineral water',energy:'⚡ Energy drinks'}
 };
 
-/* ✅✅✅ ВОТ ТУТ БЫЛА ТВОЯ ОШИБКА — Я ПОПРАВИЛ ЛИШНИЕ } !!! */
+/* ✅✅✅ МЕНЮ: распределено по твоим категориям + картинки .jpg в папке images */
 const MENU = {
   salads:[
-    {id:'vesenniy', p:25000, img:'images/vesenniy.png', n:{ru:'Весенний', uz:'Bahorgi salat', en:'Spring salad'}},
-    {id:'osenniy', p:30000, img:'images/osenniy.png', n:{ru:'Осенний', uz:'Kuzgi salat', en:'Autumn salad'}},
-    {id:'grecheskiy', p:40000, img:'images/grecheskiy.png', n:{ru:'Греческий', uz:'Grecheskiy salat', en:'Greek salad'}},
-    {id:'vecho', p:45000, img:'images/vecho.png', n:{ru:'Вечо', uz:'Vecho salat', en:'Vecho salad'}},
-    {id:'krabovyy', p:40000, img:'images/krabovyy.png', n:{ru:'Крабовый', uz:'Krab salati', en:'Crab salad'}},
-    {id:'elitnyy', p:45000, img:'images/elitnyy.png', n:{ru:'Элитный', uz:'Elit salat', en:'Premium salad'}},
-    {id:'smak', p:40000, img:'images/smak.png', n:{ru:'Смак', uz:'Smak salat', en:'Smak salad'}},
-    {id:'rukolla', p:45000, img:'images/salat_s_rukolloy.png', n:{ru:'Салат с руколлой', uz:'Rukola salati', en:'Arugula salad'}},
-    {id:'vinegret', p:40000, img:'images/vinegret.png', n:{ru:'Винегрет', uz:'Vinegret', en:'Vinaigrette'}},
-    {id:'tsezar', p:45000, img:'images/tsezar_klassicheskiy.png', n:{ru:'Цезарь классический', uz:'Sezar klassik', en:'Caesar classic'}},
-    {id:'olivye', p:40000, img:'images/olive.png', n:{ru:'Оливье', uz:'Olivye', en:'Olivier'}},
-    {id:'svezhiy', p:25000, img:'images/svezhiy.png', n:{ru:'Свежий', uz:'Yangi salat', en:'Fresh salad'}}
+    {id:'chalop', p:15000, img:'images/chalop.jpg', n:{ru:'Чалоп', uz:'Chalop', en:'Chalop'}},
+    {id:'achichuk', p:15000, img:'images/achichuk.jpg', n:{ru:'Ачичук', uz:"Achichuk", en:'Achichuk'}},
+    {id:'svezhiy', p:15000, img:'images/svezhiy.jpg', n:{ru:'Свежий', uz:'Yangi salat', en:'Fresh salad'}}
   ],
-  sauce:[
-    {id:'chalop', p:10000, img:'images/chalop.png', n:{ru:'Чалоп', uz:'Chalop', en:'Chalop'}},
-    {id:'tomato_sauce', p:5000, img:'images/tomato_sauce.png', n:{ru:'Соус из помидоров', uz:'Pomidor sousi', en:'Tomato sauce'}}
+  cold:[
+    {id:'chakka_zelen_rediska', p:15000, img:'images/chakka_zelen_rediska.jpg', n:{ru:'Чакка (Сюзьма) с зеленью и редиской', uz:"Chakka (Suyzma) ko'kat va redis bilan", en:'Chakka (Suzma) with herbs & radish'}},
+    {id:'chakka_perets', p:12000, img:'images/chakka_perets.jpg', n:{ru:'Чакка (Сюзьма) с перцем', uz:"Chakka (Suyzma) murch bilan", en:'Chakka (Suzma) with pepper'}},
+    {id:'chakka_zelen', p:12000, img:'images/chakka_zelen.jpg', n:{ru:'Чакка (Сюзьма) с зеленью', uz:"Chakka (Suyzma) ko'kat bilan", en:'Chakka (Suzma) with herbs'}},
+    {id:'chakka', p:10000, img:'images/chakka.jpg', n:{ru:'Чакка (Сюзьма)', uz:"Chakka (Suyzma)", en:'Chakka (Suzma)'}},
+    {id:'zelen_assorti', p:20000, img:'images/zelen_assorti.jpg', n:{ru:'Зелень ассорти', uz:"Ko'kat assorti", en:'Herbs assortment'}},
+    {id:'luk_anzur', p:15000, img:'images/luk_anzur.jpg', n:{ru:'Лук Анзур', uz:'Anzur piyoz', en:'Anzur onion'}},
+    {id:'solenya_assorti', p:25000, img:'images/solenya_assorti.jpg', n:{ru:'Соленья ассорти', uz:"Tuzlama assorti", en:'Pickles assortment'}},
+    {id:'marin_pomidory', p:15000, img:'images/marin_pomidory.jpg', n:{ru:'Маринованные помидоры', uz:"Marinad pomidor", en:'Pickled tomatoes'}},
+    {id:'marin_ogurcy', p:15000, img:'images/marin_ogurcy.jpg', n:{ru:'Маринованные огурцы', uz:"Marinad bodring", en:'Pickled cucumbers'}}
   ],
   first:[
-    {id:'shurpa', p:40000, img:'images/shurpa.png', n:{ru:'Шурпа', uz:"Sho'rva", en:'Shurpa'}},
-    {id:'pelmeni', p:40000, img:'images/pelmeni.png', n:{ru:'Пельмени', uz:'Chuchvara', en:'Dumplings'}},
-    {id:'lagman', p:40000, img:'images/lagman.png', n:{ru:'Лагман', uz:"Lag'mon", en:'Lagman'}},
-    {id:'bulon', p:20000, img:'images/bulon.png', n:{ru:'Суп бульон', uz:"Bulyon sho'rva", en:'Broth soup'}}
+    {id:'govyazhiy_bulon', p:60000, img:'images/govyazhiy_bulon.jpg', n:{ru:'Говяжий бульон', uz:"Mol bulyon", en:'Beef broth'}},
+    {id:'lagman', p:50000, img:'images/lagman.jpg', n:{ru:'Лагман', uz:"Lag'mon", en:'Lagman'}},
+    {id:'shurpa', p:50000, img:'images/shurpa.jpg', n:{ru:'Шурпа', uz:"Sho'rva", en:'Shurpa'}}
   ],
-  hot:[
-    {id:'manty1', p:10000, img:'images/manty1.png', n:{ru:'Манты 1шт', uz:'Manti 1 dona', en:'Manti (1 pc)'}},
-    {id:'plov05', p:50000, img:'images/plov05.png', n:{ru:'Плов 0.5', uz:'Osh 0.5', en:'Plov 0.5'}},
-    {id:'halisa', p:80000, img:'images/halisa.png', n:{ru:'Халиса', uz:'Halisa', en:'Halisa'}},
-    {id:'kurutob', p:80000, img:'images/kurutob.png', n:{ru:'Курутоб', uz:'Qurutob', en:'Qurutob'}},
-    {id:'fried_lagman', p:50000, img:'images/fried_lagman.png', n:{ru:'Жаренный Лагман', uz:"Qovurilgan lag'mon", en:'Fried lagman'}}
-  ],
-  garnish:[
-    {id:'fri', p:20000, img:'images/fri.png', n:{ru:'Фри', uz:'Fri', en:'French fries'}}
+  second:[
+    {id:'zharenyy_lagman', p:60000, img:'images/zharenyy_lagman.jpg', n:{ru:'Жаренный лагман', uz:"Qovurilgan lag'mon", en:'Fried lagman'}},
+    {id:'kalla_pocha', p:70000, img:'images/kalla_pocha.jpg', n:{ru:'Кала Поча', uz:"Kalla pocha", en:'Kalla pocha'}},
+    {id:'halisa', p:70000, img:'images/halisa.jpg', n:{ru:'Халиса', uz:'Halisa', en:'Halisa'}},
+    {id:'plov_05', p:50000, img:'images/plov_05.jpg', n:{ru:'Плов 0.5', uz:'Osh 0.5', en:'Plov 0.5'}}
   ],
   drinks:[
-    {id:'cola15', p:20000, img:'images/cola15.jpg', n:{ru:'Coca Cola 1.5L', uz:'Coca Cola 1.5L', en:'Coca Cola 1.5L'}},
-    {id:'fanta15', p:20000, img:'images/fanta15.jpg', n:{ru:'Fanta 1.5L', uz:'Fanta 1.5L', en:'Fanta 1.5L'}},
-    {id:'pepsi15', p:20000, img:'images/pepsi15.jpg', n:{ru:'Pepsi 1.5L', uz:'Pepsi 1.5L', en:'Pepsi 1.5L'}},
-    {id:'juice1', p:20000, img:'images/juice1.png', n:{ru:'Сок в ассортименте 1L', uz:'Sharbat (assort) 1L', en:'Juice assorted 1L'}},
-    {id:'chertoq15', p:8000, img:'images/chertoq15.png', n:{ru:'Вода газ / без газа Chertoq 1.5L', uz:'Chertoq suv 1.5L (gazli / gazsiz)', en:'Chertoq water 1.5L (sparkling / still)'}},
-    {id:'tea', p:5000, img:'images/tea.png', n:{ru:'Чай зелёный / чёрный', uz:'Choy (yashil / qora)', en:'Tea (green / black)'}},
-    {id:'tea_lemon', p:15000, img:'images/tea_lemon.png', n:{ru:'Чай с лимоном', uz:'Limonli choy', en:'Tea with lemon'}},
-    {id:'coffee', p:10000, img:'images/coffee.png', n:{ru:'Кофе растворимый чёрный', uz:'Qora kofe (eritma)', en:'Instant black coffee'}}
+    {id:'fanta_025', p:7000, img:'images/fanta_025.jpg', n:{ru:'Fanta 0.25L', uz:'Fanta 0.25L', en:'Fanta 0.25L'}},
+    {id:'sprite_1', p:15000, img:'images/sprite_1.jpg', n:{ru:'Sprite 1L', uz:'Sprite 1L', en:'Sprite 1L'}},
+    {id:'fanta_15', p:20000, img:'images/fanta_15.jpg', n:{ru:'Fanta 1.5L', uz:'Fanta 1.5L', en:'Fanta 1.5L'}},
+    {id:'fanta_1', p:15000, img:'images/fanta_1.jpg', n:{ru:'Fanta 1L', uz:'Fanta 1L', en:'Fanta 1L'}},
+    {id:'bliss_1', p:18000, img:'images/bliss_1.jpg', n:{ru:'Сок Bliss в ассортименте 1L', uz:"Bliss sharbat 1L (assort)", en:'Bliss juice assorted 1L'}},
+    {id:'cola_15', p:20000, img:'images/cola_15.jpg', n:{ru:'Coca Cola 1.5L', uz:'Coca Cola 1.5L', en:'Coca Cola 1.5L'}},
+    {id:'cola_1', p:15000, img:'images/cola_1.jpg', n:{ru:'Coca Cola 1L', uz:'Coca Cola 1L', en:'Coca Cola 1L'}},
+    {id:'ice_tea_125', p:15000, img:'images/ice_tea_125.jpg', n:{ru:'Ice Tea 1.25L', uz:'Ice Tea 1.25L', en:'Ice Tea 1.25L'}},
+    {id:'pepsi_1', p:15000, img:'images/pepsi_1.jpg', n:{ru:'Pepsi 1L', uz:'Pepsi 1L', en:'Pepsi 1L'}},
+    {id:'lipton_1', p:15000, img:'images/lipton_1.jpg', n:{ru:'Lipton 1L', uz:'Lipton 1L', en:'Lipton 1L'}},
+    {id:'pepsi_025', p:10000, img:'images/pepsi_025.jpg', n:{ru:'Pepsi 0.25L', uz:'Pepsi 0.25L', en:'Pepsi 0.25L'}},
+    {id:'pepsi_05', p:12000, img:'images/pepsi_05.jpg', n:{ru:'Pepsi 0.5L', uz:'Pepsi 0.5L', en:'Pepsi 0.5L'}},
+    {id:'pepsi_15', p:20000, img:'images/pepsi_15.jpg', n:{ru:'Pepsi 1.5L', uz:'Pepsi 1.5L', en:'Pepsi 1.5L'}}
+  ],
+  water:[
+    {id:'montella_15', p:10000, img:'images/montella_15.jpg', n:{ru:'Вода Montella 1.5L', uz:'Montella 1.5L', en:'Montella 1.5L'}},
+    {id:'montella_1', p:7000, img:'images/montella_1.jpg', n:{ru:'Вода Montella 1L', uz:'Montella 1L', en:'Montella 1L'}},
+    {id:'chortoq_05', p:15000, img:'images/chortoq_05.jpg', n:{ru:'Минеральная вода Chortoq 0.5L', uz:'Chortoq 0.5L', en:'Chortoq mineral water 0.5L'}},
+    {id:'montella_05', p:5000, img:'images/montella_05.jpg', n:{ru:'Вода Montella 0.5L', uz:'Montella 0.5L', en:'Montella 0.5L'}}
+  ],
+  energy:[
+    {id:'18plus_05', p:15000, img:'images/18plus_05.jpg', n:{ru:'18+ 0.5L', uz:'18+ 0.5L', en:'18+ 0.5L'}},
+    {id:'18plus_033', p:12000, img:'images/18plus_033.jpg', n:{ru:'18+ 0.33L', uz:'18+ 0.33L', en:'18+ 0.33L'}},
+    {id:'18plus_025', p:10000, img:'images/18plus_025.jpg', n:{ru:'18+ 0.25L', uz:'18+ 0.25L', en:'18+ 0.25L'}},
+    {id:'adrenaline_049', p:15000, img:'images/adrenaline_049.jpg', n:{ru:'Adrenaline 0.49L', uz:'Adrenaline 0.49L', en:'Adrenaline 0.49L'}},
+    {id:'adrenaline_025', p:12000, img:'images/adrenaline_025.jpg', n:{ru:'Adrenaline 0.25L', uz:'Adrenaline 0.25L', en:'Adrenaline 0.25L'}}
   ]
 };
 
-const POPULAR_IDS = ['plov05','manty1','shurpa','tsezar'];
+/* ✅ Популярное под новый список */
+const POPULAR_IDS = ['plov_05','lagman','shurpa','achichuk'];
+
+/* ====== ДАЛЬШЕ ТВОЙ JS (без ломания логики) ====== */
 const ITEM_BY_ID = {};
 for (const cat in MENU){ for (const it of MENU[cat]) ITEM_BY_ID[it.id] = it; }
 
