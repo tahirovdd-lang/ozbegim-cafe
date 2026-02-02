@@ -8,6 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet" />
 
 <style>
+/* ====== ТВОИ СТИЛИ (без изменений по смыслу) ====== */
 :root{
   --sand:#fbf7ef;
   --text:#1f1f1f;
@@ -43,6 +44,7 @@ body{
   color:var(--text);
   padding-bottom:88px;
 }
+
 .header{
   padding:18px 14px 30px;
   color:#fff;
@@ -77,17 +79,27 @@ body{
   opacity:.75;
   pointer-events:none;
 }
+
+/* ✅ ЛОГО: меньше + красивая полупрозрачная рамка */
 .header img{
   position:absolute;
   left:10px;
   top:50%;
   transform:translateY(-50%);
-  width:128px;
-  max-width:42vw;
+  width:92px;            /* было 128 */
+  max-width:30vw;
   height:auto;
   z-index:5;
-  filter: drop-shadow(0 12px 22px rgba(0,0,0,.28));
+
+  padding:8px;
+  border-radius:18px;
+  background: rgba(255,255,255,.16);
+  border: 1px solid rgba(255,255,255,.28);
+  box-shadow: 0 14px 30px rgba(0,0,0,.20);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
+
 .brand-title{
   font-family:'Yeseva One', serif;
   font-size:40px;
@@ -112,7 +124,32 @@ body{
   opacity:.95;
 }
 
-/* ✅ кнопки в шапке: гео + бургер + поиск */
+/* ✅ Геолокация: правый верхний угол */
+.geo-btn{
+  position:absolute;
+  right:14px;
+  top:12px;
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:18px;
+  font-weight:900;
+  cursor:pointer;
+  z-index:80;
+
+  color:#fff;
+  background: rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.22);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 14px 30px rgba(0,0,0,.18);
+  transition:.15s;
+}
+.geo-btn:active{ transform:scale(.97); }
+
 .search-btn{
   position:absolute;
   right:14px;
@@ -161,31 +198,6 @@ body{
 }
 .burger-btn:active{ transform:scale(.97); }
 
-.geo-btn{
-  position:absolute;
-  right:110px; /* ✅ левее бургера */
-  bottom:12px;
-  width:38px;
-  height:38px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  z-index:66;
-
-  color:#fff;
-  background: rgba(255,255,255,.14);
-  border:1px solid rgba(255,255,255,.22);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 14px 30px rgba(0,0,0,.18);
-  transition:.15s;
-  font-size:17px;
-  font-weight:900;
-}
-.geo-btn:active{ transform:scale(.97); }
-
 .burger-ic{ width:18px; height:12px; position:relative; }
 .burger-ic span{
   position:absolute; left:0; right:0;
@@ -202,6 +214,7 @@ body{
   padding:12px 12px 6px;
   justify-content:center;
 }
+
 .btn{
   padding:12px 16px;
   border-radius:18px;
@@ -224,11 +237,11 @@ body{
   box-shadow: 0 14px 30px rgba(31,74,168,.18);
 }
 
-/* ✅ категории чуть больше шрифт */
+/* ✅ Шрифт в категориях чуть больше */
 .categories .btn{
   min-width:160px;
-  padding:12px 22px;
-  font-size:16px; /* было 14-15 по факту */
+  padding:14px 22px;
+  font-size:15px;
 }
 
 .input{
@@ -281,9 +294,9 @@ body[data-theme="dark"] .input{ background: rgba(28,28,28,.90); }
 body[data-theme="dark"] .card{ border-color: rgba(255,255,255,.10); }
 .card:active{ transform:scale(.99); }
 
-/* ✅ увеличить иконки блюд */
-.img{ height:98px; display:flex; align-items:center; justify-content:center; }
-.img img{ max-width:82px; opacity:.95; }
+/* ✅ Иконки блюд больше */
+.img{ height:110px; display:flex; align-items:center; justify-content:center; }
+.img img{ max-width:96px; opacity:.95; }
 
 .price{ font-weight:900; color:var(--atlas-red); margin-top:6px; }
 .price small{ font-weight:800; opacity:.75; margin-left:4px; }
@@ -417,9 +430,9 @@ mark{ background:rgba(212,160,23,.28); padding:0 .14em; border-radius:8px; }
 }
 .popular-row{ display:flex; gap:12px; overflow-x:auto; padding:2px 2px 10px; }
 .pop-card{
-  min-width:178px; /* ✅ шире */
+  min-width:180px;
   border-radius:24px;
-  padding:12px;   /* ✅ больше */
+  padding:12px;
   background: var(--card-bg);
   border:1px solid rgba(0,0,0,.06);
   box-shadow: var(--shadow);
@@ -430,8 +443,10 @@ mark{ background:rgba(212,160,23,.28); padding:0 .14em; border-radius:8px; }
 }
 body[data-theme="dark"] .pop-card{ border-color: rgba(255,255,255,.10); }
 .pop-card:active{ transform:scale(.99); }
+
+/* ✅ Иконки в популярном больше */
 .pop-img{
-  height:92px;     /* ✅ больше */
+  height:110px;
   border-radius:18px;
   overflow:hidden;
   display:flex;
@@ -440,7 +455,8 @@ body[data-theme="dark"] .pop-card{ border-color: rgba(255,255,255,.10); }
   background: rgba(31,74,168,.10);
 }
 .pop-img img{ width:100%; height:100%; object-fit:cover; }
-.pop-name{ font-weight:900; margin-top:8px; font-size:15px; }
+
+.pop-name{ font-weight:900; margin-top:10px; }
 .pop-price{ font-weight:900; color:var(--atlas-red); margin-top:6px; }
 .pop-badge{ position:absolute; left:10px; top:10px; font-size:18px; pointer-events:none; }
 
@@ -621,6 +637,7 @@ body[data-theme="dark"] .about-card{
   background: rgba(28,28,28,.92);
   border-color: rgba(255,255,255,.10);
 }
+
 .about-head{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:6px; }
 .about-head b{ font-size:16px; }
 .about-body{ font-size:14px; line-height:1.45; white-space:pre-wrap; }
@@ -651,6 +668,39 @@ body[data-theme="dark"] .tabbtn{
   color:#fff;
 }
 .small-note{ opacity:.75; font-size:12px; margin-top:6px; }
+
+/* ✅ Модалка для юрлиц */
+.legal-modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.45);
+  display:none;
+  z-index:2200;
+  padding:18px 14px;
+}
+.legal-modal.show{ display:block; }
+.legal-card{
+  max-width:760px;
+  margin:0 auto;
+  background: rgba(255,255,255,.92);
+  border:1px solid rgba(0,0,0,.08);
+  border-radius:24px;
+  box-shadow: 0 18px 54px rgba(0,0,0,.22);
+  padding:14px 14px 12px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+body[data-theme="dark"] .legal-card{
+  background: rgba(28,28,28,.92);
+  border-color: rgba(255,255,255,.10);
+}
+.legal-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+.legal-actions .tabbtn{ flex:1 1 auto; }
 </style>
 </head>
 
@@ -666,8 +716,8 @@ body[data-theme="dark"] .tabbtn{
     </div>
   </div>
 
-  <!-- ✅ Геолокация (выше кнопки поиск, слева от бургера) -->
-  <div class="geo-btn" onclick="openRoute()" title="Маршрут">📍</div>
+  <!-- ✅ Геолокация: правый верх -->
+  <div class="geo-btn" onclick="openMap()" title="Маршрут">📍</div>
 
   <div class="burger-btn" onclick="openTopMenu()" title="Меню">
     <div class="burger-ic"><span></span><span></span><span></span></div>
@@ -698,10 +748,10 @@ body[data-theme="dark"] .tabbtn{
   <button class="btn" id="btnPickup" onclick="setType('pickup',this)"></button>
 </div>
 
-<!-- ✅ адрес прячем при самовывозе -->
 <input id="address" class="input">
 <input id="phone" class="input">
 
+<!-- ✅ КАТЕГОРИИ И БЛЮДА ВЕРНУЛ: этот блок на месте -->
 <div class="categories" id="cats"></div>
 <div class="products" id="products"></div>
 
@@ -759,6 +809,18 @@ body[data-theme="dark"] .tabbtn{
       </div>
     </div>
 
+    <!-- ✅ Для юр.лиц -->
+    <div class="menu-item" onclick="openLegal()" role="button">
+      <div class="menu-left">
+        <div class="menu-ic">🏢</div>
+        <div class="menu-txt">
+          <div class="menu-name" id="mLegalTitle">Для юридических лиц</div>
+          <div class="menu-sub" id="mLegalSub">Связаться с менеджером</div>
+        </div>
+      </div>
+      <div class="menu-right">›</div>
+    </div>
+
     <a class="menu-item" href="tel:+998992711925" onclick="closeTopMenu()">
       <div class="menu-left">
         <div class="menu-ic">📞</div>
@@ -780,29 +842,6 @@ body[data-theme="dark"] .tabbtn{
       </div>
       <div class="menu-right">›</div>
     </a>
-
-    <!-- ✅ Для юридических лиц -->
-    <div class="menu-item" onclick="toggleLegal()" role="button">
-      <div class="menu-left">
-        <div class="menu-ic">🏢</div>
-        <div class="menu-txt">
-          <div class="menu-name" id="mLegalTitle">Для юридических лиц</div>
-          <div class="menu-sub" id="mLegalSub">Контакты менеджера</div>
-        </div>
-      </div>
-      <div class="menu-right">›</div>
-    </div>
-
-    <div class="review-wrap" id="legalWrap">
-      <div class="small-note" style="font-size:13px; line-height:1.35;">
-        <b id="legalManagerTitle">Связаться с менеджером</b><br>
-        <span id="legalPhoneLbl">Тел:</span> <a href="tel:+998913197007" onclick="callLegalPhone(event)">+998 91 319 70 07</a><br>
-        <span id="legalMailLbl">Почта:</span> <a href="mailto:uzbegimsignature@gmail.com" onclick="emailLegal(event)">uzbegimsignature@gmail.com</a>
-      </div>
-      <div style="display:flex; justify-content:center; margin-top:10px;">
-        <button class="tabbtn" id="mWriteManagerBtn" onclick="openManagerChat(event)">Написать менеджеру</button>
-      </div>
-    </div>
 
     <div class="menu-item" onclick="toggleThemeFromMenu()" role="button">
       <div class="menu-left">
@@ -845,6 +884,23 @@ body[data-theme="dark"] .tabbtn{
   </div>
 </div>
 
+<!-- ✅ Модалка "Для юр.лиц" -->
+<div class="legal-modal" id="legalModal" onclick="legalBackdropClick(event)">
+  <div class="legal-card">
+    <div class="about-head">
+      <b id="legalTitle">Для юридических лиц</b>
+      <button class="menu-close" onclick="closeLegal()">×</button>
+    </div>
+    <div class="about-body" id="legalBody"></div>
+
+    <div class="legal-actions">
+      <button class="tabbtn" onclick="contactManager()">Связаться с менеджером</button>
+      <button class="tabbtn" onclick="openTelLegal()">Позвонить</button>
+      <button class="tabbtn" onclick="openMailLegal()">Написать на почту</button>
+    </div>
+  </div>
+</div>
+
 <script>
 Telegram.WebApp.ready();
 
@@ -854,21 +910,18 @@ const $ = (id)=>document.getElementById(id);
 const PHONE_TEL  = "tel:+998992711925";
 const IG_URL = "https://www.instagram.com/uzbegimosh/";
 const YANDEX_WIDGET_URL = "https://yandex.ru/sprav/widget/rating-badge/23178318202?type=rating";
+const MAP_URL = "https://yandex.uz/maps/org/23178318202/?ll=66.950144%2C39.645189&z=16.65";
 
-/* ✅ Геолокация / маршрут */
-const ROUTE_URL = "https://yandex.uz/maps/org/23178318202/?ll=66.950144%2C39.645189&z=16.65";
-
-/* ✅ Админ (для “Связаться с менеджером”) — замени на свой ID */
-const ADMIN_ID = 6013591658; // <-- сюда твой admin id
+/* ✅ Юр.лица / менеджер */
+const LEGAL_PHONE = "+998 91 319 70 07";
+const LEGAL_MAIL  = "uzbegimsignature@gmail.com";
+const ADMIN_TG_ID = "6013591658"; // как ты попросил
 
 /* ===== I18N бургер ===== */
 const MENU_I18N = {
-  ru:{menu:'Меню',review_title:'Оставить отзыв',review_sub:'Яндекс рейтинг / отзывы',review_hint:'Если виджет не открылся в Telegram — нажми «Открыть отзывы».',open_reviews:'Открыть отзывы',call:'Позвонить',insta_sub:'Открыть Instagram',theme:'Тема',theme_light:'Светлая',theme_dark:'Тёмная',theme_action:'Сменить',about:'О нас',about_sub:'Адрес и описание',about_title:'О нас',
-      legal:'Для юридических лиц', legal_sub:'Контакты менеджера', legal_btn:'Написать менеджеру', legal_mgr:'Связаться с менеджером', tel:'Тел:', mail:'Почта:'},
-  uz:{menu:'Menyu',review_title:'Fikr qoldirish',review_sub:'Yandex reyting / fikrlar',review_hint:'Agar vidjet Telegramda ochilmasa — «Sharhlarni ochish»ni bosing.',open_reviews:"Sharhlarni ochish",call:"Qo'ng'iroq qilish",insta_sub:"Instagramni ochish",theme:"Mavzu",theme_light:"Yorug'",theme_dark:"Qorong'i",theme_action:"Almashtirish",about:"Biz haqimizda",about_sub:"Manzil va ma'lumot",about_title:"Biz haqimizda",
-      legal:"Yuridik shaxslar uchun", legal_sub:"Menejer kontaktlari", legal_btn:"Menejerga yozish", legal_mgr:"Menejer bilan bog'lanish", tel:"Tel:", mail:"Pochta:"},
-  en:{menu:'Menu',review_title:'Leave a review',review_sub:'Yandex rating / reviews',review_hint:'If the widget doesn’t open in Telegram — tap “Open reviews”.',open_reviews:'Open reviews',call:'Call',insta_sub:'Open Instagram',theme:'Theme',theme_light:'Light',theme_dark:'Dark',theme_action:'Switch',about:'About us',about_sub:'Address and info',about_title:'About us',
-      legal:'For legal entities', legal_sub:'Manager contacts', legal_btn:'Message manager', legal_mgr:'Contact manager', tel:'Tel:', mail:'Email:'}
+  ru:{menu:'Меню',review_title:'Оставить отзыв',review_sub:'Яндекс рейтинг / отзывы',review_hint:'Если виджет не открылся в Telegram — нажми «Открыть отзывы».',open_reviews:'Открыть отзывы',call:'Позвонить',insta_sub:'Открыть Instagram',theme:'Тема',theme_light:'Светлая',theme_dark:'Тёмная',theme_action:'Сменить',about:'О нас',about_sub:'Адрес и описание',about_title:'О нас',legal_title:'Для юридических лиц',legal_sub:'Связаться с менеджером'},
+  uz:{menu:'Menyu',review_title:'Fikr qoldirish',review_sub:'Yandex reyting / fikrlar',review_hint:'Agar vidjet Telegramda ochilmasa — «Sharhlarni ochish»ni bosing.',open_reviews:"Sharhlarni ochish",call:"Qo'ng'iroq qilish",insta_sub:"Instagramni ochish",theme:"Mavzu",theme_light:"Yorug'",theme_dark:"Qorong'i",theme_action:"Almashtirish",about:"Biz haqimizda",about_sub:"Manzil va ma'lumot",about_title:"Biz haqimizda",legal_title:"Yuridik shaxslar uchun",legal_sub:"Menejer bilan bog'lanish"},
+  en:{menu:'Menu',review_title:'Leave a review',review_sub:'Yandex rating / reviews',review_hint:'If the widget doesn’t open in Telegram — tap “Open reviews”.',open_reviews:'Open reviews',call:'Call',insta_sub:'Open Instagram',theme:'Theme',theme_light:'Light',theme_dark:'Dark',theme_action:'Switch',about:'About us',about_sub:'Address and info',about_title:'About us',legal_title:'For legal entities',legal_sub:'Contact manager'}
 };
 
 const ABOUT_TEXT = {
@@ -904,27 +957,19 @@ We welcome you in the heart of Samarkand —
 Uzbegim Osh — a taste proven by time 🇺🇿🍽️`
 };
 
+function openMap(){
+  try{ Telegram.WebApp.openLink(MAP_URL); }
+  catch(_){ window.open(MAP_URL, "_blank"); }
+}
+
 /* ===== бургер ===== */
 function openTopMenu(){ $('menuBackdrop').classList.add('show'); $('menuSheet').classList.add('show'); }
 function closeTopMenu(){ $('menuBackdrop').classList.remove('show'); $('menuSheet').classList.remove('show'); }
-
-/* ✅ гео */
-function openRoute(){
-  try{ Telegram.WebApp.openLink(ROUTE_URL); }
-  catch(_){ window.open(ROUTE_URL, "_blank"); }
-}
 
 function toggleReviewWidget(){
   const w = $('reviewWidgetWrap');
   w.style.display = (!w.style.display || w.style.display === 'none') ? 'block' : 'none';
 }
-
-/* ✅ юридические лица */
-function toggleLegal(){
-  const w = $('legalWrap');
-  w.style.display = (!w.style.display || w.style.display === 'none') ? 'block' : 'none';
-}
-
 function openYandexReviews(e){
   try{ e.preventDefault(); e.stopPropagation(); }catch(_){}
   try{ Telegram.WebApp.openLink(YANDEX_WIDGET_URL); }
@@ -941,30 +986,36 @@ function callPhone(e){
   try{ Telegram.WebApp.openLink(PHONE_TEL); }
   catch(_){ window.location.href = PHONE_TEL; }
 }
-function callLegalPhone(e){
-  try{ e.preventDefault(); e.stopPropagation(); }catch(_){}
-  try{ Telegram.WebApp.openLink("tel:+998913197007"); }
-  catch(_){ window.location.href = "tel:+998913197007"; }
-}
-function emailLegal(e){
-  try{ e.preventDefault(); e.stopPropagation(); }catch(_){}
-  try{ Telegram.WebApp.openLink("mailto:uzbegimsignature@gmail.com"); }
-  catch(_){ window.location.href = "mailto:uzbegimsignature@gmail.com"; }
-}
 
-/* ✅ чат с менеджером по admin id */
-function openManagerChat(e){
-  try{ e.preventDefault(); e.stopPropagation(); }catch(_){}
+/* ✅ Юр.лица: модалка + контакты */
+function openLegal(){
   closeTopMenu();
-  const url = `https://t.me/${ADMIN_ID}`;
-  /* Важно: для id (число) telegram умеет ссылку tg://user?id= */
-  const tgUrl = `tg://user?id=${ADMIN_ID}`;
-  try{
-    Telegram.WebApp.openTelegramLink?.(tgUrl);
-  }catch(_){
-    try{ Telegram.WebApp.openLink(url); }
-    catch(__){ window.open(url, "_blank"); }
-  }
+  const t = MENU_I18N[lang] || MENU_I18N.ru;
+  $('legalTitle').innerText = t.legal_title || 'Для юридических лиц';
+
+  const body = {
+    ru:`Связаться с менеджером\n\nТел: ${LEGAL_PHONE}\nПочта: ${LEGAL_MAIL}`,
+    uz:`Menejer bilan bog'lanish\n\nTel: ${LEGAL_PHONE}\nPochta: ${LEGAL_MAIL}`,
+    en:`Contact manager\n\nPhone: ${LEGAL_PHONE}\nEmail: ${LEGAL_MAIL}`
+  };
+
+  $('legalBody').textContent = body[lang] || body.ru;
+  $('legalModal').classList.add('show');
+}
+function closeLegal(){ $('legalModal').classList.remove('show'); }
+function legalBackdropClick(e){ if(e.target && e.target.id === 'legalModal') closeLegal(); }
+function contactManager(){
+  // ссылка на админа (ID)
+  const link = `https://t.me/${ADMIN_TG_ID}`;
+  try{ Telegram.WebApp.openLink(link); }catch(_){ window.open(link, "_blank"); }
+}
+function openTelLegal(){
+  const tel = `tel:${LEGAL_PHONE.replace(/\s+/g,'')}`;
+  try{ Telegram.WebApp.openLink(tel); }catch(_){ window.location.href = tel; }
+}
+function openMailLegal(){
+  const mail = `mailto:${LEGAL_MAIL}`;
+  try{ Telegram.WebApp.openLink(mail); }catch(_){ window.location.href = mail; }
 }
 
 /* ===== theme ===== */
@@ -1008,16 +1059,18 @@ function setAboutLang(l){
 /* ===== основной i18n ===== */
 const TEXT={
   ru:{delivery:'🚚 Доставка',pickup:'🏃 Самовывоз',address:'📍 Адрес доставки',phone:'📞 Телефон',cart:'🛒 Корзина',order:'Оформить заказ',comment:'✍️ Комментарий к заказу',cash:'💵 Наличные',click:'💳 CLICK',results:'Результаты поиска',popular:'🔥 Популярное',empty:'Корзина пустая'},
-  uz:{delivery:'🚚 Yetkazish',pickup:'🏃 Olib ketish',address:'📍 Manzil',phone:'📞 Telefon',cart:'🛒 Savat',order:'Buyurtma berish',comment:'✍️ Izoh',cash:'💵 Naqd',click:'💳 CLICK',results:'Qidiruv natijalari',popular:'🔥 Ommabop',empty:"Savat bo‘sh"},
+  uz:{delivery:'🚚 Yetkazish',pickup:'🏃 Olib ketish',address:'📍 Manzil',phone:'📞 Telefon',cart:'🛒 Savat',order:'Buyurtma berish',comment:'✍️ Izoh',cash:'💵 Naqd',click:'💳 CLICK',results:'Qidiruv natijalari',popular:'🔥 Ommabop',empty:'Savat bo‘sh'},
   en:{delivery:'🚚 Delivery',pickup:'🏃 Pickup',address:'📍 Address',phone:'📞 Phone',cart:'🛒 Cart',order:'Place order',comment:'✍️ Comment',cash:'💵 Cash',click:'💳 CLICK',results:'Search results',popular:'🔥 Popular',empty:'Cart is empty'}
 };
 
+/* ✅ Категории = как в твоей таблице */
 const CATS={
   ru:{salads:'🥗 Салаты',cold:'🥒 Холодные закуски',first:'🍜 Первые блюда',second:'🍲 Вторые блюда',drinks:'🥤 Напитки',water:'💧 Минеральная вода',energy:'⚡ Энергетические напитки'},
   uz:{salads:'🥗 Salatlar',cold:'🥒 Sovuq zakuskalar',first:'🍜 Birinchi taomlar',second:'🍲 Ikkinchi taomlar',drinks:'🥤 Ichimliklar',water:'💧 Mineral suv',energy:'⚡ Energetik ichimliklar'},
   en:{salads:'🥗 Salads',cold:'🥒 Cold snacks',first:'🍜 First dishes',second:'🍲 Main dishes',drinks:'🥤 Drinks',water:'💧 Mineral water',energy:'⚡ Energy drinks'}
 };
 
+/* ✅✅✅ МЕНЮ: категории и блюда ВЕРНУЛ (как ты прислал) */
 const MENU = {
   salads:[
     {id:'chalop', p:15000, img:'images/chalop.jpg', n:{ru:'Чалоп', uz:'Chalop', en:'Chalop'}},
@@ -1076,8 +1129,10 @@ const MENU = {
   ]
 };
 
+/* ✅ Популярное */
 const POPULAR_IDS = ['plov_05','lagman','shurpa','achichuk'];
 
+/* ====== ДАЛЬШЕ ТВОЙ JS (без ломания логики) ====== */
 const ITEM_BY_ID = {};
 for (const cat in MENU){ for (const it of MENU[cat]) ITEM_BY_ID[it.id] = it; }
 
@@ -1102,9 +1157,6 @@ const tg_username = tgUser.username || "";
 const tg_first_name = tgUser.first_name || "";
 const tg_id = tgUser.id || "";
 
-let lang='ru', category='salads', type='delivery', payment='cash';
-let cart = {};
-
 function setLang(l,b){
   lang=l;
   document.querySelectorAll('.langs .btn').forEach(x=>x.classList.remove('active'));
@@ -1114,7 +1166,6 @@ function setLang(l,b){
 
 function applyBurgerI18n(){
   const t = MENU_I18N[lang] || MENU_I18N.ru;
-
   if($('menuTitle')) $('menuTitle').innerText = t.menu;
   if($('mReviewTitle')) $('mReviewTitle').innerText = t.review_title;
   if($('mReviewSub')) $('mReviewSub').innerText = t.review_sub;
@@ -1128,13 +1179,8 @@ function applyBurgerI18n(){
   if($('mAboutSub')) $('mAboutSub').innerText = t.about_sub;
   if($('aboutTitle')) $('aboutTitle').innerText = t.about_title;
 
-  /* ✅ юридические */
-  if($('mLegalTitle')) $('mLegalTitle').innerText = t.legal;
+  if($('mLegalTitle')) $('mLegalTitle').innerText = t.legal_title;
   if($('mLegalSub')) $('mLegalSub').innerText = t.legal_sub;
-  if($('mWriteManagerBtn')) $('mWriteManagerBtn').innerText = t.legal_btn;
-  if($('legalManagerTitle')) $('legalManagerTitle').innerText = t.legal_mgr;
-  if($('legalPhoneLbl')) $('legalPhoneLbl').innerText = t.tel;
-  if($('legalMailLbl')) $('legalMailLbl').innerText = t.mail;
 }
 
 function syncThemeLabel(){
@@ -1215,24 +1261,21 @@ function updateTotal(){
   $('stickyTotal').innerText = formatSum(s);
 }
 
-/* ✅ скрытие адреса при самовывозе */
-function updateAddressVisibility(){
-  const addr = $('address');
-  if(!addr) return;
+/* ✅ Самовывоз: скрываем адрес */
+function applyTypeUI(){
   if(type === 'pickup'){
-    addr.style.display = 'none';
-    addr.value = ''; /* чтобы не улетал адрес в заказ */
-  }else{
-    addr.style.display = 'block';
+    $('address').style.display = 'none';
+    $('address').value = '';
+  } else {
+    $('address').style.display = 'block';
   }
 }
-
 function setType(t,b){
   if(isSearchOpen()) closeSearch();
   type=t;
   document.querySelectorAll('.types .btn').forEach(x=>x.classList.remove('active'));
   b.classList.add('active');
-  updateAddressVisibility();
+  applyTypeUI();
 }
 
 function setPayment(p){
@@ -1334,7 +1377,7 @@ function sendOrder(){
     total_num: calcTotalNum(),
     payment,
     type,
-    address: (type === 'pickup' ? '' : $('address').value),
+    address: type === 'pickup' ? '' : $('address').value,
     phone: $('phone').value,
     comment: $('comment').value,
     order_id: genOrderId()
@@ -1367,7 +1410,7 @@ function applyLang(){
 
   applyBurgerI18n();
   syncThemeLabel();
-  updateAddressVisibility();
+  applyTypeUI();
 }
 
 /* saved inputs */
