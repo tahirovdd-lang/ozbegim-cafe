@@ -139,10 +139,42 @@ body{
   opacity:.95;
 }
 
-.geo-btn{
+/* ✅ Перенос: бургер в правый верхний угол, геолокация ниже бургера */
+.burger-btn{
   position:absolute;
   right:14px;
   top:12px;
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  z-index:85;
+  color:#fff;
+  background: rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.22);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 14px 30px rgba(0,0,0,.18);
+  transition:.15s;
+}
+.burger-btn:active{ transform:scale(.97); }
+.burger-ic{ width:18px; height:12px; position:relative; }
+.burger-ic span{
+  position:absolute; left:0; right:0;
+  height:2px; border-radius:8px;
+  background:#fff; opacity:.95;
+}
+.burger-ic span:nth-child(1){ top:0; }
+.burger-ic span:nth-child(2){ top:5px; }
+.burger-ic span:nth-child(3){ bottom:0; }
+
+.geo-btn{
+  position:absolute;
+  right:14px;
+  top:56px; /* ✅ ниже бургера */
   width:38px;
   height:38px;
   border-radius:50%;
@@ -162,6 +194,7 @@ body{
   transition:.15s;
 }
 .geo-btn:active{ transform:scale(.97); }
+
 .search-btn{
   position:absolute;
   right:14px;
@@ -185,36 +218,6 @@ body{
   transition:.15s;
 }
 .search-btn:active{ transform:scale(.97); }
-.burger-btn{
-  position:absolute;
-  right:62px;
-  bottom:12px;
-  width:38px;
-  height:38px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  z-index:65;
-  color:#fff;
-  background: rgba(255,255,255,.14);
-  border:1px solid rgba(255,255,255,.22);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 14px 30px rgba(0,0,0,.18);
-  transition:.15s;
-}
-.burger-btn:active{ transform:scale(.97); }
-.burger-ic{ width:18px; height:12px; position:relative; }
-.burger-ic span{
-  position:absolute; left:0; right:0;
-  height:2px; border-radius:8px;
-  background:#fff; opacity:.95;
-}
-.burger-ic span:nth-child(1){ top:0; }
-.burger-ic span:nth-child(2){ top:5px; }
-.burger-ic span:nth-child(3){ bottom:0; }
 
 /* ===== common ===== */
 .langs,.types,.payments{
@@ -299,8 +302,9 @@ body[data-theme="dark"] .input{ background: rgba(28,28,28,.90); }
 body[data-theme="dark"] .card{ border-color: rgba(255,255,255,.10); }
 .card:active{ transform:scale(.99); }
 
-.img{ height:104px; display:flex; align-items:center; justify-content:center; }
-.img img{ max-width:92px; opacity:.95; }
+/* ✅ Увеличили иконки блюд */
+.img{ height:132px; display:flex; align-items:center; justify-content:center; }
+.img img{ max-width:122px; max-height:122px; opacity:.95; }
 
 .price{ font-weight:900; color:var(--atlas-red); margin-top:6px; }
 .price small{ font-weight:800; opacity:.75; margin-left:4px; }
@@ -825,10 +829,20 @@ body[data-theme="dark"] .plov-option{
   .brand-title{ font-size:32px; }
   .brand-sub{ font-size:12px; letter-spacing:.16em; }
   .header img{ width:76px; padding:7px; border-radius:16px; }
+
+  /* ✅ кнопки в шапке чуть меньше */
   .geo-btn,.burger-btn,.search-btn{ width:36px; height:36px; }
+
+  /* ✅ удерживаем гео под бургером на мобилке */
+  .burger-btn{ top:12px; right:14px; }
+  .geo-btn{ top:54px; right:14px; }
+
   .products{ gap:12px; }
-  .img{ height:96px; }
-  .img img{ max-width:86px; }
+
+  /* ✅ иконки блюд больше и на мобилке */
+  .img{ height:122px; }
+  .img img{ max-width:114px; max-height:114px; }
+
   .categories .btn{ min-width:116px; font-size:12.6px; padding:8px 10px; }
   .btn{ min-width:104px; padding:11px 12px; }
 }
@@ -847,10 +861,11 @@ body[data-theme="dark"] .plov-option{
     </div>
   </div>
 
-  <div class="geo-btn" onclick="openMap()" title="Маршрут">📍</div>
+  <!-- ✅ порядок: бургер сверху справа, гео ниже, поиск снизу справа -->
   <div class="burger-btn" onclick="openTopMenu()" title="Меню">
     <div class="burger-ic"><span></span><span></span><span></span></div>
   </div>
+  <div class="geo-btn" onclick="openMap()" title="Маршрут">📍</div>
   <div class="search-btn" onclick="toggleSearch()">🔍</div>
 </div>
 
