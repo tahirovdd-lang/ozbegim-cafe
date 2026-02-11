@@ -100,7 +100,7 @@ body{
   -webkit-backdrop-filter: blur(10px);
 }
 
-/* ✅ бренд-обертка чтобы CHOYXONASI было по центру под O'ZBEGIM */
+/* ✅ чтобы CHOYXONASI было по центру под O'ZBEGIM */
 .brand-wrap{
   position:relative;
   z-index:6;
@@ -222,7 +222,7 @@ body{
   gap:10px;
   padding:12px 12px 6px;
   justify-content:center;
-  flex-wrap:nowrap; /* ✅ в один ряд */
+  flex-wrap:nowrap; /* ✅ оплаты в один ряд */
 }
 .btn{
   padding:12px 16px;
@@ -562,6 +562,7 @@ body[data-theme="dark"] .sticky-inner{ background: rgba(28,28,28,.88); border-co
   z-index:2000;
 }
 .menu-backdrop.show{ opacity:1; pointer-events:auto; }
+
 .menu-sheet{
   position:fixed;
   left:0; right:0;
@@ -582,6 +583,7 @@ body[data-theme="dark"] .menu-sheet{
   border-color: rgba(255,255,255,.10);
 }
 .menu-sheet.show{ bottom:0; }
+
 .menu-handle{
   width:44px;
   height:5px;
@@ -590,6 +592,7 @@ body[data-theme="dark"] .menu-sheet{
   margin:6px auto 10px;
 }
 body[data-theme="dark"] .menu-handle{ background:rgba(255,255,255,.18); }
+
 .menu-head{
   display:flex;
   align-items:center;
@@ -608,7 +611,9 @@ body[data-theme="dark"] .menu-handle{ background:rgba(255,255,255,.18); }
   color:#777;
 }
 body[data-theme="dark"] .menu-close{ color:#bbb; }
+
 .menu-list{ display:flex; flex-direction:column; gap:8px; }
+
 .menu-item{
   display:flex;
   align-items:center;
@@ -626,6 +631,7 @@ body[data-theme="dark"] .menu-item{
   border-color: rgba(255,255,255,.10);
   background: rgba(255,255,255,.06);
 }
+
 .menu-left{ display:flex; align-items:center; gap:10px; min-width:0; }
 .menu-ic{
   width:32px; height:32px;
@@ -641,6 +647,7 @@ body[data-theme="dark"] .menu-ic{ background: rgba(255,255,255,.06); }
 .menu-name{ font-weight:900; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .menu-sub{ font-size:12px; opacity:.75; margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .menu-right{ opacity:.65; font-weight:900; }
+
 .review-wrap{ display:none; padding:6px 4px 10px; }
 .review-card{
   border:1px solid rgba(0,0,0,.08);
@@ -652,6 +659,7 @@ body[data-theme="dark"] .menu-ic{ background: rgba(255,255,255,.06); }
   justify-content:center;
 }
 body[data-theme="dark"] .review-card{ background:#0f0f0f; border-color: rgba(255,255,255,.10); }
+
 .about-modal{
   position:fixed;
   inset:0;
@@ -679,6 +687,7 @@ body[data-theme="dark"] .about-card{
 .about-head{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:6px; }
 .about-head b{ font-size:16px; }
 .about-body{ font-size:14px; line-height:1.45; white-space:pre-wrap; }
+
 .about-tabs{
   display:flex;
   gap:10px;
@@ -705,6 +714,7 @@ body[data-theme="dark"] .tabbtn{
   color:#fff;
 }
 .small-note{ opacity:.75; font-size:12px; margin-top:6px; }
+
 .legal-modal{
   position:fixed;
   inset:0;
@@ -768,6 +778,7 @@ body[data-theme="dark"] .plov-sheet{
   border-color: rgba(255,255,255,.10);
 }
 .plov-sheet.show{ bottom:0; }
+
 .plov-title{
   display:flex;
   align-items:center;
@@ -775,6 +786,7 @@ body[data-theme="dark"] .plov-sheet{
   padding:2px 4px 10px;
 }
 .plov-title b{ font-size:16px; }
+
 .plov-list{ display:flex; flex-direction:column; gap:10px; }
 .plov-option{
   display:flex;
@@ -829,7 +841,6 @@ body[data-theme="dark"] .plov-option{
   <img src="logo.png" onerror="this.src='logo.png'">
   <div class="brand-wrap">
     <div class="brand-title">O'ZBEGIM</div>
-    <!-- ✅ текст под названием -->
     <div class="brand-sub">CHOYXONASI</div>
     <div class="brand-phone">
       <a href="tel:+998992711925" onclick="callPhone(event)">+998 99 271 19 25</a>
@@ -849,6 +860,7 @@ body[data-theme="dark"] .plov-option{
   <div class="search-clear" onclick="clearSearch()" title="Очистить">✖</div>
 </div>
 
+<!-- ✅ По умолчанию UZ -->
 <div class="langs">
   <button class="btn" onclick="setLang('ru',this)">RU</button>
   <button class="btn active" onclick="setLang('uz',this)">UZ</button>
@@ -893,7 +905,7 @@ body[data-theme="dark"] .plov-option{
         <small id="recLabel">Получатель</small>
         <div id="recValue">Baxtiyorov Botur</div>
       </div>
-      <button class="copy-btn" onclick="copyText('Baxtiyorov Botur')">Копировать</button>
+      <button class="copy-btn" onclick="copyText(ONLINE_RECIPIENT)">Копировать</button>
     </div>
 
     <div class="online-row">
@@ -901,7 +913,7 @@ body[data-theme="dark"] .plov-option{
         <small id="cardLabel">Номер карты</small>
         <div id="cardValue">9860170109382557</div>
       </div>
-      <button class="copy-btn" onclick="copyText('9860170109382557')">Копировать</button>
+      <button class="copy-btn" onclick="copyText(ONLINE_CARD)">Копировать</button>
     </div>
 
     <div class="small-note" id="onlineHint">Скопируйте реквизиты и оплатите переводом на карту.</div>
@@ -1042,7 +1054,7 @@ body[data-theme="dark"] .plov-option{
   </div>
 </div>
 
-<!-- Плов sheet -->
+<!-- ✅ Плов — выбор порции (снизу) -->
 <div class="plov-backdrop" id="plovBackdrop" onclick="closePlovSheet()"></div>
 <div class="plov-sheet" id="plovSheet" role="dialog" aria-modal="true">
   <div class="menu-handle"></div>
@@ -1054,10 +1066,11 @@ body[data-theme="dark"] .plov-option{
 </div>
 
 <script>
-/* ✅ Fix: WebApp открывается на 50% */
+/* ✅ Fix: WebApp открывается на 50% — раскрываем на весь экран */
 try{
   Telegram.WebApp.ready();
   Telegram.WebApp.expand?.();
+  Telegram.WebApp.MainButton?.hide?.();
   setTimeout(()=>Telegram.WebApp.expand?.(), 80);
   setTimeout(()=>Telegram.WebApp.expand?.(), 350);
 }catch(_){}
@@ -1133,11 +1146,78 @@ const CATS={
   en:{salads:'🥗 Salads',cold:'🥒 Cold snacks',first:'🍜 First dishes',second:'🍲 Main dishes',drinks:'🥤 Drinks',water:'💧 Mineral water',energy:'⚡ Energy drinks'}
 };
 
-/* ====== MENU (как у тебя) ====== */
-const MENU = /* ВСТАВЬ СЮДА ТВОЙ MENU БЕЗ ИЗМЕНЕНИЙ */ window.MENU || {};
-const PLOV_VARIANTS = window.PLOV_VARIANTS || [];
+/* ✅ МЕНЮ ВОССТАНОВЛЕНО (как было) */
+const MENU = {
+  salads:[
+    {id:'chalop', p:15000, img:'images/chalop.jpg', n:{ru:'Чалоп', uz:'Chalop', en:'Chalop'}},
+    {id:'achichuk', p:10000, img:'images/achichuk.jpg', n:{ru:'Ачичук', uz:"Achichuk", en:'Achichuk'}},
+    {id:'svezhiy', p:10000, img:'images/svezhiy.jpg', n:{ru:'Свежий', uz:'Yangi salat', en:'Fresh salad'}}
+  ],
+  cold:[
+    {id:'chakka_zelen_rediska', p:10000, img:'images/chakka_zelen_rediska.jpg', n:{ru:'Чакка (Сюзьма) с зеленью и редиской', uz:"Chakka (Suyzma) ko\'kat va redis bilan", en:'Chakka (Suzma) with herbs & radish'}},
+    {id:'chakka_perets', p:5000, img:'images/chakka_perets.jpg', n:{ru:'Чакка (Сюзьма) с перцем', uz:"Chakka (Suyzma) murch bilan", en:'Chakka (Suzma) with pepper'}},
+    {id:'chakka_zelen', p:5000, img:'images/chakka_zelen.jpg', n:{ru:'Чакка (Сюзьма) с зеленью', uz:"Chakka (Suyzma) ko\'kat bilan", en:'Chakka (Suzma) with herbs'}},
+    {id:'chakka', p:5000, img:'images/chakka.jpg', n:{ru:'Чакка (Сюзьма)', uz:"Chakka (Suyzma)", en:'Chakka (Suzma)'}},
+    {id:'zelen_assorti', p:15000, img:'images/zelen_assorti.jpg', n:{ru:'Зелень ассорти', uz:"Ko\'kat assorti", en:'Herbs assortment'}},
+    {id:'luk_anzur', p:15000, img:'images/luk_anzur.jpg', n:{ru:'Лук Анзур', uz:'Anzur piyoz', en:'Anzur onion'}},
+    {id:'solenya_assorti', p:15000, img:'images/solenya_assorti.jpg', n:{ru:'Соленья ассорти', uz:"Tuzlama assorti", en:'Pickles assortment'}},
+    {id:'marin_pomidory', p:5000, img:'images/marin_pomidory.jpg', n:{ru:'Маринованные помидоры', uz:"Marinad pomidor", en:'Pickled tomatoes'}},
+    {id:'gurob_050', p:5000, img:'images/gurob_050.jpg', n:{ru:'Гуроб 0.50мл', uz:"Gurob 0.50 ml", en:'Gurob 0.50 ml'}}
+  ],
+  first:[
+    {id:'govyazhiy_bulon', p:60000, img:'images/govyazhiy_bulon.jpg', n:{ru:'Говяжий бульон', uz:"Mol bulyon", en:'Beef broth'}},
+    {id:'lagman', p:50000, img:'images/lagman.jpg', n:{ru:'Лагман', uz:"Lag\'mon", en:'Lagman'}},
+    {id:'shurpa', p:50000, img:'images/shurpa.jpg', n:{ru:'Шурпа', uz:"Sho\'rva", en:'Shurpa'}},
+  ],
+  second:[
+    {id:'zharenyy_lagman', p:60000, img:'images/zharenyy_lagman.jpg', n:{ru:'Жаренный лагман', uz:"Qovurilgan lag\'mon", en:'Fried lagman'}},
+    {id:'kalla_pocha', p:70000, img:'images/kalla_pocha.jpg', n:{ru:'Кала Поча', uz:"Kalla pocha", en:'Kalla pocha'}},
+    {id:'halisa', p:70000, img:'images/halisa.jpg', n:{ru:'Халиса', uz:'Halisa', en:'Halisa'}},
+    {id:'plov', p:0, img:'images/plov.jpg', n:{ru:'Плов', uz:"Osh", en:'Plov'}, special:'plov'}
+  ],
+  drinks:[
+    {id:'fanta_025', p:7000, img:'images/fanta_025.jpg', n:{ru:'Fanta 0.25L', uz:'Fanta 0.25L', en:'Fanta 0.25L'}},
+    {id:'sprite_1', p:15000, img:'images/sprite_1.jpg', n:{ru:'Sprite 1L', uz:'Sprite 1L', en:'Sprite 1L'}},
+    {id:'fanta_15', p:20000, img:'images/fanta_15.jpg', n:{ru:'Fanta 1.5L', uz:'Fanta 1.5L', en:'Fanta 1.5L'}},
+    {id:'fanta_1', p:15000, img:'images/fanta_1.jpg', n:{ru:'Fanta 1L', uz:'Fanta 1L', en:'Fanta 1L'}},
+    {id:'bliss_1', p:18000, img:'images/bliss_1.jpg', n:{ru:'Сок Bliss в ассортименте 1L', uz:"Bliss sharbat 1L (assort)", en:'Bliss juice assorted 1L'}},
+    {id:'cola_15', p:20000, img:'images/cola_15.jpg', n:{ru:'Coca Cola 1.5L', uz:'Coca Cola 1.5L', en:'Coca Cola 1.5L'}},
+    {id:'cola_1', p:15000, img:'images/cola_1.jpg', n:{ru:'Coca Cola 1L', uz:'Coca Cola 1L', en:'Coca Cola 1L'}},
+    {id:'ice_tea_125', p:15000, img:'images/ice_tea_125.jpg', n:{ru:'Ice Tea 1.25L', uz:'Ice Tea 1.25L', en:'Ice Tea 1.25L'}},
+    {id:'pepsi_1', p:15000, img:'images/pepsi_1.jpg', n:{ru:'Pepsi 1L', uz:'Pepsi 1L', en:'Pepsi 1L'}},
+    {id:'lipton_1', p:15000, img:'images/lipton_1.jpg', n:{ru:'Lipton 1L', uz:'Lipton 1L', en:'Lipton 1L'}},
+    {id:'pepsi_025', p:10000, img:'images/pepsi_025.jpg', n:{ru:'Pepsi 0.25L', uz:'Pepsi 0.25L', en:'Pepsi 0.25L'}},
+    {id:'pepsi_05', p:12000, img:'images/pepsi_05.jpg', n:{ru:'Pepsi 0.5L', uz:'Pepsi 0.5L', en:'Pepsi 0.5L'}},
+    {id:'pepsi_15', p:20000, img:'images/pepsi_15.jpg', n:{ru:'Pepsi 1.5L', uz:'Pepsi 1.5L', en:'Pepsi 1.5L'}},
+    {id:'cola_025', p:7000, img:'images/cola_025.jpg', n:{ru:'Coca Cola 0.25L', uz:'Coca Cola 0.25L', en:'Coca Cola 0.25L'}},
+    {id:'tea_black_green', p:5000, img:'images/tea_black_green.jpg', n:{ru:'Чай Черный/Зеленый', uz:"Qora/Yashil choy", en:'Black/Green tea'}},
+    {id:'tea_lemon', p:15000, img:'images/tea_lemon.jpg', n:{ru:'Чай с лимоном', uz:"Limonli choy", en:'Tea with lemon'}}
+  ],
+  water:[
+    {id:'montella_15', p:10000, img:'images/montella_15.jpg', n:{ru:'Вода Montella 1.5L', uz:'Montella 1.5L', en:'Montella 1.5L'}},
+    {id:'montella_1', p:7000, img:'images/montella_1.jpg', n:{ru:'Вода Montella 1L', uz:'Montella 1L', en:'Montella 1L'}},
+    {id:'chortoq_05', p:15000, img:'images/chortoq_05.jpg', n:{ru:'Минеральная вода Chortoq 0.5L', uz:'Chortoq 0.5L', en:'Chortoq mineral water 0.5L'}},
+    {id:'montella_05', p:5000, img:'images/montella_05.jpg', n:{ru:'Вода Montella 0.5L', uz:'Montella 0.5L', en:'Montella 0.5L'}}
+  ],
+  energy:[
+    {id:'18plus_05', p:15000, img:'images/18plus_05.jpg', n:{ru:'18+ 0.5L', uz:'18+ 0.5L', en:'18+ 0.5L'}},
+    {id:'18plus_033', p:12000, img:'images/18plus_033.jpg', n:{ru:'18+ 0.33L', uz:'18+ 0.33L', en:'18+ 0.33L'}},
+    {id:'18plus_025', p:10000, img:'images/18plus_025.jpg', n:{ru:'18+ 0.25L', uz:'18+ 0.25L', en:'18+ 0.25L'}},
+    {id:'adrenaline_049', p:15000, img:'images/adrenaline_049.jpg', n:{ru:'Adrenaline 0.49L', uz:'Adrenaline 0.49L', en:'Adrenaline 0.49L'}},
+    {id:'adrenaline_025', p:12000, img:'images/adrenaline_025.jpg', n:{ru:'Adrenaline 0.25L', uz:'Adrenaline 0.25L', en:'Adrenaline 0.25L'}}
+  ]
+};
 
-/* helpers */
+/* ✅ Плов порции (как было) */
+const PLOV_VARIANTS = [
+  {id:'plov_04', w:'0.4', p:40000, img:'images/plov_04.jpg', n:{ru:'Плов 0.4', uz:'Osh 0.4', en:'Plov 0.4'}},
+  {id:'plov_05', w:'0.5', p:50000, img:'images/plov_05.jpg', n:{ru:'Плов 0.5', uz:'Osh 0.5', en:'Plov 0.5'}},
+  {id:'plov_07', w:'0.7', p:70000, img:'images/plov_07.jpg', n:{ru:'Плов 0.7', uz:'Osh 0.7', en:'Plov 0.7'}},
+  {id:'plov_08', w:'0.8', p:80000, img:'images/plov_08.jpg', n:{ru:'Плов 0.8', uz:'Osh 0.8', en:'Plov 0.8'}},
+  {id:'plov_1',  w:'1',   p:100000,img:'images/plov_1.jpg',  n:{ru:'Плов 1',   uz:'Osh 1',   en:'Plov 1'}},
+  {id:'plov_15', w:'1.5', p:150000,img:'images/plov_15.jpg', n:{ru:'Плов 1.5', uz:'Osh 1.5', en:'Plov 1.5'}}
+];
+
 function formatSum(x){
   const n = Number(x) || 0;
   return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,' ');
@@ -1185,6 +1265,7 @@ function callPhone(e){
   catch(_){ window.location.href = PHONE_TEL; }
 }
 
+/* legal */
 function openLegal(){
   closeTopMenu();
   const t = MENU_I18N[lang] || MENU_I18N.ru;
@@ -1283,8 +1364,8 @@ function getName(it){
 
 /* index */
 const ITEM_BY_ID = {};
-for (const cat in MENU){ for (const it of (MENU[cat]||[])) ITEM_BY_ID[it.id] = it; }
-for (const v of (PLOV_VARIANTS||[])){ ITEM_BY_ID[v.id] = v; }
+for (const cat in MENU){ for (const it of MENU[cat]) ITEM_BY_ID[it.id] = it; }
+for (const v of PLOV_VARIANTS){ ITEM_BY_ID[v.id] = v; }
 
 /* ✅ popular: +/- */
 const POPULAR_IDS = ['plov','lagman','shurpa','achichuk'];
@@ -1294,10 +1375,15 @@ function renderPopular(){
   POPULAR_IDS.forEach(id=>{
     const it = ITEM_BY_ID[id];
     if(!it) return;
-    cart[id] = cart[id] || 0;
 
     const name = getName(it);
-    const priceText = (id==='plov') ? `${formatSum(40000)} <small>сум</small>` : `${formatSum(it.p)} <small>сум</small>`;
+    const priceText = (id === 'plov')
+      ? `${formatSum(40000)} <small>сум</small>`
+      : `${formatSum(it.p)} <small>сум</small>`;
+
+    let qty = 0;
+    if(id === 'plov') qty = plovQtyTotal();
+    else qty = Number(cart[id] || 0);
 
     $('popularRow').innerHTML += `
       <div class="pop-card">
@@ -1307,36 +1393,45 @@ function renderPopular(){
         <div class="pop-price">${priceText}</div>
 
         <div class="pop-counter">
-          <button onclick="event.stopPropagation(); addPopular('${id}',-1)">−</button>
-          <span id="p_${id}">${cart[id]||0}</span>
-          <button onclick="event.stopPropagation(); addPopular('${id}',1)">+</button>
+          <button onclick="event.stopPropagation(); popularMinus('${id}')">−</button>
+          <span id="p_${id}">${qty}</span>
+          <button onclick="event.stopPropagation(); popularPlus('${id}')">+</button>
         </div>
       </div>
     `;
   });
 }
-function addPopular(id,delta){
+function popularPlus(id){
+  if(id === 'plov'){ openPlovSheet(); return; }
+  chg(id, 1);
+  if(isSearchOpen()) closeSearch();
+}
+function popularMinus(id){
   if(id === 'plov'){
-    openPlovSheet();
+    // уменьшаем самую "маленькую" порцию плова, если есть
+    for(const v of PLOV_VARIANTS){
+      if((cart[v.id]||0) > 0){ chg(v.id, -1); refreshPlovQtys(); return; }
+    }
     return;
   }
-  chg(id, delta);
-  if(isSearchOpen()) closeSearch();
+  chg(id, -1);
 }
 
 function renderCats(){
   $('cats').innerHTML='';
   for(let k in MENU){
-    $('cats').innerHTML+=`<button class="btn ${k===category?'active':''}" onclick="category='${k}';renderCats();renderProducts()">${CATS[lang][k] || k}</button>`;
+    $('cats').innerHTML += `<button class="btn ${k===category?'active':''}" onclick="category='${k}';renderCats();renderProducts()">${CATS[lang][k] || k}</button>`;
   }
 }
 
-/* products */
+/* ✅ Сколько плова в корзине (сумма всех порций) */
 function plovQtyTotal(){
   let q = 0;
-  for(const v of (PLOV_VARIANTS||[])) q += Number(cart[v.id] || 0);
+  for(const v of PLOV_VARIANTS) q += Number(cart[v.id] || 0);
   return q;
 }
+
+/* cards */
 function cardHTML(it, q=''){
   const name = getName(it);
   const nameHtml = highlight(name, q);
@@ -1363,21 +1458,32 @@ function cardHTML(it, q=''){
     </div>
   </div>`;
 }
+
 function renderProducts(){
   $('products').innerHTML='';
   (MENU[category] || []).forEach(it=>{
     $('products').innerHTML += cardHTML(it,'');
   });
 }
+
 function chg(id,v){
   cart[id]=Math.max(0,(cart[id]||0)+v);
   const el = document.getElementById('c_'+id);
-  if(el) el.innerText=cart[id];
-  const pel = document.getElementById('p_'+id);
-  if(pel) pel.innerText=cart[id];
+  if(el) el.innerText = cart[id];
+
+  // обновим счетчики в популярном
+  if(document.getElementById('p_'+id)) document.getElementById('p_'+id).innerText = cart[id];
+
   updateTotal();
+  // и если меняли плов-порции — обновим общий счетчик плова в популярном
+  if(id.startsWith('plov_') || id === 'plov'){
+    const pp = document.getElementById('p_plov');
+    if(pp) pp.innerText = plovQtyTotal();
+  }
 }
+
 function price(id){ return ITEM_BY_ID[id]?.p || 0; }
+
 function updateTotal(){
   let s=0;
   for(let id in cart) s += (cart[id]||0) * price(id);
@@ -1433,7 +1539,9 @@ async function copyText(txt){
 
 function scrollToCart(){
   closeTopMenu();
-  $('cartBlock')?.scrollIntoView({behavior:'smooth', block:'start'});
+  const el = $('cartBlock');
+  if(!el) return;
+  el.scrollIntoView({behavior:'smooth', block:'start'});
 }
 
 /* search */
@@ -1465,7 +1573,7 @@ function searchProducts(){
   if(!q){ renderProducts(); return; }
 
   for(let c in MENU){
-    (MENU[c]||[]).forEach(it=>{
+    MENU[c].forEach(it=>{
       const name = getName(it);
       const n_ru = (it.n?.ru||'').toLowerCase();
       const n_uz = (it.n?.uz||'').toLowerCase();
@@ -1479,11 +1587,65 @@ function searchProducts(){
   }
 }
 
-/* Plov sheet (оставил как у тебя, если есть) */
-function openPlovSheet(){ /* если у тебя есть реализация — она ниже */ }
-function closePlovSheet(){ $('plovBackdrop')?.classList.remove('show'); $('plovSheet')?.classList.remove('show'); }
+/* ✅ Плов sheet */
+function openPlovSheet(){
+  try{ closeTopMenu(); }catch(_){}
+  $('plovBackdrop').classList.add('show');
+  $('plovSheet').classList.add('show');
 
-/* order (оставил как у тебя) */
+  $('plovSheetTitle').innerText = TEXT[lang].plov_choose;
+
+  const list = $('plovList');
+  list.innerHTML = '';
+
+  PLOV_VARIANTS.forEach(v=>{
+    cart[v.id] = cart[v.id] || 0;
+
+    const nm = getName(v);
+    list.innerHTML += `
+      <div class="plov-option">
+        <div class="plov-left">
+          <div class="nm">${escapeHtml(nm)}</div>
+          <div class="sm">${formatSum(v.p)} сум</div>
+        </div>
+        <div class="plov-right">
+          <button class="plov-mini" onclick="chg('${v.id}',-1); refreshPlovQtys();">−</button>
+          <div class="plov-qty" id="pq_${v.id}">${cart[v.id]||0}</div>
+          <button class="plov-mini" onclick="chg('${v.id}',1); refreshPlovQtys();">+</button>
+        </div>
+      </div>
+    `;
+  });
+
+  refreshPlovQtys();
+}
+function refreshPlovQtys(){
+  PLOV_VARIANTS.forEach(v=>{
+    const el = document.getElementById('pq_'+v.id);
+    if(el) el.innerText = cart[v.id] || 0;
+  });
+
+  // обновим счетчик плова в популярном
+  const pp = document.getElementById('p_plov');
+  if(pp) pp.innerText = plovQtyTotal();
+
+  // если на экране карточка плова
+  try{
+    if(!isSearchOpen()){
+      if(category === 'second') renderProducts();
+    }else{
+      searchProducts();
+    }
+  }catch(_){}
+
+  updateTotal();
+}
+function closePlovSheet(){
+  $('plovBackdrop').classList.remove('show');
+  $('plovSheet').classList.remove('show');
+}
+
+/* order */
 function genOrderId(){
   const d = new Date();
   const dd = String(d.getDate()).padStart(2,'0');
@@ -1597,7 +1759,7 @@ bindSave();
 applyLang();
 setAboutLang('uz');
 
-/* ✅ показать онлайн блок если вдруг был сохранен */
+/* ✅ по умолчанию CASH, и онлайн блок скрыт */
 setPayment('cash');
 </script>
 </body>
