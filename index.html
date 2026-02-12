@@ -139,19 +139,33 @@ body{
   opacity:.95;
 }
 
-/* ✅ Перенос: бургер в правый верхний угол, геолокация ниже бургера */
-.burger-btn{
+/* ✅ ВЫРАВНИВАНИЕ 3 КНОПОК В ШАПКЕ (бургер/гео/поиск) */
+:root{
+  --hdrRight: 14px;   /* отступ от правого края */
+  --hdrTop: 12px;     /* верхний отступ */
+  --hdrSize: 38px;    /* размер кнопки */
+  --hdrGap: 8px;      /* расстояние между кнопками */
+}
+.header-actions{
   position:absolute;
-  right:14px;
-  top:12px;
-  width:38px;
-  height:38px;
+  right: var(--hdrRight);
+  top: var(--hdrTop);
+  z-index: 120;
+  display:flex;
+  flex-direction:column;
+  gap: var(--hdrGap);
+  align-items:center;
+}
+
+/* кнопки-шайбы */
+.burger-btn, .geo-btn, .search-btn{
+  width:var(--hdrSize);
+  height:var(--hdrSize);
   border-radius:50%;
   display:flex;
   align-items:center;
   justify-content:center;
   cursor:pointer;
-  z-index:85;
   color:#fff;
   background: rgba(255,255,255,.14);
   border:1px solid rgba(255,255,255,.22);
@@ -159,8 +173,10 @@ body{
   -webkit-backdrop-filter: blur(10px);
   box-shadow: 0 14px 30px rgba(0,0,0,.18);
   transition:.15s;
+  user-select:none;
 }
-.burger-btn:active{ transform:scale(.97); }
+.burger-btn:active,.geo-btn:active,.search-btn:active{ transform:scale(.97); }
+
 .burger-ic{ width:18px; height:12px; position:relative; }
 .burger-ic span{
   position:absolute; left:0; right:0;
@@ -170,54 +186,6 @@ body{
 .burger-ic span:nth-child(1){ top:0; }
 .burger-ic span:nth-child(2){ top:5px; }
 .burger-ic span:nth-child(3){ bottom:0; }
-
-.geo-btn{
-  position:absolute;
-  right:14px;
-  top:56px; /* ✅ ниже бургера */
-  width:38px;
-  height:38px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:18px;
-  font-weight:900;
-  cursor:pointer;
-  z-index:80;
-  color:#fff;
-  background: rgba(255,255,255,.14);
-  border:1px solid rgba(255,255,255,.22);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 14px 30px rgba(0,0,0,.18);
-  transition:.15s;
-}
-.geo-btn:active{ transform:scale(.97); }
-
-.search-btn{
-  position:absolute;
-  right:14px;
-  bottom:12px;
-  width:38px;
-  height:38px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:16px;
-  font-weight:900;
-  cursor:pointer;
-  z-index:60;
-  color:#fff;
-  background: rgba(255,255,255,.14);
-  border:1px solid rgba(255,255,255,.22);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 14px 30px rgba(0,0,0,.18);
-  transition:.15s;
-}
-.search-btn:active{ transform:scale(.97); }
 
 /* ===== common ===== */
 .langs,.types,.payments{
@@ -831,11 +799,7 @@ body[data-theme="dark"] .plov-option{
   .header img{ width:76px; padding:7px; border-radius:16px; }
 
   /* ✅ кнопки в шапке чуть меньше */
-  .geo-btn,.burger-btn,.search-btn{ width:36px; height:36px; }
-
-  /* ✅ удерживаем гео под бургером на мобилке */
-  .burger-btn{ top:12px; right:14px; }
-  .geo-btn{ top:54px; right:14px; }
+  :root{ --hdrSize:36px; --hdrGap:8px; }
 
   .products{ gap:12px; }
 
@@ -853,6 +817,7 @@ body[data-theme="dark"] .plov-option{
 
 <div class="header">
   <img src="logo.png" onerror="this.src='logo.png'">
+
   <div class="brand-wrap">
     <div class="brand-title">O'ZBEGIM</div>
     <div class="brand-sub">CHOYXONASI</div>
@@ -861,12 +826,14 @@ body[data-theme="dark"] .plov-option{
     </div>
   </div>
 
-  <!-- ✅ порядок: бургер сверху справа, гео ниже, поиск снизу справа -->
-  <div class="burger-btn" onclick="openTopMenu()" title="Меню">
-    <div class="burger-ic"><span></span><span></span><span></span></div>
+  <!-- ✅ РОВНОЕ выравнивание 3 кнопок: бургер / гео / поиск -->
+  <div class="header-actions" aria-label="header actions">
+    <div class="burger-btn" onclick="openTopMenu()" title="Меню">
+      <div class="burger-ic"><span></span><span></span><span></span></div>
+    </div>
+    <div class="geo-btn" onclick="openMap()" title="Маршрут">📍</div>
+    <div class="search-btn" onclick="toggleSearch()" title="Поиск">🔍</div>
   </div>
-  <div class="geo-btn" onclick="openMap()" title="Маршрут">📍</div>
-  <div class="search-btn" onclick="toggleSearch()">🔍</div>
 </div>
 
 <div class="search-title" id="searchTitle">Результаты поиска</div>
@@ -1423,7 +1390,6 @@ function popularPlus(id){
 }
 function popularMinus(id){
   if(id === 'plov'){
-    // уменьшаем самую "маленькую" порцию плова, если есть
     for(const v of PLOV_VARIANTS){
       if((cart[v.id]||0) > 0){ chg(v.id, -1); refreshPlovQtys(); return; }
     }
@@ -1486,11 +1452,9 @@ function chg(id,v){
   const el = document.getElementById('c_'+id);
   if(el) el.innerText = cart[id];
 
-  // обновим счетчики в популярном
   if(document.getElementById('p_'+id)) document.getElementById('p_'+id).innerText = cart[id];
 
   updateTotal();
-  // и если меняли плов-порции — обновим общий счетчик плова в популярном
   if(id.startsWith('plov_') || id === 'plov'){
     const pp = document.getElementById('p_plov');
     if(pp) pp.innerText = plovQtyTotal();
@@ -1640,11 +1604,9 @@ function refreshPlovQtys(){
     if(el) el.innerText = cart[v.id] || 0;
   });
 
-  // обновим счетчик плова в популярном
   const pp = document.getElementById('p_plov');
   if(pp) pp.innerText = plovQtyTotal();
 
-  // если на экране карточка плова
   try{
     if(!isSearchOpen()){
       if(category === 'second') renderProducts();
@@ -1779,4 +1741,3 @@ setPayment('cash');
 </script>
 </body>
 </html>
-
