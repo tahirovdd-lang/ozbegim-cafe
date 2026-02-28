@@ -881,6 +881,18 @@ body[data-theme="dark"] .plov-option{
     <button class="btn" id="payOnline" onclick="setPayment('online')"></button>
   </div>
 
+  <!-- ✅ CLICK QR (показываем только при CLICK) -->
+  <div class="online-box" id="clickBox">
+    <div class="kv" id="clickTitle">CLICK — QR</div>
+    <div class="small-note" id="clickHint" style="margin-top:8px;">
+      Отсканируйте QR-код в приложении CLICK и оплатите.
+    </div>
+    <div style="margin-top:10px; display:flex; justify-content:center;">
+      <!-- ✅ Название файла: images/click_qr.jpg -->
+      <img src="images/click_qr.jpg" alt="CLICK QR" style="width:100%; max-width:320px; border-radius:16px; display:block;" onerror="this.style.display='none'">
+    </div>
+  </div>
+
   <!-- ✅ Реквизиты (показываем только при Онлайн) -->
   <div class="online-box" id="onlineBox">
     <div class="kv" id="onlineTitle">Онлайн оплата</div>
@@ -1069,11 +1081,18 @@ const MAP_URL = "https://yandex.uz/maps/org/23178318202/?ll=66.950144%2C39.64518
 
 const LEGAL_PHONE = "+998 91 319 70 07";
 const LEGAL_MAIL  = "uzbegimsignature@gmail.com";
+
+/* ✅ Админы (добавлен 6564250879) */
+const ADMIN_IDS = ["6013591658","6564250879"];  // <-- отправим в payload, чтобы бот мог слать всем
+
 const ADMIN_TG_ID = "6013591658";
 
 /* ✅ Онлайн реквизиты */
 const ONLINE_RECIPIENT = "Baxtiyorov Botur";
 const ONLINE_CARD = "9860170109382557";
+
+/* ✅ CLICK QR файл (добавь в папку images) */
+const CLICK_QR_IMG = "images/click_qr.jpg"; // <-- название: click_qr.jpg (JPG)
 
 function openMap(){
   try{ Telegram.WebApp.openLink(MAP_URL); }
@@ -1120,9 +1139,9 @@ Uzbegim Osh — a taste proven by time 🇺🇿🍽️`
 };
 
 const TEXT={
-  ru:{delivery:'🚚 Доставка',pickup:'🏃 Самовывоз',address:'📍 Адрес доставки',phone:'📞 Телефон',cart:'🛒 Корзина',order:'Оформить заказ',comment:'✍️ Комментарий к заказу',cash:'💵 Наличные',click:'💳 CLICK',online:'💸 Онлайн',results:'Результаты поиска',popular:'🔥 Популярное',empty:'Корзина пустая',cart_btn:'🛒 Корзина',plov_choose:'Плов — выберите порцию',choose:'Выбрать',online_title:'Онлайн оплата',rec:'Получатель',card:'Номер карты',online_hint:'Скопируйте реквизиты и оплатите переводом на карту.',copied:'Скопировано',bar_choose:'Выберите объём'},
-  uz:{delivery:'🚚 Yetkazish',pickup:'🏃 Olib ketish',address:'📍 Manzil',phone:'📞 Telefon',cart:'🛒 Savat',order:'Buyurtma berish',comment:'✍️ Izoh',cash:'💵 Naqd',click:'💳 CLICK',online:'💸 Onlayn',results:'Qidiruv natijalari',popular:'🔥 Ommabop',empty:'Savat bo‘sh',cart_btn:'🛒 Savat',plov_choose:"Osh — porsiyani tanlang",choose:'Tanlash',online_title:"Onlayn to‘lov",rec:"Qabul qiluvchi",card:"Karta raqami",online_hint:"Rekvizitlarni nusxa oling va kartaga o‘tkazma qiling.",copied:'Nusxa olindi',bar_choose:"Hajmni tanlang"},
-  en:{delivery:'🚚 Delivery',pickup:'🏃 Pickup',address:'📍 Address',phone:'📞 Phone',cart:'🛒 Cart',order:'Place order',comment:'✍️ Comment',cash:'💵 Cash',click:'💳 CLICK',online:'💸 Online',results:'Search results',popular:'🔥 Popular',empty:'Cart is empty',cart_btn:'🛒 Cart',plov_choose:'Plov — choose portion',choose:'Choose',online_title:'Online payment',rec:'Recipient',card:'Card number',online_hint:'Copy details and pay by card transfer.',copied:'Copied',bar_choose:'Choose size'}
+  ru:{delivery:'🚚 Доставка',pickup:'🏃 Самовывоз',address:'📍 Адрес доставки',phone:'📞 Телефон',cart:'🛒 Корзина',order:'Оформить заказ',comment:'✍️ Комментарий к заказу',cash:'💵 Наличные',click:'💳 CLICK',online:'💸 Онлайн',results:'Результаты поиска',popular:'🔥 Популярное',empty:'Корзина пустая',cart_btn:'🛒 Корзина',plov_choose:'Плов — выберите порцию',choose:'Выбрать',online_title:'Онлайн оплата',rec:'Получатель',card:'Номер карты',online_hint:'Скопируйте реквизиты и оплатите переводом на карту.',copied:'Скопировано',bar_choose:'Выберите объём',click_qr_title:'CLICK — QR',click_qr_hint:'Отсканируйте QR-код в приложении CLICK и оплатите.'},
+  uz:{delivery:'🚚 Yetkazish',pickup:'🏃 Olib ketish',address:'📍 Manzil',phone:'📞 Telefon',cart:'🛒 Savat',order:'Buyurtma berish',comment:'✍️ Izoh',cash:'💵 Naqd',click:'💳 CLICK',online:'💸 Onlayn',results:'Qidiruv natijalari',popular:'🔥 Ommabop',empty:'Savat bo‘sh',cart_btn:'🛒 Savat',plov_choose:"Osh — porsiyani tanlang",choose:'Tanlash',online_title:"Onlayn to‘lov",rec:"Qabul qiluvchi",card:"Karta raqami",online_hint:"Rekvizitlarni nusxa oling va kartaga o‘tkazma qiling.",copied:'Nusxa olindi',bar_choose:"Hajmni tanlang",click_qr_title:'CLICK — QR',click_qr_hint:'CLICK ilovasida QR-kodni skaner qilib to‘lang.'},
+  en:{delivery:'🚚 Delivery',pickup:'🏃 Pickup',address:'📍 Address',phone:'📞 Phone',cart:'🛒 Cart',order:'Place order',comment:'✍️ Comment',cash:'💵 Cash',click:'💳 CLICK',online:'💸 Online',results:'Search results',popular:'🔥 Popular',empty:'Cart is empty',cart_btn:'🛒 Cart',plov_choose:'Plov — choose portion',choose:'Choose',online_title:'Online payment',rec:'Recipient',card:'Card number',online_hint:'Copy details and pay by card transfer.',copied:'Copied',bar_choose:'Choose size',click_qr_title:'CLICK — QR',click_qr_hint:'Scan the QR in CLICK app and pay.'}
 };
 
 const CATS={
@@ -1466,12 +1485,10 @@ function buildBarVariantIndex(){
     BAR[sub].forEach(base=>{
       const vv = base.v || [];
       if(vv.length <= 1){
-        // одна цена — как обычный товар
         const p = vv[0]?.p ?? 0;
         const obj = { id: base.id, p, img: base.img, n: base.n, _barBase:true };
         ITEM_BY_ID[obj.id] = obj;
       }else{
-        // много цен — карточка "выбрать", а в корзину идут variant id
         const obj = { id: base.id, p: 0, img: base.img, n: base.n, special:'variants', v: vv, _barBase:true };
         ITEM_BY_ID[obj.id] = obj;
 
@@ -1569,8 +1586,8 @@ function plovQtyTotal(){
 }
 
 /* ====== Sheet: Плов или Варианты BAR ====== */
-let sheetMode = 'plov';     // 'plov' | 'variants'
-let sheetBaseId = '';       // base id для variants
+let sheetMode = 'plov';
+let sheetBaseId = '';
 
 function openVariantSheet(baseId){
   const base = ITEM_BY_ID[baseId];
@@ -1645,10 +1662,7 @@ function openPlovSheet(){
   refreshSheetQtys();
 }
 
-function refreshPlovQtys(){
-  // совместимость со старым вызовом
-  refreshSheetQtys();
-}
+function refreshPlovQtys(){ refreshSheetQtys(); }
 
 function refreshSheetQtys(){
   if(sheetMode === 'plov'){
@@ -1690,7 +1704,6 @@ function minVariantPrice(v){
   return (m === Infinity) ? 0 : m;
 }
 function qtyForBase(baseId){
-  // сумма всех вариантов по baseId
   let q = 0;
   for(const id in cart){
     if(!cart[id]) continue;
@@ -1750,7 +1763,6 @@ function renderProducts(){
   const list = getActiveList();
 
   list.forEach(raw=>{
-    // BAR может содержать base-объект, но индексация уже в ITEM_BY_ID
     const it = ITEM_BY_ID[raw.id] || raw;
     $('products').innerHTML += cardHTML(it,'');
   });
@@ -1803,7 +1815,10 @@ function setPayment(p){
   $('payCash').classList.toggle('active',p==='cash');
   $('payClick').classList.toggle('active',p==='click');
   $('payOnline').classList.toggle('active',p==='online');
+
+  // ✅ показываем нужный блок
   $('onlineBox').style.display = (p==='online') ? 'block' : 'none';
+  $('clickBox').style.display  = (p==='click')  ? 'block' : 'none';
 }
 
 /* copy */
@@ -1872,7 +1887,6 @@ function searchProducts(){
   $('products').innerHTML='';
   if(!q){ renderProducts(); return; }
 
-  // меню кухни
   for(let c in MENU){
     MENU[c].forEach(base=>{
       const it = ITEM_BY_ID[base.id] || base;
@@ -1880,7 +1894,6 @@ function searchProducts(){
     });
   }
 
-  // бар (по base-товарам)
   for(let sub in BAR){
     BAR[sub].forEach(base=>{
       const it = ITEM_BY_ID[base.id] || base;
@@ -1939,7 +1952,12 @@ function sendOrder(){
     phone: $('phone').value,
     comment: $('comment').value,
     order_id: genOrderId(),
-    online_details: payment==='online' ? {recipient: ONLINE_RECIPIENT, card: ONLINE_CARD} : null
+
+    // ✅ чтобы боту было кому слать (добавлен 6564250879)
+    admins: ADMIN_IDS,
+
+    online_details: payment==='online' ? {recipient: ONLINE_RECIPIENT, card: ONLINE_CARD} : null,
+    click_qr: payment==='click' ? {img: CLICK_QR_IMG} : null
   };
 
   Telegram.WebApp.sendData(JSON.stringify(payload));
@@ -1967,6 +1985,10 @@ function applyLang(){
   $('recValue').innerText    = ONLINE_RECIPIENT;
   $('cardValue').innerText   = ONLINE_CARD;
   $('onlineHint').innerText  = TEXT[lang].online_hint;
+
+  // ✅ CLICK QR i18n
+  $('clickTitle').innerText  = TEXT[lang].click_qr_title || 'CLICK — QR';
+  $('clickHint').innerText   = TEXT[lang].click_qr_hint  || '';
 
   renderPopular();
   renderCats();
@@ -2004,7 +2026,7 @@ bindSave();
 applyLang();
 setAboutLang('uz');
 
-/* ✅ по умолчанию CASH, и онлайн блок скрыт */
+/* ✅ по умолчанию CASH, и блоки скрыты */
 setPayment('cash');
 </script>
 </body>
