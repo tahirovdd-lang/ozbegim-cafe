@@ -1493,9 +1493,9 @@ const MENU = {
       "p": 0,
       "img": "images/plov.jpg",
       "n": {
-        "ru": "Плов 0.5/0.7/1 порция",
-        "uz": "Плов 0.5/0.7/1 порция",
-        "en": "Плов 0.5/0.7/1 порция"
+        "ru": "Плов",
+        "uz": "Плов",
+        "en": "Plov"
       },
       "special": "plov"
     },
@@ -2159,33 +2159,55 @@ const PLOV_VARIANTS = [
     "id": "plov_05",
     "w": "0.5",
     "p": 50000,
-    "img": "images/plov_05.jpg",
+    "img": "images/plov.jpg",
     "n": {
       "ru": "Плов 0.5 порция",
       "uz": "Плов 0.5 порция",
-      "en": "Плов 0.5 portion"
+      "en": "Plov 0.5 portion"
+    }
+  },
+  {
+    "id": "plov_06",
+    "w": "0.6",
+    "p": 60000,
+    "img": "images/plov.jpg",
+    "n": {
+      "ru": "Плов 0.6 порция",
+      "uz": "Плов 0.6 порция",
+      "en": "Plov 0.6 portion"
     }
   },
   {
     "id": "plov_07",
     "w": "0.7",
     "p": 70000,
-    "img": "images/plov_07.jpg",
+    "img": "images/plov.jpg",
     "n": {
       "ru": "Плов 0.7 порция",
       "uz": "Плов 0.7 порция",
-      "en": "Плов 0.7 portion"
+      "en": "Plov 0.7 portion"
+    }
+  },
+  {
+    "id": "plov_08",
+    "w": "0.8",
+    "p": 80000,
+    "img": "images/plov.jpg",
+    "n": {
+      "ru": "Плов 0.8 порция",
+      "uz": "Плов 0.8 порция",
+      "en": "Plov 0.8 portion"
     }
   },
   {
     "id": "plov_1",
     "w": "1",
     "p": 100000,
-    "img": "images/plov_1.jpg",
+    "img": "images/plov.jpg",
     "n": {
       "ru": "Плов 1 порция",
       "uz": "Плов 1 порция",
-      "en": "Плов 1 portion"
+      "en": "Plov 1 portion"
     }
   }
 ];
@@ -2384,7 +2406,7 @@ function renderPopular(){
 
     const name = getName(it);
     const priceText = (id === 'plov')
-      ? `${formatSum(40000)} <small>сум</small>`
+      ? `${formatSum(50000)} <small>сум</small>`
       : `${formatSum(it.p)} <small>сум</small>`;
 
     let qty = 0;
@@ -2620,7 +2642,7 @@ function cardHTML(it, q=''){
     return `<div class="card">
       <div class="img"><img src="${it.img}" onerror="this.src='logo.png'"></div>
       <div>${nameHtml}</div>
-      <div class="price">${formatSum(40000)} <small>сум</small> <small style="opacity:.75">(${TEXT[lang].choose})</small></div>
+      <div class="price">${formatSum(50000)} <small>сум</small> <small style="opacity:.75">(${TEXT[lang].choose})</small></div>
       <button class="select-btn" onclick="openPlovSheet()">${TEXT[lang].choose} (${qTotal})</button>
     </div>`;
   }
