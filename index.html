@@ -855,6 +855,73 @@ body[data-theme="dark"] .plov-option{
 }
 .price,.pop-price{ color:#8B6B16; }
 
+
+/* === UPDATE: compact profile header + rounded category/product icons === */
+.brand-title{ font-size:28px !important; letter-spacing:.6px !important; }
+.brand-sub{ display:none !important; }
+.brand-phone{ margin-top:6px !important; }
+@media (max-width:420px){ .brand-title{ font-size:23px !important; } .brand-wrap{ transform:translateX(18px) !important; } }
+
+.categories.main-sections{ justify-content:center; gap:12px; padding-top:14px; }
+.categories.main-sections .btn{
+  min-width:148px;
+  border-radius:999px;
+  padding:13px 18px;
+  font-size:15px;
+  border:1px solid rgba(200,145,45,.32);
+  background:linear-gradient(180deg, rgba(248,235,207,.96), rgba(238,214,168,.92));
+}
+.categories.main-sections .btn.active{
+  background:linear-gradient(135deg, var(--samarkand), var(--gold));
+  color:#fff7d6;
+}
+.cat-backdrop{
+  position:fixed; inset:0; background:rgba(0,0,0,.45); opacity:0; pointer-events:none;
+  transition:.18s; z-index:2500;
+}
+.cat-backdrop.show{ opacity:1; pointer-events:auto; }
+.cat-sheet{
+  position:fixed; left:0; right:0; bottom:-120%; z-index:2510; transition:.22s;
+  padding:10px 12px calc(env(safe-area-inset-bottom) + 16px);
+  background:linear-gradient(180deg, rgba(248,235,207,.98), rgba(238,214,168,.98));
+  border-top-left-radius:30px; border-top-right-radius:30px;
+  border:1px solid rgba(200,145,45,.32);
+  box-shadow:0 20px 60px rgba(0,0,0,.28);
+  max-height:78vh; overflow:auto;
+}
+body[data-theme="dark"] .cat-sheet{ background:linear-gradient(180deg, rgba(29,23,16,.98), rgba(44,33,20,.98)); }
+.cat-sheet.show{ bottom:0; }
+.cat-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; padding:8px 2px 4px; }
+.cat-tile{
+  border:1px solid rgba(200,145,45,.28);
+  background:rgba(255,247,226,.78);
+  border-radius:24px;
+  padding:12px 8px;
+  min-height:96px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
+  box-shadow:0 14px 30px rgba(62,36,14,.12);
+  font-weight:900; text-align:center; color:var(--text); cursor:pointer;
+}
+body[data-theme="dark"] .cat-tile{ background:rgba(255,255,255,.06); }
+.cat-tile.active{ background:linear-gradient(135deg, var(--samarkand), var(--gold)); color:#fff7d6; }
+.cat-emoji{
+  width:48px; height:48px; border-radius:18px;
+  display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(135deg, rgba(11,49,95,.12), rgba(200,145,45,.18));
+  border:1px solid rgba(200,145,45,.28); font-size:25px;
+}
+.cat-tile.active .cat-emoji{ background:rgba(255,255,255,.14); border-color:rgba(255,255,255,.28); }
+.card .img, .pop-img{
+  border-radius:24px;
+  background:radial-gradient(circle at 50% 30%, rgba(248,235,207,.95), rgba(238,214,168,.62));
+  border:1px solid rgba(200,145,45,.20);
+  overflow:hidden;
+}
+.card .img img{ border-radius:22px; object-fit:cover; width:122px; height:122px; }
+.card{ border-radius:28px !important; }
+.select-btn,.counter button,.pop-counter button{ border-radius:999px !important; }
+@media(max-width:420px){ .cat-grid{ grid-template-columns:repeat(2,1fr); } }
+
 </style>
 </head>
 
@@ -865,7 +932,6 @@ body[data-theme="dark"] .plov-option{
 
   <div class="brand-wrap">
     <div class="brand-title">CAFE UZBEGIM</div>
-    <div class="brand-sub">MILLIY OSHXONA</div>
     <div class="brand-phone">
       <a href="tel:+998704770909" onclick="callPhone(event)">+998 (70) 477-09-09</a>
     </div>
@@ -1094,6 +1160,18 @@ body[data-theme="dark"] .plov-option{
       <button class="tabbtn" onclick="openMailLegal()">Почта</button>
     </div>
   </div>
+</div>
+
+
+<!-- ✅ Категории кухни/бара — нижний список -->
+<div class="cat-backdrop" id="catBackdrop" onclick="closeCategorySheet()"></div>
+<div class="cat-sheet" id="catSheet" role="dialog" aria-modal="true">
+  <div class="menu-handle"></div>
+  <div class="plov-title">
+    <b id="catSheetTitle">Категории</b>
+    <button class="menu-close" onclick="closeCategorySheet()">×</button>
+  </div>
+  <div class="cat-grid" id="catGrid"></div>
 </div>
 
 <!-- ✅ Плов — выбор порции (снизу) + используем тот же sheet для БАР вариантов -->
@@ -2189,7 +2267,7 @@ function openMailLegal(){
 }
 
 /* theme */
-let lang='uz', category='salads', type='delivery', payment='cash';
+let lang='uz', section='kitchen', category='salads', type='delivery', payment='cash';
 let barSub='hotdog';
 let cart = {};
 
@@ -2344,24 +2422,58 @@ function popularMinus(id){
   chg(id, -1);
 }
 
-/* ✅ BAR subcats render */
+/* ✅ Кухня / Бар — отдельные главные кнопки + нижний список категорий */
+const SECTION_CATS = {
+  kitchen:['salads','cold','first','second','shashlik','bread'],
+  bar:['tea','fresh','lemonade','milkshake','drinks','water','coffee','energy']
+};
+const SECTION_LABELS = {
+  ru:{kitchen:'🍽️ Кухня', bar:'🍹 Бар', chooseKitchen:'Категории кухни', chooseBar:'Категории напитков'},
+  uz:{kitchen:'🍽️ Oshxona', bar:'🍹 Bar', chooseKitchen:'Taomlar kategoriyasi', chooseBar:'Ichimliklar kategoriyasi'},
+  en:{kitchen:'🍽️ Kitchen', bar:'🍹 Bar', chooseKitchen:'Kitchen categories', chooseBar:'Drink categories'}
+};
+function catEmoji(label){ return String(label||'').trim().split(' ')[0] || '•'; }
+function catText(label){ return String(label||'').replace(/^\S+\s*/, ''); }
 function renderSubCats(){
   const sc = $('subcats');
-  if(category !== 'bar'){ sc.style.display = 'none'; sc.innerHTML=''; return; }
-  sc.style.display = '';
+  sc.style.display = 'none';
   sc.innerHTML = '';
-  const labels = BAR_SUBCATS[lang] || BAR_SUBCATS.ru;
-
-  Object.keys(BAR).forEach(k=>{
-    sc.innerHTML += `<button class="btn ${k===barSub?'active':''}" onclick="barSub='${k}'; renderSubCats(); renderProducts()">${labels[k] || k}</button>`;
-  });
 }
-
 function renderCats(){
-  $('cats').innerHTML='';
-  for(let k in CATS[lang]){
-    $('cats').innerHTML += `<button class="btn ${k===category?'active':''}" onclick="category='${k}'; if(category!=='bar'){barSub='hotdog'}; renderCats(); renderSubCats(); renderProducts()">${CATS[lang][k] || k}</button>`;
-  }
+  const labels = SECTION_LABELS[lang] || SECTION_LABELS.ru;
+  $('cats').classList.add('main-sections');
+  $('cats').innerHTML = `
+    <button class="btn ${section==='kitchen'?'active':''}" onclick="openCategorySheet('kitchen')">${labels.kitchen}</button>
+    <button class="btn ${section==='bar'?'active':''}" onclick="openCategorySheet('bar')">${labels.bar}</button>
+  `;
+}
+function openCategorySheet(sec){
+  section = sec;
+  const labels = SECTION_LABELS[lang] || SECTION_LABELS.ru;
+  $('catSheetTitle').innerText = sec === 'bar' ? labels.chooseBar : labels.chooseKitchen;
+  const keys = SECTION_CATS[sec] || [];
+  const catLabels = CATS[lang] || CATS.ru;
+  $('catGrid').innerHTML = keys.map(k=>{
+    const lbl = catLabels[k] || k;
+    return `<div class="cat-tile ${k===category?'active':''}" onclick="selectCategory('${k}')">
+      <div class="cat-emoji">${catEmoji(lbl)}</div>
+      <div>${catText(lbl) || lbl}</div>
+    </div>`;
+  }).join('');
+  $('catBackdrop').classList.add('show');
+  $('catSheet').classList.add('show');
+  renderCats();
+}
+function closeCategorySheet(){
+  $('catBackdrop').classList.remove('show');
+  $('catSheet').classList.remove('show');
+}
+function selectCategory(k){
+  category = k;
+  closeCategorySheet();
+  renderCats();
+  renderSubCats();
+  renderProducts();
 }
 
 /* ✅ Сколько плова в корзине (сумма всех порций) */
@@ -2538,9 +2650,6 @@ function cardHTML(it, q=''){
 }
 
 function getActiveList(){
-  if(category === 'bar'){
-    return BAR[barSub] || [];
-  }
   return (MENU[category] || []);
 }
 
