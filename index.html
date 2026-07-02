@@ -1,0 +1,2808 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>CAFE UZBEGIM</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Yeseva+One&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet" />
+
+<style>
+:root{
+  --sand:#fbf7ef;
+  --text:#1f1f1f;
+
+  --gold:#D4A017;
+  --samarkand:#1f4aa8;
+  --green:#1F4D3A;
+  --atlas-red:#8B1E1E;
+
+  --card-bg: rgba(255,255,255,.84);
+  --line: rgba(0,0,0,.07);
+  --shadow: 0 14px 34px rgba(0,0,0,.10);
+
+  --r-lg:26px;
+  --r-md:20px;
+  --r-sm:16px;
+}
+body[data-theme="dark"]{
+  --sand:#121212;
+  --text:#f1f1f1;
+
+  --card-bg: rgba(28,28,28,.90);
+  --line: rgba(255,255,255,.12);
+  --shadow: 0 18px 44px rgba(0,0,0,.35);
+}
+*{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html, body{ width:100%; height:100%; margin:0; padding:0; }
+html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+
+body{
+  min-height:100vh;
+  font-family:'Montserrat',sans-serif;
+  background:
+    radial-gradient(1200px 600px at 50% -120px, rgba(31,74,168,.14), transparent 60%),
+    linear-gradient(180deg, #fff, var(--sand));
+  color:var(--text);
+  padding-bottom:120px;
+}
+
+/* ===== header ===== */
+.header{
+  padding:18px 14px 30px;
+  color:#fff;
+  position:relative;
+  text-align:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.56), rgba(0,0,0,.34)),
+    url("atlas.jpg") center/cover no-repeat;
+  box-shadow: 0 16px 34px rgba(0,0,0,.18);
+  border-bottom: 1px solid rgba(255,255,255,.16);
+}
+.header::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  pointer-events:none;
+}
+.header::before{
+  content:"";
+  position:absolute;
+  left:0; right:0; bottom:0;
+  height:16px;
+  background: linear-gradient(90deg, rgba(212,160,23,0), rgba(212,160,23,.42), rgba(212,160,23,0));
+  opacity:.75;
+  pointer-events:none;
+}
+.header img{
+  position:absolute;
+  left:10px;
+  top:50%;
+  transform:translateY(-50%);
+  width:88px;
+  max-width:30vw;
+  height:auto;
+  z-index:5;
+
+  padding:8px;
+  border-radius:18px;
+  background: rgba(255,255,255,.16);
+  border: 1px solid rgba(255,255,255,.28);
+  box-shadow: 0 14px 30px rgba(0,0,0,.20);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* ✅ чтобы CHOYXONASI было по центру под CAFE UZBEGIM */
+.brand-wrap{
+  position:relative;
+  z-index:6;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  transform: translateX(28px); /* отступ из-за логотипа слева */
+}
+.brand-title{
+  font-family:'Yeseva One', serif;
+  font-size:38px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  text-shadow: 0 12px 22px rgba(0,0,0,.28);
+  line-height:1.0;
+}
+.brand-sub{
+  margin-top:6px;
+  font-weight:900;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  font-size:13px;
+  opacity:.95;
+  text-align:center;
+  width:100%;
+}
+.brand-phone{ position:relative; z-index:50; pointer-events:auto; margin-top:8px; }
+.brand-phone a{
+  color:#fff;
+  text-decoration:none;
+  font-size:15px;
+  font-weight:900;
+  position:relative;
+  z-index:51;
+  opacity:.95;
+}
+
+/* ✅ ВЫРАВНИВАНИЕ 3 КНОПОК В ШАПКЕ (бургер/гео/поиск) */
+:root{
+  --hdrRight: 14px;   /* отступ от правого края */
+  --hdrTop: 12px;     /* верхний отступ */
+  --hdrSize: 38px;    /* размер кнопки */
+  --hdrGap: 8px;      /* расстояние между кнопками */
+}
+.header-actions{
+  position:absolute;
+  right: var(--hdrRight);
+  top: var(--hdrTop);
+  z-index: 120;
+  display:flex;
+  flex-direction:column;
+  gap: var(--hdrGap);
+  align-items:center;
+}
+
+/* кнопки-шайбы */
+.burger-btn, .geo-btn, .search-btn{
+  width:var(--hdrSize);
+  height:var(--hdrSize);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  color:#fff;
+  background: rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.22);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 14px 30px rgba(0,0,0,.18);
+  transition:.15s;
+  user-select:none;
+}
+.burger-btn:active,.geo-btn:active,.search-btn:active{ transform:scale(.97); }
+
+.burger-ic{ width:18px; height:12px; position:relative; }
+.burger-ic span{
+  position:absolute; left:0; right:0;
+  height:2px; border-radius:8px;
+  background:#fff; opacity:.95;
+}
+.burger-ic span:nth-child(1){ top:0; }
+.burger-ic span:nth-child(2){ top:5px; }
+.burger-ic span:nth-child(3){ bottom:0; }
+
+/* ===== common ===== */
+.langs,.types,.payments{
+  display:flex;
+  gap:10px;
+  padding:12px 12px 6px;
+  justify-content:center;
+  flex-wrap:nowrap; /* ✅ оплаты в один ряд */
+}
+.btn{
+  padding:12px 16px;
+  border-radius:18px;
+  font-weight:900;
+  min-width:118px;
+  text-align:center;
+  cursor:pointer;
+  transition:.15s;
+  border:1px solid var(--line);
+  background: rgba(255,255,255,.86);
+  box-shadow: 0 10px 24px rgba(0,0,0,.06);
+  color:var(--text);
+}
+.btn:active{ transform:scale(.98); }
+.btn.active{
+  background: linear-gradient(135deg, var(--samarkand), var(--gold));
+  color:#fff;
+  border:1px solid rgba(255,255,255,.20);
+  box-shadow: 0 14px 30px rgba(31,74,168,.18);
+}
+
+.input{
+  margin:8px auto;
+  display:block;
+  padding:14px 14px;
+  width:88%;
+  border-radius:18px;
+  font-size:15px;
+  border:1px solid var(--line);
+  background: rgba(255,255,255,.90);
+  box-shadow: 0 10px 24px rgba(0,0,0,.06);
+  outline:none;
+  transition:.15s;
+  color:var(--text);
+}
+body[data-theme="dark"] .input{ background: rgba(28,28,28,.90); }
+.input:focus{
+  border-color: rgba(31,74,168,.35);
+  box-shadow: 0 14px 30px rgba(31,74,168,.12);
+}
+
+.categories{
+  display:flex;
+  gap:8px;
+  padding:10px 12px 4px;
+  overflow-x:auto;
+  scroll-behavior:smooth;
+}
+.categories .btn{
+  min-width:122px;
+  padding:9px 12px;
+  border-radius:16px;
+  font-size:13px;
+}
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+  padding:12px;
+}
+.card{
+  border-radius:24px;
+  padding:12px 10px;
+  text-align:center;
+  background: var(--card-bg);
+  border:1px solid rgba(0,0,0,.06);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition:.15s;
+}
+body[data-theme="dark"] .card{ border-color: rgba(255,255,255,.10); }
+.card:active{ transform:scale(.99); }
+
+/* ✅ Увеличили иконки блюд */
+.img{ height:132px; display:flex; align-items:center; justify-content:center; }
+.img img{ max-width:122px; max-height:122px; opacity:.95; }
+
+.price{ font-weight:900; color:var(--atlas-red); margin-top:6px; }
+.price small{ font-weight:800; opacity:.75; margin-left:4px; }
+
+.counter{ display:flex; justify-content:center; gap:10px; margin-top:8px; align-items:center; }
+.counter button{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  cursor:pointer;
+  border:1px solid rgba(255,255,255,.22);
+  background: linear-gradient(135deg, var(--samarkand), var(--gold));
+  color:white;
+  font-size:16px;
+  box-shadow: 0 12px 22px rgba(31,74,168,.18);
+  transition:.15s;
+}
+.counter button:active{ transform:scale(.96); }
+
+.select-btn{
+  margin-top:10px;
+  padding:12px 14px;
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,.18);
+  background: linear-gradient(135deg, var(--samarkand), var(--gold));
+  color:#fff;
+  font-weight:900;
+  cursor:pointer;
+  box-shadow: 0 16px 34px rgba(31,74,168,.16);
+  transition:.15s;
+  width:100%;
+}
+.select-btn:active{ transform:scale(.99); }
+
+/* ===== Cart block ===== */
+.cart{
+  background: rgba(255,255,255,.86);
+  margin:12px;
+  padding:16px;
+  border-radius:26px;
+  border:1px solid rgba(0,0,0,.06);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+body[data-theme="dark"] .cart{ background: rgba(28,28,28,.90); border-color: rgba(255,255,255,.10); }
+
+textarea.input{ height:90px; }
+
+.order-btn{
+  width:100%;
+  padding:18px;
+  margin-top:14px;
+  margin-bottom:110px;
+  border-radius:24px;
+  cursor:pointer;
+  color:white;
+  font-size:17px;
+  font-weight:900;
+  border:1px solid rgba(255,255,255,.18);
+  background: linear-gradient(135deg, var(--samarkand), var(--gold));
+  box-shadow: 0 18px 36px rgba(31,74,168,.18);
+  transition:.15s;
+}
+.order-btn:active{ transform:scale(.99); }
+
+/* ===== Online payment box ===== */
+.online-box{
+  margin:10px auto 4px;
+  width:88%;
+  border-radius:18px;
+  border:1px solid var(--line);
+  background: rgba(255,255,255,.86);
+  box-shadow: 0 10px 24px rgba(0,0,0,.06);
+  padding:12px;
+  display:none;
+}
+body[data-theme="dark"] .online-box{ background: rgba(28,28,28,.86); }
+.online-row{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  justify-content:space-between;
+  margin-top:8px;
+  flex-wrap:wrap;
+}
+.kv{ font-weight:900; line-height:1.25; }
+.kv small{ display:block; font-weight:800; opacity:.75; margin-top:2px; }
+.copy-btn{
+  padding:10px 12px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.18);
+  background: linear-gradient(135deg, var(--samarkand), var(--gold));
+  color:#fff;
+  font-weight:900;
+  cursor:pointer;
+  box-shadow: 0 12px 22px rgba(31,74,168,.16);
+}
+.copy-btn:active{ transform:scale(.99); }
+
+/* ===== Search ===== */
+.search-wrap{
+  width:88%;
+  margin:8px auto;
+  position:relative;
+  display:none;
+  z-index:70;
+}
+.search-wrap.show{ display:block; }
+.search-wrap input{ width:100%; margin:0; padding-right:44px; }
+
+.search-clear{
+  position:absolute;
+  right:10px;
+  top:50%;
+  transform:translateY(-50%);
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  border:1px solid rgba(0,0,0,.08);
+  background: rgba(255,255,255,.92);
+  box-shadow: 0 10px 22px rgba(0,0,0,.08);
+  transition:.15s;
+  color:#111;
+}
+body[data-theme="dark"] .search-clear{ background: rgba(28,28,28,.92); border-color: rgba(255,255,255,.10); color:#f1f1f1; }
+.search-clear:active{ transform:translateY(-50%) scale(.96); }
+
+.search-title{
+  width:88%;
+  margin:10px auto 0;
+  font-weight:900;
+  opacity:.92;
+  display:none;
+  z-index:70;
+  position:relative;
+}
+.search-title.show{ display:block; }
+
+mark{ background:rgba(212,160,23,.28); padding:0 .14em; border-radius:8px; }
+
+/* ===== Popular ===== */
+.popular-wrap{ width:100%; padding:4px 12px 4px; }
+.popular-title{
+  width:100%;
+  font-weight:900;
+  padding:8px 2px 10px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.popular-row{ display:flex; gap:12px; overflow-x:auto; padding:2px 2px 10px; }
+.pop-card{
+  min-width:180px;
+  border-radius:24px;
+  padding:12px;
+  background: var(--card-bg);
+  border:1px solid rgba(0,0,0,.06);
+  box-shadow: var(--shadow);
+  transition:.15s;
+  position:relative;
+  overflow:hidden;
+}
+body[data-theme="dark"] .pop-card{ border-color: rgba(255,255,255,.10); }
+.pop-card:active{ transform:scale(.99); }
+.pop-img{
+  height:110px;
+  border-radius:18px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: rgba(31,74,168,.10);
+}
+.pop-img img{ width:100%; height:100%; object-fit:cover; }
+.pop-name{ font-weight:900; margin-top:10px; }
+.pop-price{ font-weight:900; color:var(--atlas-red); margin-top:6px; }
+.pop-badge{ position:absolute; left:10px; top:10px; font-size:18px; pointer-events:none; }
+
+.pop-counter{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  margin-top:10px;
+}
+.pop-counter button{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  cursor:pointer;
+  border:1px solid rgba(255,255,255,.22);
+  background: linear-gradient(135deg, var(--samarkand), var(--gold));
+  color:white;
+  font-size:16px;
+  box-shadow: 0 12px 22px rgba(31,74,168,.18);
+  transition:.15s;
+}
+.pop-counter button:active{ transform:scale(.96); }
+.pop-counter span{ font-weight:900; min-width:22px; text-align:center; }
+
+/* ===== Sticky cart ===== */
+.sticky-checkout{
+  position:fixed;
+  left:0; right:0; bottom:0;
+  padding:10px 12px calc(env(safe-area-inset-bottom) + 10px);
+  background: rgba(251,247,239,.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  z-index:999;
+  border-top:1px solid rgba(0,0,0,.06);
+}
+body[data-theme="dark"] .sticky-checkout{ background: rgba(18,18,18,.72); border-top-color: rgba(255,255,255,.10); }
+
+.sticky-inner{
+  max-width:520px;
+  margin:0 auto;
+  border-radius:20px;
+  padding:10px 12px;
+  background: rgba(255,255,255,.88);
+  border:1px solid rgba(0,0,0,.06);
+  box-shadow: 0 16px 34px rgba(0,0,0,.10);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+body[data-theme="dark"] .sticky-inner{ background: rgba(28,28,28,.88); border-color: rgba(255,255,255,.10); }
+
+.sticky-sum{ font-weight:900; line-height:1.1; }
+.sticky-sum small{ display:block; font-weight:800; opacity:.70; margin-top:2px; }
+
+.sticky-btn{
+  padding:12px 14px;
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,.18);
+  background: linear-gradient(135deg, var(--samarkand), var(--gold));
+  color:#fff;
+  font-weight:900;
+  cursor:pointer;
+  box-shadow: 0 16px 34px rgba(31,74,168,.16);
+  transition:.15s;
+  white-space:nowrap;
+}
+.sticky-btn:active{ transform:scale(.99); }
+
+/* ===== Burger sheet ===== */
+.menu-backdrop{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.40);
+  opacity:0;
+  pointer-events:none;
+  transition:.18s;
+  z-index:2000;
+}
+.menu-backdrop.show{ opacity:1; pointer-events:auto; }
+
+.menu-sheet{
+  position:fixed;
+  left:0; right:0;
+  bottom:-120%;
+  z-index:2010;
+  transition:.22s;
+  padding:10px 12px 14px;
+  background: rgba(255,255,255,.92);
+  border-top-left-radius:24px;
+  border-top-right-radius:24px;
+  border:1px solid rgba(0,0,0,.08);
+  box-shadow: 0 18px 48px rgba(0,0,0,.22);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+body[data-theme="dark"] .menu-sheet{
+  background: rgba(28,28,28,.92);
+  border-color: rgba(255,255,255,.10);
+}
+.menu-sheet.show{ bottom:0; }
+
+.menu-handle{
+  width:44px;
+  height:5px;
+  border-radius:999px;
+  background:rgba(0,0,0,.18);
+  margin:6px auto 10px;
+}
+body[data-theme="dark"] .menu-handle{ background:rgba(255,255,255,.18); }
+
+.menu-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:2px 4px 10px;
+}
+.menu-head b{ font-size:16px; }
+.menu-close{
+  width:38px;height:38px;
+  border:none;
+  border-radius:12px;
+  background:transparent;
+  cursor:pointer;
+  font-size:22px;
+  line-height:1;
+  color:#777;
+}
+body[data-theme="dark"] .menu-close{ color:#bbb; }
+
+.menu-list{ display:flex; flex-direction:column; gap:8px; }
+
+.menu-item{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:12px;
+  border-radius:18px;
+  border:1px solid rgba(0,0,0,.08);
+  background: rgba(0,0,0,.03);
+  cursor:pointer;
+  text-decoration:none;
+  color:var(--text);
+}
+body[data-theme="dark"] .menu-item{
+  border-color: rgba(255,255,255,.10);
+  background: rgba(255,255,255,.06);
+}
+
+.menu-left{ display:flex; align-items:center; gap:10px; min-width:0; }
+.menu-ic{
+  width:32px; height:32px;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: rgba(0,0,0,.06);
+  flex:0 0 auto;
+}
+body[data-theme="dark"] .menu-ic{ background: rgba(255,255,255,.06); }
+.menu-txt{ display:flex; flex-direction:column; min-width:0; }
+.menu-name{ font-weight:900; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.menu-sub{ font-size:12px; opacity:.75; margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.menu-right{ opacity:.65; font-weight:900; }
+
+.review-wrap{ display:none; padding:6px 4px 10px; }
+.review-card{
+  border:1px solid rgba(0,0,0,.08);
+  border-radius:18px;
+  overflow:hidden;
+  background:#fff;
+  padding:10px;
+  display:flex;
+  justify-content:center;
+}
+body[data-theme="dark"] .review-card{ background:#0f0f0f; border-color: rgba(255,255,255,.10); }
+
+.about-modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.45);
+  display:none;
+  z-index:2100;
+  padding:18px 14px;
+}
+.about-modal.show{ display:block; }
+.about-card{
+  max-width:760px;
+  margin:0 auto;
+  background: rgba(255,255,255,.92);
+  border:1px solid rgba(0,0,0,.08);
+  border-radius:24px;
+  box-shadow: 0 18px 54px rgba(0,0,0,.22);
+  padding:14px 14px 12px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+body[data-theme="dark"] .about-card{
+  background: rgba(28,28,28,.92);
+  border-color: rgba(255,255,255,.10);
+}
+.about-head{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:6px; }
+.about-head b{ font-size:16px; }
+.about-body{ font-size:14px; line-height:1.45; white-space:pre-wrap; }
+
+.about-tabs{
+  display:flex;
+  gap:10px;
+  margin:10px 0 12px;
+  overflow-x:auto;
+}
+.tabbtn{
+  padding:10px 14px;
+  border-radius:999px;
+  border:1px solid rgba(0,0,0,.08);
+  background: rgba(0,0,0,.03);
+  font-weight:900;
+  cursor:pointer;
+  white-space:nowrap;
+  color:var(--text);
+}
+body[data-theme="dark"] .tabbtn{
+  border-color: rgba(255,255,255,.10);
+  background: rgba(255,255,255,.06);
+}
+.tabbtn.active{
+  background: linear-gradient(135deg, var(--samarkand), var(--gold));
+  border:1px solid rgba(255,255,255,.20);
+  color:#fff;
+}
+.small-note{ opacity:.75; font-size:12px; margin-top:6px; }
+
+.legal-modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.45);
+  display:none;
+  z-index:2200;
+  padding:18px 14px;
+}
+.legal-modal.show{ display:block; }
+.legal-card{
+  max-width:760px;
+  margin:0 auto;
+  background: rgba(255,255,255,.92);
+  border:1px solid rgba(0,0,0,.08);
+  border-radius:24px;
+  box-shadow: 0 18px 54px rgba(0,0,0,.22);
+  padding:14px 14px 12px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+body[data-theme="dark"] .legal-card{
+  background: rgba(28,28,28,.92);
+  border-color: rgba(255,255,255,.10);
+}
+.legal-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+.legal-actions .tabbtn{ flex:1 1 auto; }
+
+/* ===== Plov portion sheet ===== */
+.plov-backdrop{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.45);
+  opacity:0;
+  pointer-events:none;
+  transition:.18s;
+  z-index:2600;
+}
+.plov-backdrop.show{ opacity:1; pointer-events:auto; }
+.plov-sheet{
+  position:fixed;
+  left:0; right:0;
+  bottom:-120%;
+  z-index:2610;
+  transition:.22s;
+  padding:10px 12px 14px;
+  background: rgba(255,255,255,.94);
+  border-top-left-radius:24px;
+  border-top-right-radius:24px;
+  border:1px solid rgba(0,0,0,.10);
+  box-shadow: 0 18px 54px rgba(0,0,0,.26);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+body[data-theme="dark"] .plov-sheet{
+  background: rgba(28,28,28,.94);
+  border-color: rgba(255,255,255,.10);
+}
+.plov-sheet.show{ bottom:0; }
+
+.plov-title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:2px 4px 10px;
+}
+.plov-title b{ font-size:16px; }
+
+.plov-list{ display:flex; flex-direction:column; gap:10px; }
+.plov-option{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:12px;
+  border-radius:18px;
+  border:1px solid rgba(0,0,0,.08);
+  background: rgba(0,0,0,.03);
+}
+body[data-theme="dark"] .plov-option{
+  border-color: rgba(255,255,255,.10);
+  background: rgba(255,255,255,.06);
+}
+.plov-left{ display:flex; flex-direction:column; gap:2px; min-width:0; }
+.plov-left .nm{ font-weight:900; }
+.plov-left .sm{ font-size:12px; opacity:.75; }
+.plov-right{ display:flex; align-items:center; gap:10px; }
+.plov-mini{
+  width:34px;height:34px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.22);
+  background: linear-gradient(135deg, var(--samarkand), var(--gold));
+  color:#fff;
+  font-weight:900;
+  cursor:pointer;
+  box-shadow: 0 12px 22px rgba(31,74,168,.18);
+}
+.plov-mini:active{ transform:scale(.96); }
+.plov-qty{ min-width:26px; text-align:center; font-weight:900; }
+
+/* ✅ адаптация под телефон */
+@media (max-width:420px){
+  .brand-wrap{ transform: translateX(22px); }
+  .brand-title{ font-size:32px; }
+  .brand-sub{ font-size:12px; letter-spacing:.16em; }
+  .header img{ width:76px; padding:7px; border-radius:16px; }
+
+  /* ✅ кнопки в шапке чуть меньше */
+  :root{ --hdrSize:36px; --hdrGap:8px; }
+
+  .products{ gap:12px; }
+
+  /* ✅ иконки блюд больше и на мобилке */
+  .img{ height:122px; }
+  .img img{ max-width:114px; max-height:114px; }
+
+  .categories .btn{ min-width:116px; font-size:12.6px; padding:8px 10px; }
+  .btn{ min-width:104px; padding:11px 12px; }
+}
+
+/* ===== CAFE UZBEGIM premium green/gold update ===== */
+:root{
+  --gold:#D4AF37;
+  --samarkand:#083A28;
+  --green:#083A28;
+  --atlas-red:#8B6B16;
+}
+.header{
+  background:
+    radial-gradient(900px 240px at 50% 0%, rgba(212,175,55,.28), transparent 62%),
+    linear-gradient(135deg, #031d14, #083A28 58%, #020d09);
+}
+.header::before{
+  height:22px;
+  background: linear-gradient(90deg, transparent, rgba(212,175,55,.75), transparent);
+}
+.header img{
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(212,175,55,.55);
+}
+.brand-title{
+  color:#F8E7A6;
+  text-shadow:0 3px 0 rgba(0,0,0,.22), 0 18px 30px rgba(0,0,0,.38);
+}
+.brand-sub,.brand-phone a{ color:#fff7d6; }
+.btn.active,.select-btn,.order-btn,.sticky-btn,.counter button,.pop-counter button,.plov-mini,.copy-btn,.tabbtn.active{
+  background: linear-gradient(135deg, #083A28, #D4AF37);
+}
+.card,.pop-card,.cart,.sticky-inner{
+  border:1px solid rgba(212,175,55,.20);
+}
+.price,.pop-price{ color:#8B6B16; }
+
+</style>
+</head>
+
+<body data-theme="light">
+
+<div class="header">
+  <img src="logo.png" onerror="this.src='logo.png'">
+
+  <div class="brand-wrap">
+    <div class="brand-title">CAFE UZBEGIM</div>
+    <div class="brand-sub">MILLIY OSHXONA</div>
+    <div class="brand-phone">
+      <a href="tel:+998704770909" onclick="callPhone(event)">+998 (70) 477-09-09</a>
+    </div>
+  </div>
+
+  <!-- ✅ РОВНОЕ выравнивание 3 кнопок: бургер / гео / поиск -->
+  <div class="header-actions" aria-label="header actions">
+    <div class="burger-btn" onclick="openTopMenu()" title="Меню">
+      <div class="burger-ic"><span></span><span></span><span></span></div>
+    </div>
+    <div class="geo-btn" onclick="openMap()" title="Маршрут">📍</div>
+    <div class="search-btn" onclick="toggleSearch()" title="Поиск">🔍</div>
+  </div>
+</div>
+
+<div class="search-title" id="searchTitle">Результаты поиска</div>
+<div class="search-wrap" id="searchWrap">
+  <input id="searchInput" class="input" placeholder="Поиск блюда..." oninput="searchProducts()" onkeydown="onSearchKey(event)">
+  <div class="search-clear" onclick="clearSearch()" title="Очистить">✖</div>
+</div>
+
+<!-- ✅ По умолчанию UZ -->
+<div class="langs">
+  <button class="btn" onclick="setLang('ru',this)">RU</button>
+  <button class="btn active" onclick="setLang('uz',this)">UZ</button>
+  <button class="btn" onclick="setLang('en',this)">EN</button>
+</div>
+
+<div class="popular-wrap" id="popularWrap">
+  <div class="popular-title" id="popularTitle">🔥 Популярное</div>
+  <div class="popular-row" id="popularRow"></div>
+</div>
+
+<div class="types">
+  <button class="btn active" id="btnDelivery" onclick="setType('delivery',this)"></button>
+  <button class="btn" id="btnPickup" onclick="setType('pickup',this)"></button>
+</div>
+
+<input id="address" class="input">
+<input id="phone" class="input">
+
+<div class="categories" id="cats"></div>
+<!-- ✅ подкатегории для БАР (стиль НЕ ТРОГАЛ — тот же класс categories) -->
+<div class="categories" id="subcats" style="display:none"></div>
+
+<div class="products" id="products"></div>
+
+<div id="cartAnchor"></div>
+
+<div class="cart" id="cartBlock">
+  <b id="cartTitle"></b>: <span id="total">0</span> сум
+  <textarea id="comment" class="input"></textarea>
+
+  <!-- ✅ Оплата в один ряд + Онлайн -->
+  <div class="payments">
+    <button class="btn active" id="payCash" onclick="setPayment('cash')"></button>
+    <button class="btn" id="payClick" onclick="setPayment('click')"></button>
+    <button class="btn" id="payOnline" onclick="setPayment('online')"></button>
+  </div>
+
+  <!-- ✅ CLICK QR (показываем только при CLICK) -->
+  <div class="online-box" id="clickBox">
+    <div class="kv" id="clickTitle">CLICK — QR</div>
+    <div class="small-note" id="clickHint" style="margin-top:8px;">
+      Отсканируйте QR-код в приложении CLICK и оплатите.
+    </div>
+    <div style="margin-top:10px; display:flex; justify-content:center;">
+      <!-- ✅ Название файла: images/click_qr.jpg -->
+      <img src="images/click_qr.jpg" alt="CLICK QR" style="width:100%; max-width:320px; border-radius:16px; display:block;" onerror="this.style.display='none'">
+    </div>
+  </div>
+
+  <!-- ✅ Реквизиты (показываем только при Онлайн) -->
+  <div class="online-box" id="onlineBox">
+    <div class="kv" id="onlineTitle">Онлайн оплата</div>
+
+    <div class="online-row">
+      <div class="kv">
+        <small id="recLabel">Получатель</small>
+        <div id="recValue">Baxtiyorov Botur</div>
+      </div>
+      <button class="copy-btn" onclick="copyText(ONLINE_RECIPIENT)">Копировать</button>
+    </div>
+
+    <div class="online-row">
+      <div class="kv">
+        <small id="cardLabel">Номер карты</small>
+        <div id="cardValue">9860170109382557</div>
+      </div>
+      <button class="copy-btn" onclick="copyText(ONLINE_CARD)">Копировать</button>
+    </div>
+
+    <div class="small-note" id="onlineHint">Скопируйте реквизиты и оплатите переводом на карту.</div>
+  </div>
+
+  <button class="order-btn" id="orderBtn" onclick="sendOrder()"></button>
+</div>
+
+<div class="sticky-checkout">
+  <div class="sticky-inner">
+    <div class="sticky-sum">
+      <span id="stickyTotal">0</span> <small>сум</small>
+    </div>
+    <button class="sticky-btn" onclick="scrollToCart()" id="stickyCart">🛒 Корзина</button>
+  </div>
+</div>
+
+<div class="menu-backdrop" id="menuBackdrop" onclick="closeTopMenu()"></div>
+
+<div class="menu-sheet" id="menuSheet" role="dialog" aria-modal="true">
+  <div class="menu-handle"></div>
+  <div class="menu-head">
+    <b id="menuTitle">Меню</b>
+    <button class="menu-close" onclick="closeTopMenu()">×</button>
+  </div>
+
+  <div class="menu-list">
+    <div class="menu-item" onclick="toggleReviewWidget()" role="button">
+      <div class="menu-left">
+        <div class="menu-ic">⭐</div>
+        <div class="menu-txt">
+          <div class="menu-name" id="mReviewTitle">Оставить отзыв</div>
+          <div class="menu-sub" id="mReviewSub">Яндекс рейтинг / отзывы</div>
+        </div>
+      </div>
+      <div class="menu-right">›</div>
+    </div>
+
+    <div class="review-wrap" id="reviewWidgetWrap">
+      <div class="review-card">
+        <iframe src="https://yandex.ru/sprav/widget/rating-badge/23178318202?type=rating" width="150" height="50" frameborder="0" style="border:0; display:block;"></iframe>
+      </div>
+      <div class="small-note" id="mReviewHint">
+        Если виджет не открылся в Telegram — нажми «Открыть отзывы».
+      </div>
+      <div style="display:flex; justify-content:center; margin-top:8px;">
+        <button class="tabbtn" id="mOpenReviewsBtn" onclick="openYandexReviews(event)">Открыть отзывы</button>
+      </div>
+    </div>
+
+    <div class="menu-item" onclick="openLegal()" role="button">
+      <div class="menu-left">
+        <div class="menu-ic">🏢</div>
+        <div class="menu-txt">
+          <div class="menu-name" id="mLegalTitle">Для юридических лиц</div>
+          <div class="menu-sub" id="mLegalSub">Связаться с менеджером</div>
+        </div>
+      </div>
+      <div class="menu-right">›</div>
+    </div>
+
+    <a class="menu-item" href="tel:+998704770909" onclick="closeTopMenu()">
+      <div class="menu-left">
+        <div class="menu-ic">📞</div>
+        <div class="menu-txt">
+          <div class="menu-name" id="mCallTitle">Позвонить</div>
+          <div class="menu-sub">+998 (70) 477-09-09</div>
+        </div>
+      </div>
+      <div class="menu-right">›</div>
+    </a>
+
+    <a class="menu-item" href="#" onclick="openInstagram(event)">
+      <div class="menu-left">
+        <div class="menu-ic">📷</div>
+        <div class="menu-txt">
+          <div class="menu-name" id="mInstaTitle">@uzbegim_samarkand</div>
+          <div class="menu-sub" id="mInstaSub">Открыть Instagram</div>
+        </div>
+      </div>
+      <div class="menu-right">›</div>
+    </a>
+
+    <div class="menu-item" onclick="toggleThemeFromMenu()" role="button">
+      <div class="menu-left">
+        <div class="menu-ic">🌓</div>
+        <div class="menu-txt">
+          <div class="menu-name" id="mThemeTitle">Тема</div>
+          <div class="menu-sub" id="themeMenuSub">Светлая</div>
+        </div>
+      </div>
+      <div class="menu-right" id="mThemeAction">Сменить</div>
+    </div>
+
+    <div class="menu-item" onclick="openAbout()" role="button">
+      <div class="menu-left">
+        <div class="menu-ic">ℹ️</div>
+        <div class="menu-txt">
+          <div class="menu-name" id="mAboutTitle">О нас</div>
+          <div class="menu-sub" id="mAboutSub">Адрес и описание</div>
+        </div>
+      </div>
+      <div class="menu-right">›</div>
+    </div>
+  </div>
+</div>
+
+<div class="about-modal" id="aboutModal" onclick="aboutBackdropClick(event)">
+  <div class="about-card">
+    <div class="about-head">
+      <b id="aboutTitle">О нас</b>
+      <button class="menu-close" onclick="closeAbout()">×</button>
+    </div>
+
+    <div class="about-tabs">
+      <button class="tabbtn" id="tabRu" onclick="setAboutLang('ru')">🇷🇺 RU</button>
+      <button class="tabbtn active" id="tabUz" onclick="setAboutLang('uz')">🇺🇿 UZ</button>
+      <button class="tabbtn" id="tabEn" onclick="setAboutLang('en')">🇬🇧 EN</button>
+    </div>
+
+    <div class="about-body" id="aboutBody"></div>
+  </div>
+</div>
+
+<div class="legal-modal" id="legalModal" onclick="legalBackdropClick(event)">
+  <div class="legal-card">
+    <div class="about-head">
+      <b id="legalTitle">Для юридических лиц</b>
+      <button class="menu-close" onclick="closeLegal()">×</button>
+    </div>
+    <div class="about-body" id="legalBody"></div>
+
+    <div class="legal-actions">
+      <button class="tabbtn" onclick="contactManager()">Связаться с менеджером</button>
+      <button class="tabbtn" onclick="openTelLegal()">Позвонить</button>
+      <button class="tabbtn" onclick="openMailLegal()">Почта</button>
+    </div>
+  </div>
+</div>
+
+<!-- ✅ Плов — выбор порции (снизу) + используем тот же sheet для БАР вариантов -->
+<div class="plov-backdrop" id="plovBackdrop" onclick="closePlovSheet()"></div>
+<div class="plov-sheet" id="plovSheet" role="dialog" aria-modal="true">
+  <div class="menu-handle"></div>
+  <div class="plov-title">
+    <b id="plovSheetTitle">Плов — выберите порцию</b>
+    <button class="menu-close" onclick="closePlovSheet()">×</button>
+  </div>
+  <div class="plov-list" id="plovList"></div>
+</div>
+
+<script>
+/* ✅ Fix: WebApp открывается на 50% — раскрываем на весь экран */
+try{
+  Telegram.WebApp.ready();
+  Telegram.WebApp.expand?.();
+  Telegram.WebApp.MainButton?.hide?.();
+  setTimeout(()=>Telegram.WebApp.expand?.(), 80);
+  setTimeout(()=>Telegram.WebApp.expand?.(), 350);
+}catch(_){}
+
+const $ = (id)=>document.getElementById(id);
+
+const PHONE_TEL  = "tel:+998704770909";
+const IG_URL = "https://www.instagram.com/uzbegim_samarkand?igsh=MWpycHltMGQ3azRjcg%3D%3D&utm_source=qr";
+const YANDEX_WIDGET_URL = "https://yandex.ru/sprav/widget/rating-badge/23178318202?type=rating";
+const MAP_URL = "https://yandex.uz/maps/org/23178318202/?ll=66.950144%2C39.645189&z=16.65";
+
+const LEGAL_PHONE = "+998 (70) 477-09-09";
+const LEGAL_MAIL  = "uzbegimsignature@gmail.com";
+
+/* ✅ Админы (добавлен 6564250879) */
+const ADMIN_IDS = ["6013591658"];
+
+const ADMIN_TG_ID = "6013591658";
+
+/* ✅ Онлайн реквизиты */
+const ONLINE_RECIPIENT = "Baxtiyorov Botur";
+const ONLINE_CARD = "9860170109382557";
+
+/* ✅ CLICK QR файл (добавь в папку images) */
+const CLICK_QR_IMG = "images/click_qr.jpg"; // <-- название: click_qr.jpg (JPG)
+
+function openMap(){
+  try{ Telegram.WebApp.openLink(MAP_URL); }
+  catch(_){ window.open(MAP_URL, "_blank"); }
+}
+
+const MENU_I18N = {
+  ru:{menu:'Меню',review_title:'Оставить отзыв',review_sub:'Яндекс рейтинг / отзывы',review_hint:'Если виджет не открылся в Telegram — нажми «Открыть отзывы».',open_reviews:'Открыть отзывы',call:'Позвонить',insta_sub:'Открыть Instagram',theme:'Тема',theme_light:'Светлая',theme_dark:'Тёмная',theme_action:'Сменить',about:'О нас',about_sub:'Адрес и описание',about_title:'О нас',legal_title:'Для юридических лиц',legal_sub:'Связаться с менеджером'},
+  uz:{menu:'Menyu',review_title:'Fikr qoldirish',review_sub:'Yandex reyting / fikrlar',review_hint:'Agar vidjet Telegramda ochilmasa — «Sharhlarni ochish»ni bosing.',open_reviews:"Sharhlarni ochish",call:"Qo'ng'iroq qilish",insta_sub:"Instagramni ochish",theme:"Mavzu",theme_light:"Yorug'",theme_dark:"Qorong'i",theme_action:"Almashtirish",about:"Biz haqimizda",about_sub:"Manzil va ma'lumot",about_title:"Biz haqimizda",legal_title:"Yuridik shaxslar uchun",legal_sub:"Menejer bilan bog'lanish"},
+  en:{menu:'Menu',review_title:'Leave a review',review_sub:'Yandex rating / reviews',review_hint:'If the widget doesn’t open in Telegram — tap “Open reviews”.',open_reviews:'Open reviews',call:'Call',insta_sub:'Open Instagram',theme:'Theme',theme_light:'Light',theme_dark:'Dark',theme_action:'Switch',about:'About us',about_sub:'Address and info',about_title:'About us',legal_title:'For legal entities',legal_sub:'Contact manager'}
+};
+
+const ABOUT_TEXT = {
+  ru:`🇷🇺 О нас
+
+Кафе CAFE UZBEGIM — это место, где оживает настоящая узбекская кухня.
+Мы готовим национальные блюда по традиционным рецептам, сохраняя вкус, аромат и душу Узбекистана.
+
+Уютная атмосфера, свежие продукты и уважение к кулинарным традициям делают каждый визит особенным.
+Ждём вас в самом сердце Самарканда —
+📍 г. Самарканд, ул. Узбекистанская, 74
+
+CAFE UZBEGIM — вкус, проверенный временем 🇺🇿🍽️`,
+  uz:`🇺🇿 Биз ҳақимизда (узбекча, кирилл)
+
+CAFE UZBEGIM кафеси — бу ерда ҳақиқий ўзбек миллий таомлари жонланади.
+Биз анъанавий рецептлар асосида таомлар тайёрлаймиз, Ўзбекистоннинг мазаси, ҳиди ва руҳини сақлаб қоламиз.
+
+Қулай муҳит, янги маҳсулотлар ва миллий ошпазлик анъаналарга ҳурмат ҳар бир ташрифни ўзига хос қилади.
+Сизни Самарқанднинг юрагида кутамиз —
+📍 Самарқанд шаҳри, Ўзбекистон кўчаси, 74
+
+CAFE UZBEGIM — вақт синовидан ўтган мазза 🇺🇿🍽️`,
+  en:`🇬🇧 About Us
+
+CAFE UZBEGIM is a place where authentic Uzbek cuisine comes to life.
+We prepare traditional national dishes using classic recipes, preserving the true taste, aroma, and spirit of Uzbekistan.
+
+A cozy atmosphere, fresh ingredients, and respect for culinary traditions make every visit special.
+We welcome you in the heart of Samarkand —
+📍 74 Uzbekistanskaya Street, Samarkand
+
+CAFE UZBEGIM — a taste proven by time 🇺🇿🍽️`
+};
+
+const TEXT={
+  ru:{delivery:'🚚 Доставка',pickup:'🏃 Самовывоз',address:'📍 Адрес доставки',phone:'📞 Телефон',cart:'🛒 Корзина',order:'Оформить заказ',comment:'✍️ Комментарий к заказу',cash:'💵 Наличные',click:'💳 CLICK',online:'💸 Онлайн',results:'Результаты поиска',popular:'🔥 Популярное',empty:'Корзина пустая',cart_btn:'🛒 Корзина',plov_choose:'Плов — выберите порцию',choose:'Выбрать',online_title:'Онлайн оплата',rec:'Получатель',card:'Номер карты',online_hint:'Скопируйте реквизиты и оплатите переводом на карту.',copied:'Скопировано',bar_choose:'Выберите объём',click_qr_title:'CLICK — QR',click_qr_hint:'Отсканируйте QR-код в приложении CLICK и оплатите.'},
+  uz:{delivery:'🚚 Yetkazish',pickup:'🏃 Olib ketish',address:'📍 Manzil',phone:'📞 Telefon',cart:'🛒 Savat',order:'Buyurtma berish',comment:'✍️ Izoh',cash:'💵 Naqd',click:'💳 CLICK',online:'💸 Onlayn',results:'Qidiruv natijalari',popular:'🔥 Ommabop',empty:'Savat bo‘sh',cart_btn:'🛒 Savat',plov_choose:"Osh — porsiyani tanlang",choose:'Tanlash',online_title:"Onlayn to‘lov",rec:"Qabul qiluvchi",card:"Karta raqami",online_hint:"Rekvizitlarni nusxa oling va kartaga o‘tkazma qiling.",copied:'Nusxa olindi',bar_choose:"Hajmni tanlang",click_qr_title:'CLICK — QR',click_qr_hint:'CLICK ilovasida QR-kodni skaner qilib to‘lang.'},
+  en:{delivery:'🚚 Delivery',pickup:'🏃 Pickup',address:'📍 Address',phone:'📞 Phone',cart:'🛒 Cart',order:'Place order',comment:'✍️ Comment',cash:'💵 Cash',click:'💳 CLICK',online:'💸 Online',results:'Search results',popular:'🔥 Popular',empty:'Cart is empty',cart_btn:'🛒 Cart',plov_choose:'Plov — choose portion',choose:'Choose',online_title:'Online payment',rec:'Recipient',card:'Card number',online_hint:'Copy details and pay by card transfer.',copied:'Copied',bar_choose:'Choose size',click_qr_title:'CLICK — QR',click_qr_hint:'Scan the QR in CLICK app and pay.'}
+};
+
+const CATS={
+  "ru": {
+    "salads": "🥗 Салаты",
+    "cold": "🧀 Холодные закуски",
+    "first": "🍲 Первые блюда",
+    "second": "🍛 Вторые блюда",
+    "shashlik": "🍢 Шашлык",
+    "bread": "🍞 Хлеб",
+    "tea": "🍵 Чай",
+    "fresh": "🥤 Фреш",
+    "lemonade": "🍋 Лимонад",
+    "milkshake": "🥛 Милкшейк",
+    "drinks": "🥤 Напитки",
+    "water": "💧 Минеральная вода",
+    "coffee": "☕ Кофе",
+    "energy": "⚡ Энергетические напитки"
+  },
+  "uz": {
+    "salads": "🥗 Salatlar",
+    "cold": "🧀 Sovuq zakuskalar",
+    "first": "🍲 Birinchi taomlar",
+    "second": "🍛 Ikkinchi taomlar",
+    "shashlik": "🍢 Shashlik",
+    "bread": "🍞 Non",
+    "tea": "🍵 Choy",
+    "fresh": "🥤 Fresh",
+    "lemonade": "🍋 Limonad",
+    "milkshake": "🥛 Milkshake",
+    "drinks": "🥤 Ichimliklar",
+    "water": "💧 Mineral suv",
+    "coffee": "☕ Kofe",
+    "energy": "⚡ Energetik ichimliklar"
+  },
+  "en": {
+    "salads": "🥗 Salads",
+    "cold": "🧀 Cold snacks",
+    "first": "🍲 First dishes",
+    "second": "🍛 Main dishes",
+    "shashlik": "🍢 Shashlik",
+    "bread": "🍞 Bread",
+    "tea": "🍵 Tea",
+    "fresh": "🥤 Fresh juice",
+    "lemonade": "🍋 Lemonade",
+    "milkshake": "🥛 Milkshake",
+    "drinks": "🥤 Drinks",
+    "water": "💧 Mineral water",
+    "coffee": "☕ Coffee",
+    "energy": "⚡ Energy drinks"
+  }
+};
+
+const BAR_SUBCATS = {ru:{},uz:{},en:{}};
+
+const MENU = {
+  "salads": [
+    {
+      "id": "salat_svezhiy",
+      "p": 25000,
+      "img": "images/salat_svezhiy.jpg",
+      "n": {
+        "ru": "Салат Свежий",
+        "uz": "Салат Свежий",
+        "en": "Салат Свежий"
+      }
+    },
+    {
+      "id": "salat_grecheskiy",
+      "p": 50000,
+      "img": "images/salat_grecheskiy.jpg",
+      "n": {
+        "ru": "Салат Греческий",
+        "uz": "Салат Греческий",
+        "en": "Салат Греческий"
+      }
+    },
+    {
+      "id": "achi_chuk",
+      "p": 20000,
+      "img": "images/achi_chuk.jpg",
+      "n": {
+        "ru": "Ачи-чук",
+        "uz": "Ачи-чук",
+        "en": "Ачи-чук"
+      }
+    },
+    {
+      "id": "hrust_baklajan",
+      "p": 50000,
+      "img": "images/hrust_baklajan.jpg",
+      "n": {
+        "ru": "Салат из хрустящих баклажанов",
+        "uz": "Салат из хрустящих баклажанов",
+        "en": "Салат из хрустящих баклажанов"
+      }
+    },
+    {
+      "id": "francuzskiy",
+      "p": 50000,
+      "img": "images/francuzskiy.jpg",
+      "n": {
+        "ru": "Французкий",
+        "uz": "Французкий",
+        "en": "Французкий"
+      }
+    },
+    {
+      "id": "majnuntol",
+      "p": 50000,
+      "img": "images/majnuntol.jpg",
+      "n": {
+        "ru": "Мажнунтол",
+        "uz": "Мажнунтол",
+        "en": "Мажнунтол"
+      }
+    },
+    {
+      "id": "choban",
+      "p": 40000,
+      "img": "images/choban.jpg",
+      "n": {
+        "ru": "Чобан",
+        "uz": "Чобан",
+        "en": "Чобан"
+      }
+    },
+    {
+      "id": "vecho",
+      "p": 60000,
+      "img": "images/vecho.jpg",
+      "n": {
+        "ru": "Вечо",
+        "uz": "Вечо",
+        "en": "Вечо"
+      }
+    }
+  ],
+  "cold": [
+    {
+      "id": "syr_assorti",
+      "p": 160000,
+      "img": "images/syr_assorti.jpg",
+      "n": {
+        "ru": "Сырное ассорти",
+        "uz": "Сырное ассорти",
+        "en": "Сырное ассорти"
+      }
+    },
+    {
+      "id": "myasnoe_assorti",
+      "p": 170000,
+      "img": "images/myasnoe_assorti.jpg",
+      "n": {
+        "ru": "Мясное ассорти",
+        "uz": "Мясное ассорти",
+        "en": "Мясное ассорти"
+      }
+    },
+    {
+      "id": "fruktovoe_assorti",
+      "p": 160000,
+      "img": "images/fruktovoe_assorti.jpg",
+      "n": {
+        "ru": "Фруктовое ассорти",
+        "uz": "Фруктовое ассорти",
+        "en": "Фруктовое ассорти"
+      }
+    },
+    {
+      "id": "limon_narezka",
+      "p": 15000,
+      "img": "images/limon_narezka.jpg",
+      "n": {
+        "ru": "Лимонная нарезка",
+        "uz": "Лимонная нарезка",
+        "en": "Лимонная нарезка"
+      }
+    },
+    {
+      "id": "suzma_chakka",
+      "p": 10000,
+      "img": "images/suzma_chakka.jpg",
+      "n": {
+        "ru": "Сузьма (Чакка)",
+        "uz": "Сузьма (Чакка)",
+        "en": "Сузьма (Чакка)"
+      }
+    },
+    {
+      "id": "chalop",
+      "p": 12000,
+      "img": "images/chalop.jpg",
+      "n": {
+        "ru": "Чалоп",
+        "uz": "Чалоп",
+        "en": "Чалоп"
+      }
+    }
+  ],
+  "first": [
+    {
+      "id": "shurpa",
+      "p": 50000,
+      "img": "images/shurpa.jpg",
+      "n": {
+        "ru": "Шурпа",
+        "uz": "Шурпа",
+        "en": "Шурпа"
+      }
+    },
+    {
+      "id": "mastava",
+      "p": 45000,
+      "img": "images/mastava.jpg",
+      "n": {
+        "ru": "Мастава",
+        "uz": "Мастава",
+        "en": "Мастава"
+      }
+    }
+  ],
+  "second": [
+    {
+      "id": "plov",
+      "p": 0,
+      "img": "images/plov.jpg",
+      "n": {
+        "ru": "Плов 0.5/0.7/1 порция",
+        "uz": "Плов 0.5/0.7/1 порция",
+        "en": "Плов 0.5/0.7/1 порция"
+      },
+      "special": "plov"
+    },
+    {
+      "id": "manty_govyadina",
+      "p": 48000,
+      "img": "images/manty_govyadina.jpg",
+      "n": {
+        "ru": "Манты с говядиной 4шт",
+        "uz": "Манты с говядиной 4шт",
+        "en": "Манты с говядиной 4шт"
+      }
+    },
+    {
+      "id": "dolma_smetana",
+      "p": 40000,
+      "img": "images/dolma_smetana.jpg",
+      "n": {
+        "ru": "Долма со сметаной",
+        "uz": "Долма со сметаной",
+        "en": "Долма со сметаной"
+      }
+    },
+    {
+      "id": "jiz_biz",
+      "p": 280000,
+      "img": "images/jiz_biz.jpg",
+      "n": {
+        "ru": "Жиз-Биз",
+        "uz": "Жиз-Биз",
+        "en": "Жиз-Биз"
+      }
+    }
+  ],
+  "shashlik": [
+    {
+      "id": "govyazhya_vyrezka",
+      "p": 40000,
+      "img": "images/govyazhya_vyrezka.jpg",
+      "n": {
+        "ru": "Говяжья вырезка",
+        "uz": "Говяжья вырезка",
+        "en": "Говяжья вырезка"
+      }
+    },
+    {
+      "id": "baranina_kuskovaya",
+      "p": 35000,
+      "img": "images/baranina_kuskovaya.jpg",
+      "n": {
+        "ru": "Баранина кусковая",
+        "uz": "Баранина кусковая",
+        "en": "Баранина кусковая"
+      }
+    },
+    {
+      "id": "barani_semechki",
+      "p": 35000,
+      "img": "images/barani_semechki.jpg",
+      "n": {
+        "ru": "Бараньи семечки",
+        "uz": "Бараньи семечки",
+        "en": "Бараньи семечки"
+      }
+    },
+    {
+      "id": "molotyy",
+      "p": 30000,
+      "img": "images/molotyy.jpg",
+      "n": {
+        "ru": "Молотый",
+        "uz": "Молотый",
+        "en": "Молотый"
+      }
+    },
+    {
+      "id": "napaleon",
+      "p": 35000,
+      "img": "images/napaleon.jpg",
+      "n": {
+        "ru": "Напалеон",
+        "uz": "Напалеон",
+        "en": "Напалеон"
+      }
+    },
+    {
+      "id": "rulet",
+      "p": 35000,
+      "img": "images/rulet.jpg",
+      "n": {
+        "ru": "Рулет",
+        "uz": "Рулет",
+        "en": "Рулет"
+      }
+    },
+    {
+      "id": "baraniy_kurdyuk",
+      "p": 30000,
+      "img": "images/baraniy_kurdyuk.jpg",
+      "n": {
+        "ru": "Бараний курдюк",
+        "uz": "Бараний курдюк",
+        "en": "Бараний курдюк"
+      }
+    },
+    {
+      "id": "ovoshnoy",
+      "p": 15000,
+      "img": "images/ovoshnoy.jpg",
+      "n": {
+        "ru": "Овощной",
+        "uz": "Овощной",
+        "en": "Овощной"
+      }
+    },
+    {
+      "id": "pomidory_3sht",
+      "p": 10000,
+      "img": "images/pomidory_3sht.jpg",
+      "n": {
+        "ru": "Помидоры 3шт",
+        "uz": "Помидоры 3шт",
+        "en": "Помидоры 3шт"
+      }
+    },
+    {
+      "id": "kartofel_3sht",
+      "p": 10000,
+      "img": "images/kartofel_3sht.jpg",
+      "n": {
+        "ru": "Картофель 3шт",
+        "uz": "Картофель 3шт",
+        "en": "Картофель 3шт"
+      }
+    },
+    {
+      "id": "kurinye_krylyshki",
+      "p": 25000,
+      "img": "images/kurinye_krylyshki.jpg",
+      "n": {
+        "ru": "Куринные крылышки",
+        "uz": "Куринные крылышки",
+        "en": "Куринные крылышки"
+      }
+    },
+    {
+      "id": "barani_rebryshki",
+      "p": 55000,
+      "img": "images/barani_rebryshki.jpg",
+      "n": {
+        "ru": "Бараньи рёбрышки",
+        "uz": "Бараньи рёбрышки",
+        "en": "Бараньи рёбрышки"
+      }
+    },
+    {
+      "id": "govyazhya_vyrezka_griby_500",
+      "p": 140000,
+      "img": "images/govyazhya_vyrezka_griby_500.jpg",
+      "n": {
+        "ru": "Говяжья вырезка с грибами 500гр",
+        "uz": "Говяжья вырезка с грибами 500гр",
+        "en": "Говяжья вырезка с грибами 500гр"
+      }
+    },
+    {
+      "id": "govyazhya_vyrezka_griby_1kg",
+      "p": 280000,
+      "img": "images/govyazhya_vyrezka_griby_1kg.jpg",
+      "n": {
+        "ru": "Говяжья вырезка с грибами 1кг",
+        "uz": "Говяжья вырезка с грибами 1кг",
+        "en": "Говяжья вырезка с грибами 1кг"
+      }
+    }
+  ],
+  "bread": [
+    {
+      "id": "chapchak",
+      "p": 10000,
+      "img": "images/chapchak.jpg",
+      "n": {
+        "ru": "Чапчак",
+        "uz": "Чапчак",
+        "en": "Чапчак"
+      }
+    }
+  ],
+  "tea": [
+    {
+      "id": "tea_black_green",
+      "p": 10000,
+      "img": "images/tea_black_green.jpg",
+      "n": {
+        "ru": "Черный/зеленый",
+        "uz": "Черный/зеленый",
+        "en": "Черный/зеленый"
+      }
+    },
+    {
+      "id": "tea_lemon",
+      "p": 15000,
+      "img": "images/tea_lemon.jpg",
+      "n": {
+        "ru": "Чай с лимоном",
+        "uz": "Чай с лимоном",
+        "en": "Чай с лимоном"
+      }
+    },
+    {
+      "id": "tea_marokanskiy",
+      "p": 35000,
+      "img": "images/tea_marokanskiy.jpg",
+      "n": {
+        "ru": "Мароканский",
+        "uz": "Мароканский",
+        "en": "Мароканский"
+      }
+    },
+    {
+      "id": "tea_fruktovyy",
+      "p": 35000,
+      "img": "images/tea_fruktovyy.jpg",
+      "n": {
+        "ru": "Фруктовый",
+        "uz": "Фруктовый",
+        "en": "Фруктовый"
+      }
+    },
+    {
+      "id": "tea_yagodnyy",
+      "p": 35000,
+      "img": "images/tea_yagodnyy.jpg",
+      "n": {
+        "ru": "Ягодный",
+        "uz": "Ягодный",
+        "en": "Ягодный"
+      }
+    },
+    {
+      "id": "tea_imbirnyy",
+      "p": 35000,
+      "img": "images/tea_imbirnyy.jpg",
+      "n": {
+        "ru": "Имбирный",
+        "uz": "Имбирный",
+        "en": "Имбирный"
+      }
+    },
+    {
+      "id": "tea_oblepihovyy",
+      "p": 35000,
+      "img": "images/tea_oblepihovyy.jpg",
+      "n": {
+        "ru": "Облепиховый",
+        "uz": "Облепиховый",
+        "en": "Облепиховый"
+      }
+    }
+  ],
+  "fresh": [
+    {
+      "id": "fresh_apple",
+      "p": 35000,
+      "img": "images/fresh_apple.jpg",
+      "n": {
+        "ru": "Яблочный 0.3L",
+        "uz": "Яблочный 0.3L",
+        "en": "Яблочный 0.3L"
+      }
+    },
+    {
+      "id": "fresh_orange",
+      "p": 40000,
+      "img": "images/fresh_orange.jpg",
+      "n": {
+        "ru": "Апельсиновый 0.3L",
+        "uz": "Апельсиновый 0.3L",
+        "en": "Апельсиновый 0.3L"
+      }
+    },
+    {
+      "id": "fresh_carrot",
+      "p": 30000,
+      "img": "images/fresh_carrot.jpg",
+      "n": {
+        "ru": "Морковный 0.3L",
+        "uz": "Морковный 0.3L",
+        "en": "Морковный 0.3L"
+      }
+    },
+    {
+      "id": "fresh_apple_carrot",
+      "p": 30000,
+      "img": "images/fresh_apple_carrot.jpg",
+      "n": {
+        "ru": "Яблочно-Морковный 0.3L",
+        "uz": "Яблочно-Морковный 0.3L",
+        "en": "Яблочно-Морковный 0.3L"
+      }
+    },
+    {
+      "id": "fresh_grapefruit",
+      "p": 50000,
+      "img": "images/fresh_grapefruit.jpg",
+      "n": {
+        "ru": "Грейпфрутовый 0.3L",
+        "uz": "Грейпфрутовый 0.3L",
+        "en": "Грейпфрутовый 0.3L"
+      }
+    }
+  ],
+  "lemonade": [
+    {
+      "id": "lemon_mojito",
+      "p": 40000,
+      "img": "images/lemon_mojito.jpg",
+      "n": {
+        "ru": "Мохито 1L",
+        "uz": "Мохито 1L",
+        "en": "Мохито 1L"
+      }
+    },
+    {
+      "id": "lemon_strawberry_mojito",
+      "p": 45000,
+      "img": "images/lemon_strawberry_mojito.jpg",
+      "n": {
+        "ru": "Мохито клубничный 1L",
+        "uz": "Мохито клубничный 1L",
+        "en": "Мохито клубничный 1L"
+      }
+    },
+    {
+      "id": "lemon_tropic",
+      "p": 45000,
+      "img": "images/lemon_tropic.jpg",
+      "n": {
+        "ru": "Тропический 1L",
+        "uz": "Тропический 1L",
+        "en": "Тропический 1L"
+      }
+    },
+    {
+      "id": "lemon_strawberry_banana",
+      "p": 45000,
+      "img": "images/lemon_strawberry_banana.jpg",
+      "n": {
+        "ru": "Клубника-банан 1L",
+        "uz": "Клубника-банан 1L",
+        "en": "Клубника-банан 1L"
+      }
+    },
+    {
+      "id": "lemon_berry",
+      "p": 45000,
+      "img": "images/lemon_berry.jpg",
+      "n": {
+        "ru": "Ягодный 1L",
+        "uz": "Ягодный 1L",
+        "en": "Ягодный 1L"
+      }
+    },
+    {
+      "id": "lemon_citrus",
+      "p": 45000,
+      "img": "images/lemon_citrus.jpg",
+      "n": {
+        "ru": "Цитрусовый 1L",
+        "uz": "Цитрусовый 1L",
+        "en": "Цитрусовый 1L"
+      }
+    }
+  ],
+  "milkshake": [
+    {
+      "id": "milk_vanilla",
+      "p": 25000,
+      "img": "images/milk_vanilla.jpg",
+      "n": {
+        "ru": "Ванильный 0.3L",
+        "uz": "Ванильный 0.3L",
+        "en": "Ванильный 0.3L"
+      }
+    },
+    {
+      "id": "milk_chocolate",
+      "p": 25000,
+      "img": "images/milk_chocolate.jpg",
+      "n": {
+        "ru": "Шоколадный 0.3L",
+        "uz": "Шоколадный 0.3L",
+        "en": "Шоколадный 0.3L"
+      }
+    },
+    {
+      "id": "milk_raspberry",
+      "p": 25000,
+      "img": "images/milk_raspberry.jpg",
+      "n": {
+        "ru": "Малиновый 0.3L",
+        "uz": "Малиновый 0.3L",
+        "en": "Малиновый 0.3L"
+      }
+    },
+    {
+      "id": "milk_strawberry",
+      "p": 25000,
+      "img": "images/milk_strawberry.jpg",
+      "n": {
+        "ru": "Клубничный 0.3L",
+        "uz": "Клубничный 0.3L",
+        "en": "Клубничный 0.3L"
+      }
+    },
+    {
+      "id": "milk_vanilla_banana",
+      "p": 30000,
+      "img": "images/milk_vanilla_banana.jpg",
+      "n": {
+        "ru": "Ванильно-банановый 0.3L",
+        "uz": "Ванильно-банановый 0.3L",
+        "en": "Ванильно-банановый 0.3L"
+      }
+    },
+    {
+      "id": "milk_choco_banana",
+      "p": 30000,
+      "img": "images/milk_choco_banana.jpg",
+      "n": {
+        "ru": "Шоколадно-банановый 0.3L",
+        "uz": "Шоколадно-банановый 0.3L",
+        "en": "Шоколадно-банановый 0.3L"
+      }
+    }
+  ],
+  "drinks": [
+    {
+      "id": "pepsi_1l",
+      "p": 18000,
+      "img": "images/pepsi_1l.jpg",
+      "n": {
+        "ru": "Pepsi 1L",
+        "uz": "Pepsi 1L",
+        "en": "Pepsi 1L"
+      }
+    },
+    {
+      "id": "mirinda_1l",
+      "p": 18000,
+      "img": "images/mirinda_1l.jpg",
+      "n": {
+        "ru": "Mirinda 1L",
+        "uz": "Mirinda 1L",
+        "en": "Mirinda 1L"
+      }
+    },
+    {
+      "id": "pepsi_025",
+      "p": 15000,
+      "img": "images/pepsi_025.jpg",
+      "n": {
+        "ru": "Pepsi 0.25L",
+        "uz": "Pepsi 0.25L",
+        "en": "Pepsi 0.25L"
+      }
+    },
+    {
+      "id": "mirinda_025",
+      "p": 15000,
+      "img": "images/mirinda_025.jpg",
+      "n": {
+        "ru": "Mirinda 0.25L",
+        "uz": "Mirinda 0.25L",
+        "en": "Mirinda 0.25L"
+      }
+    },
+    {
+      "id": "zlata_tarkhun",
+      "p": 15000,
+      "img": "images/zlata_tarkhun.jpg",
+      "n": {
+        "ru": "Zlata Тархун",
+        "uz": "Zlata Тархун",
+        "en": "Zlata Тархун"
+      }
+    },
+    {
+      "id": "zlata_duches",
+      "p": 15000,
+      "img": "images/zlata_duches.jpg",
+      "n": {
+        "ru": "Zlata Дюшес",
+        "uz": "Zlata Дюшес",
+        "en": "Zlata Дюшес"
+      }
+    },
+    {
+      "id": "bliss_1l",
+      "p": 25000,
+      "img": "images/bliss_1l.jpg",
+      "n": {
+        "ru": "Сок Bliss в ассортименте 1L",
+        "uz": "Сок Bliss в ассортименте 1L",
+        "en": "Сок Bliss в ассортименте 1L"
+      }
+    }
+  ],
+  "water": [
+    {
+      "id": "nabeghlavi_05",
+      "p": 20000,
+      "img": "images/nabeghlavi_05.jpg",
+      "n": {
+        "ru": "Nabeghlavi 0.5L",
+        "uz": "Nabeghlavi 0.5L",
+        "en": "Nabeghlavi 0.5L"
+      }
+    },
+    {
+      "id": "borjomi_05",
+      "p": 20000,
+      "img": "images/borjomi_05.jpg",
+      "n": {
+        "ru": "Borjomi 0.5L",
+        "uz": "Borjomi 0.5L",
+        "en": "Borjomi 0.5L"
+      }
+    },
+    {
+      "id": "karlovy_vary_05",
+      "p": 25000,
+      "img": "images/karlovy_vary_05.jpg",
+      "n": {
+        "ru": "Karlovy Vary 0.5L",
+        "uz": "Karlovy Vary 0.5L",
+        "en": "Karlovy Vary 0.5L"
+      }
+    },
+    {
+      "id": "blanc_blue_05",
+      "p": 20000,
+      "img": "images/blanc_blue_05.jpg",
+      "n": {
+        "ru": "Blanc Blue 0.5L газ/без газа",
+        "uz": "Blanc Blue 0.5L газ/без газа",
+        "en": "Blanc Blue 0.5L газ/без газа"
+      }
+    },
+    {
+      "id": "win_1l",
+      "p": 12000,
+      "img": "images/win_1l.jpg",
+      "n": {
+        "ru": "Win 1L газ/без газа",
+        "uz": "Win 1L газ/без газа",
+        "en": "Win 1L газ/без газа"
+      }
+    },
+    {
+      "id": "win_05",
+      "p": 5000,
+      "img": "images/win_05.jpg",
+      "n": {
+        "ru": "Win 0.5L газ/без газа",
+        "uz": "Win 0.5L газ/без газа",
+        "en": "Win 0.5L газ/без газа"
+      }
+    }
+  ],
+  "coffee": [
+    {
+      "id": "espresso",
+      "p": 20000,
+      "img": "images/espresso.jpg",
+      "n": {
+        "ru": "Espresso",
+        "uz": "Espresso",
+        "en": "Espresso"
+      }
+    },
+    {
+      "id": "double_espresso",
+      "p": 25000,
+      "img": "images/double_espresso.jpg",
+      "n": {
+        "ru": "Double espresso",
+        "uz": "Double espresso",
+        "en": "Double espresso"
+      }
+    },
+    {
+      "id": "americano",
+      "p": 20000,
+      "img": "images/americano.jpg",
+      "n": {
+        "ru": "Americano",
+        "uz": "Americano",
+        "en": "Americano"
+      }
+    },
+    {
+      "id": "capucino",
+      "p": 25000,
+      "img": "images/capucino.jpg",
+      "n": {
+        "ru": "Capucino",
+        "uz": "Capucino",
+        "en": "Capucino"
+      }
+    },
+    {
+      "id": "latte",
+      "p": 25000,
+      "img": "images/latte.jpg",
+      "n": {
+        "ru": "Latte",
+        "uz": "Latte",
+        "en": "Latte"
+      }
+    },
+    {
+      "id": "ice_latte",
+      "p": 25000,
+      "img": "images/ice_latte.jpg",
+      "n": {
+        "ru": "Ice latte",
+        "uz": "Ice latte",
+        "en": "Ice latte"
+      }
+    }
+  ],
+  "energy": [
+    {
+      "id": "red_bull",
+      "p": 30000,
+      "img": "images/red_bull.jpg",
+      "n": {
+        "ru": "Red Bull",
+        "uz": "Red Bull",
+        "en": "Red Bull"
+      }
+    },
+    {
+      "id": "borjomi_energy",
+      "p": 22000,
+      "img": "images/borjomi_energy.jpg",
+      "n": {
+        "ru": "Borjomi energy",
+        "uz": "Borjomi energy",
+        "en": "Borjomi energy"
+      }
+    }
+  ]
+};
+
+const BAR = {};
+
+const PLOV_VARIANTS = [
+  {
+    "id": "plov_05",
+    "w": "0.5",
+    "p": 50000,
+    "img": "images/plov_05.jpg",
+    "n": {
+      "ru": "Плов 0.5 порция",
+      "uz": "Плов 0.5 порция",
+      "en": "Плов 0.5 portion"
+    }
+  },
+  {
+    "id": "plov_07",
+    "w": "0.7",
+    "p": 70000,
+    "img": "images/plov_07.jpg",
+    "n": {
+      "ru": "Плов 0.7 порция",
+      "uz": "Плов 0.7 порция",
+      "en": "Плов 0.7 portion"
+    }
+  },
+  {
+    "id": "plov_1",
+    "w": "1",
+    "p": 100000,
+    "img": "images/plov_1.jpg",
+    "n": {
+      "ru": "Плов 1 порция",
+      "uz": "Плов 1 порция",
+      "en": "Плов 1 portion"
+    }
+  }
+];
+
+function formatSum(x){
+  const n = Number(x) || 0;
+  return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,' ');
+}
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+function highlight(text, q){
+  const safe = escapeHtml(text);
+  if(!q) return safe;
+  const lower = safe.toLowerCase();
+  const idx = lower.indexOf(q.toLowerCase());
+  if(idx === -1) return safe;
+  return safe.slice(0,idx) + `<mark>${safe.slice(idx, idx+q.length)}</mark>` + safe.slice(idx+q.length);
+}
+
+/* telegram user */
+const tgUser = Telegram.WebApp.initDataUnsafe?.user || {};
+const tg_username = tgUser.username || "";
+const tg_first_name = tgUser.first_name || "";
+const tg_id = tgUser.id || "";
+
+/* menu actions */
+function openTopMenu(){ $('menuBackdrop').classList.add('show'); $('menuSheet').classList.add('show'); }
+function closeTopMenu(){ $('menuBackdrop').classList.remove('show'); $('menuSheet').classList.remove('show'); }
+
+function toggleReviewWidget(){
+  const w = $('reviewWidgetWrap');
+  w.style.display = (!w.style.display || w.style.display === 'none') ? 'block' : 'none';
+}
+function openYandexReviews(e){
+  try{ e.preventDefault(); e.stopPropagation(); }catch(_){}
+  try{ Telegram.WebApp.openLink(YANDEX_WIDGET_URL); }
+  catch(_){ window.open(YANDEX_WIDGET_URL, "_blank"); }
+}
+function openInstagram(e){
+  try{ e.preventDefault(); e.stopPropagation(); }catch(_){}
+  closeTopMenu();
+  try{ Telegram.WebApp.openLink(IG_URL); }
+  catch(_){ window.open(IG_URL, "_blank"); }
+}
+function callPhone(e){
+  try{ e.preventDefault(); e.stopPropagation(); }catch(_){}
+  try{ Telegram.WebApp.openLink(PHONE_TEL); }
+  catch(_){ window.location.href = PHONE_TEL; }
+}
+
+/* legal */
+function openLegal(){
+  closeTopMenu();
+  const t = MENU_I18N[lang] || MENU_I18N.ru;
+  $('legalTitle').innerText = t.legal_title || 'Для юридических лиц';
+
+  const body = {
+    ru:`Связаться с менеджером\n\nТел: ${LEGAL_PHONE}\nПочта: ${LEGAL_MAIL}`,
+    uz:`Menejer bilan bog'lanish\n\nTel: ${LEGAL_PHONE}\nPochta: ${LEGAL_MAIL}`,
+    en:`Contact manager\n\nPhone: ${LEGAL_PHONE}\nEmail: ${LEGAL_MAIL}`
+  };
+  $('legalBody').textContent = body[lang] || body.ru;
+  $('legalModal').classList.add('show');
+}
+function closeLegal(){ $('legalModal').classList.remove('show'); }
+function legalBackdropClick(e){ if(e.target && e.target.id === 'legalModal') closeLegal(); }
+function contactManager(){
+  const link = `https://t.me/${ADMIN_TG_ID}`;
+  try{ Telegram.WebApp.openLink(link); }catch(_){ window.open(link, "_blank"); }
+}
+function openTelLegal(){
+  const tel = `tel:${LEGAL_PHONE.replace(/\s+/g,'')}`;
+  try{ Telegram.WebApp.openLink(tel); }catch(_){ window.location.href = tel; }
+}
+function openMailLegal(){
+  const mail = `mailto:${LEGAL_MAIL}`;
+  try{ Telegram.WebApp.openLink(mail); }catch(_){ window.location.href = mail; }
+}
+
+/* theme */
+let lang='uz', category='salads', type='delivery', payment='cash';
+let barSub='hotdog';
+let cart = {};
+
+function applyTheme(theme){
+  document.body.setAttribute('data-theme', theme);
+  localStorage.setItem('ozbegim_theme', theme);
+  const t = MENU_I18N[lang] || MENU_I18N.ru;
+  $('themeMenuSub').innerText = (theme === 'dark') ? t.theme_dark : t.theme_light;
+  try{
+    Telegram.WebApp.setHeaderColor?.(theme === 'dark' ? '#121212' : '#fbf7ef');
+    Telegram.WebApp.setBackgroundColor?.(theme === 'dark' ? '#121212' : '#fbf7ef');
+  }catch(_){}
+}
+function toggleThemeFromMenu(){
+  const cur = document.body.getAttribute('data-theme') || 'light';
+  applyTheme(cur === 'dark' ? 'light' : 'dark');
+}
+
+let currentAboutLang = 'uz';
+function openAbout(){
+  closeTopMenu();
+  setAboutLang(currentAboutLang);
+  $('aboutModal').classList.add('show');
+}
+function closeAbout(){ $('aboutModal').classList.remove('show'); }
+function aboutBackdropClick(e){ if(e.target && e.target.id === 'aboutModal') closeAbout(); }
+function setAboutLang(l){
+  currentAboutLang = l;
+  $('aboutBody').textContent = ABOUT_TEXT[l] || ABOUT_TEXT.ru;
+  $('tabRu').classList.toggle('active', l==='ru');
+  $('tabUz').classList.toggle('active', l==='uz');
+  $('tabEn').classList.toggle('active', l==='en');
+}
+
+/* i18n */
+function setLang(l,b){
+  lang=l;
+  document.querySelectorAll('.langs .btn').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  applyLang();
+}
+function applyBurgerI18n(){
+  const t = MENU_I18N[lang] || MENU_I18N.ru;
+  $('menuTitle').innerText = t.menu;
+  $('mReviewTitle').innerText = t.review_title;
+  $('mReviewSub').innerText = t.review_sub;
+  $('mReviewHint').innerText = t.review_hint;
+  $('mOpenReviewsBtn').innerText = t.open_reviews;
+  $('mCallTitle').innerText = t.call;
+  $('mInstaSub').innerText = t.insta_sub;
+  $('mThemeTitle').innerText = t.theme;
+  $('mThemeAction').innerText = t.theme_action;
+  $('mAboutTitle').innerText = t.about;
+  $('mAboutSub').innerText = t.about_sub;
+  $('aboutTitle').innerText = t.about_title;
+  $('mLegalTitle').innerText = t.legal_title;
+  $('mLegalSub').innerText = t.legal_sub;
+}
+function syncThemeLabel(){
+  const t = MENU_I18N[lang] || MENU_I18N.ru;
+  const cur = document.body.getAttribute('data-theme') || 'light';
+  $('themeMenuSub').innerText = (cur === 'dark') ? t.theme_dark : t.theme_light;
+}
+function getName(it){
+  return (it && it.n && it.n[lang]) ? it.n[lang] : (it?.n?.ru || it?.id || '');
+}
+
+/* ===========================
+   ✅ Индексы для товаров + BAR variants
+   =========================== */
+const ITEM_BY_ID = {};
+for (const cat in MENU){ for (const it of MENU[cat]) ITEM_BY_ID[it.id] = it; }
+for (const v of PLOV_VARIANTS){ ITEM_BY_ID[v.id] = v; }
+
+/* ✅ BAR: для вариантов создаем отдельные позиции в ITEM_BY_ID */
+function variantItemId(baseId, k){ return `${baseId}__${k}`; }
+function buildBarVariantIndex(){
+  for(const sub in BAR){
+    BAR[sub].forEach(base=>{
+      const vv = base.v || [];
+      if(vv.length <= 1){
+        const p = vv[0]?.p ?? 0;
+        const obj = { id: base.id, p, img: base.img, n: base.n, _barBase:true };
+        ITEM_BY_ID[obj.id] = obj;
+      }else{
+        const obj = { id: base.id, p: 0, img: base.img, n: base.n, special:'variants', v: vv, _barBase:true };
+        ITEM_BY_ID[obj.id] = obj;
+
+        vv.forEach(opt=>{
+          const vid = variantItemId(base.id, opt.k);
+          const t = (opt.t || '').trim();
+          const suffix = t ? ` ${t}` : '';
+          const nm = {
+            ru: (base.n?.ru || base.id) + suffix,
+            uz: (base.n?.uz || base.id) + suffix,
+            en: (base.n?.en || base.id) + suffix
+          };
+          ITEM_BY_ID[vid] = { id: vid, p: opt.p, img: base.img, n: nm, _barVariant:true, _base: base.id, _k: opt.k, _t: opt.t || '' };
+        });
+      }
+    });
+  }
+}
+buildBarVariantIndex();
+
+/* ✅ popular: +/- */
+const POPULAR_IDS = ['plov','shurpa','govyazhya_vyrezka','salat_grecheskiy'];
+
+function renderPopular(){
+  $('popularRow').innerHTML = '';
+  POPULAR_IDS.forEach(id=>{
+    const it = ITEM_BY_ID[id];
+    if(!it) return;
+
+    const name = getName(it);
+    const priceText = (id === 'plov')
+      ? `${formatSum(40000)} <small>сум</small>`
+      : `${formatSum(it.p)} <small>сум</small>`;
+
+    let qty = 0;
+    if(id === 'plov') qty = plovQtyTotal();
+    else qty = Number(cart[id] || 0);
+
+    $('popularRow').innerHTML += `
+      <div class="pop-card">
+        <div class="pop-badge">🔥</div>
+        <div class="pop-img"><img src="${it.img}" onerror="this.src='logo.png'"></div>
+        <div class="pop-name">${escapeHtml(name)}</div>
+        <div class="pop-price">${priceText}</div>
+
+        <div class="pop-counter">
+          <button onclick="event.stopPropagation(); popularMinus('${id}')">−</button>
+          <span id="p_${id}">${qty}</span>
+          <button onclick="event.stopPropagation(); popularPlus('${id}')">+</button>
+        </div>
+      </div>
+    `;
+  });
+}
+function popularPlus(id){
+  if(id === 'plov'){ openPlovSheet(); return; }
+  chg(id, 1);
+  if(isSearchOpen()) closeSearch();
+}
+function popularMinus(id){
+  if(id === 'plov'){
+    for(const v of PLOV_VARIANTS){
+      if((cart[v.id]||0) > 0){ chg(v.id, -1); refreshPlovQtys(); return; }
+    }
+    return;
+  }
+  chg(id, -1);
+}
+
+/* ✅ BAR subcats render */
+function renderSubCats(){
+  const sc = $('subcats');
+  if(category !== 'bar'){ sc.style.display = 'none'; sc.innerHTML=''; return; }
+  sc.style.display = '';
+  sc.innerHTML = '';
+  const labels = BAR_SUBCATS[lang] || BAR_SUBCATS.ru;
+
+  Object.keys(BAR).forEach(k=>{
+    sc.innerHTML += `<button class="btn ${k===barSub?'active':''}" onclick="barSub='${k}'; renderSubCats(); renderProducts()">${labels[k] || k}</button>`;
+  });
+}
+
+function renderCats(){
+  $('cats').innerHTML='';
+  for(let k in CATS[lang]){
+    $('cats').innerHTML += `<button class="btn ${k===category?'active':''}" onclick="category='${k}'; if(category!=='bar'){barSub='hotdog'}; renderCats(); renderSubCats(); renderProducts()">${CATS[lang][k] || k}</button>`;
+  }
+}
+
+/* ✅ Сколько плова в корзине (сумма всех порций) */
+function plovQtyTotal(){
+  let q = 0;
+  for(const v of PLOV_VARIANTS) q += Number(cart[v.id] || 0);
+  return q;
+}
+
+/* ====== Sheet: Плов или Варианты BAR ====== */
+let sheetMode = 'plov';
+let sheetBaseId = '';
+
+function openVariantSheet(baseId){
+  const base = ITEM_BY_ID[baseId];
+  if(!base || !base.v || base.v.length <= 1) return;
+  sheetMode = 'variants';
+  sheetBaseId = baseId;
+
+  try{ closeTopMenu(); }catch(_){}
+  $('plovBackdrop').classList.add('show');
+  $('plovSheet').classList.add('show');
+
+  $('plovSheetTitle').innerText = TEXT[lang].bar_choose;
+
+  const list = $('plovList');
+  list.innerHTML = '';
+
+  base.v.forEach(opt=>{
+    const vid = variantItemId(baseId, opt.k);
+    cart[vid] = cart[vid] || 0;
+
+    const nm = getName(ITEM_BY_ID[vid] || {n: base.n});
+    list.innerHTML += `
+      <div class="plov-option">
+        <div class="plov-left">
+          <div class="nm">${escapeHtml(nm)}</div>
+          <div class="sm">${formatSum(opt.p)} сум</div>
+        </div>
+        <div class="plov-right">
+          <button class="plov-mini" onclick="chg('${vid}',-1); refreshSheetQtys();">−</button>
+          <div class="plov-qty" id="pq_${vid}">${cart[vid]||0}</div>
+          <button class="plov-mini" onclick="chg('${vid}',1); refreshSheetQtys();">+</button>
+        </div>
+      </div>
+    `;
+  });
+
+  refreshSheetQtys();
+}
+
+function openPlovSheet(){
+  sheetMode = 'plov';
+  sheetBaseId = '';
+
+  try{ closeTopMenu(); }catch(_){}
+  $('plovBackdrop').classList.add('show');
+  $('plovSheet').classList.add('show');
+
+  $('plovSheetTitle').innerText = TEXT[lang].plov_choose;
+
+  const list = $('plovList');
+  list.innerHTML = '';
+
+  PLOV_VARIANTS.forEach(v=>{
+    cart[v.id] = cart[v.id] || 0;
+
+    const nm = getName(v);
+    list.innerHTML += `
+      <div class="plov-option">
+        <div class="plov-left">
+          <div class="nm">${escapeHtml(nm)}</div>
+          <div class="sm">${formatSum(v.p)} сум</div>
+        </div>
+        <div class="plov-right">
+          <button class="plov-mini" onclick="chg('${v.id}',-1); refreshSheetQtys();">−</button>
+          <div class="plov-qty" id="pq_${v.id}">${cart[v.id]||0}</div>
+          <button class="plov-mini" onclick="chg('${v.id}',1); refreshSheetQtys();">+</button>
+        </div>
+      </div>
+    `;
+  });
+
+  refreshSheetQtys();
+}
+
+function refreshPlovQtys(){ refreshSheetQtys(); }
+
+function refreshSheetQtys(){
+  if(sheetMode === 'plov'){
+    PLOV_VARIANTS.forEach(v=>{
+      const el = document.getElementById('pq_'+v.id);
+      if(el) el.innerText = cart[v.id] || 0;
+    });
+    const pp = document.getElementById('p_plov');
+    if(pp) pp.innerText = plovQtyTotal();
+  }else{
+    const base = ITEM_BY_ID[sheetBaseId];
+    (base?.v || []).forEach(opt=>{
+      const vid = variantItemId(sheetBaseId, opt.k);
+      const el = document.getElementById('pq_'+vid);
+      if(el) el.innerText = cart[vid] || 0;
+    });
+  }
+
+  try{
+    if(!isSearchOpen()){
+      renderProducts();
+    }else{
+      searchProducts();
+    }
+  }catch(_){}
+
+  updateTotal();
+}
+
+function closePlovSheet(){
+  $('plovBackdrop').classList.remove('show');
+  $('plovSheet').classList.remove('show');
+}
+
+/* cards */
+function minVariantPrice(v){
+  let m = Infinity;
+  (v||[]).forEach(x=>{ if(Number(x.p)||0 < m) m = Number(x.p)||0; });
+  return (m === Infinity) ? 0 : m;
+}
+function qtyForBase(baseId){
+  let q = 0;
+  for(const id in cart){
+    if(!cart[id]) continue;
+    const it = ITEM_BY_ID[id];
+    if(it && it._barVariant && it._base === baseId) q += Number(cart[id]||0);
+  }
+  return q;
+}
+
+function cardHTML(it, q=''){
+  const name = getName(it);
+  const nameHtml = highlight(name, q);
+
+  if(it.special === 'plov'){
+    const qTotal = plovQtyTotal();
+    return `<div class="card">
+      <div class="img"><img src="${it.img}" onerror="this.src='logo.png'"></div>
+      <div>${nameHtml}</div>
+      <div class="price">${formatSum(40000)} <small>сум</small> <small style="opacity:.75">(${TEXT[lang].choose})</small></div>
+      <button class="select-btn" onclick="openPlovSheet()">${TEXT[lang].choose} (${qTotal})</button>
+    </div>`;
+  }
+
+  if(it.special === 'variants' && (it.v||[]).length > 1){
+    const mp = minVariantPrice(it.v);
+    const qTotal = qtyForBase(it.id);
+    return `<div class="card">
+      <div class="img"><img src="${it.img}" onerror="this.src='logo.png'"></div>
+      <div>${nameHtml}</div>
+      <div class="price">${formatSum(mp)} <small>сум</small> <small style="opacity:.75">(${TEXT[lang].choose})</small></div>
+      <button class="select-btn" onclick="openVariantSheet('${it.id}')">${TEXT[lang].choose} (${qTotal})</button>
+    </div>`;
+  }
+
+  cart[it.id]=cart[it.id]||0;
+  return `<div class="card">
+    <div class="img"><img src="${it.img}" onerror="this.src='logo.png'"></div>
+    <div>${nameHtml}</div>
+    <div class="price">${formatSum(it.p)} <small>сум</small></div>
+    <div class="counter">
+      <button onclick="chg('${it.id}',-1)">−</button>
+      <span id="c_${it.id}">${cart[it.id]||0}</span>
+      <button onclick="chg('${it.id}',1)">+</button>
+    </div>
+  </div>`;
+}
+
+function getActiveList(){
+  if(category === 'bar'){
+    return BAR[barSub] || [];
+  }
+  return (MENU[category] || []);
+}
+
+function renderProducts(){
+  $('products').innerHTML='';
+  const list = getActiveList();
+
+  list.forEach(raw=>{
+    const it = ITEM_BY_ID[raw.id] || raw;
+    $('products').innerHTML += cardHTML(it,'');
+  });
+}
+
+function chg(id,v){
+  cart[id]=Math.max(0,(cart[id]||0)+v);
+  const el = document.getElementById('c_'+id);
+  if(el) el.innerText = cart[id];
+
+  if(document.getElementById('p_'+id)) document.getElementById('p_'+id).innerText = cart[id];
+
+  updateTotal();
+
+  if(id.startsWith('plov_') || id === 'plov'){
+    const pp = document.getElementById('p_plov');
+    if(pp) pp.innerText = plovQtyTotal();
+  }
+}
+
+function price(id){ return ITEM_BY_ID[id]?.p || 0; }
+
+function updateTotal(){
+  let s=0;
+  for(let id in cart) s += (cart[id]||0) * price(id);
+  $('total').innerText = formatSum(s);
+  $('stickyTotal').innerText = formatSum(s);
+}
+
+/* delivery/pickup */
+function applyTypeUI(){
+  if(type === 'pickup'){
+    $('address').style.display = 'none';
+    $('address').value = '';
+  } else {
+    $('address').style.display = 'block';
+  }
+}
+function setType(t,b){
+  if(isSearchOpen()) closeSearch();
+  type=t;
+  document.querySelectorAll('.types .btn').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  applyTypeUI();
+}
+
+/* ✅ payment: cash/click/online */
+function setPayment(p){
+  payment=p;
+  $('payCash').classList.toggle('active',p==='cash');
+  $('payClick').classList.toggle('active',p==='click');
+  $('payOnline').classList.toggle('active',p==='online');
+
+  // ✅ показываем нужный блок
+  $('onlineBox').style.display = (p==='online') ? 'block' : 'none';
+  $('clickBox').style.display  = (p==='click')  ? 'block' : 'none';
+}
+
+/* copy */
+async function copyText(txt){
+  try{
+    await navigator.clipboard.writeText(String(txt));
+    Telegram.WebApp.showPopup?.({ title: '✅', message: TEXT[lang].copied });
+  }catch(_){
+    try{
+      const ta = document.createElement('textarea');
+      ta.value = String(txt);
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      Telegram.WebApp.showPopup?.({ title: '✅', message: TEXT[lang].copied });
+    }catch(__){
+      alert('Не удалось скопировать');
+    }
+  }
+}
+
+function scrollToCart(){
+  closeTopMenu();
+  const el = $('cartBlock');
+  if(!el) return;
+  el.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+/* search */
+function isSearchOpen(){ return $('searchWrap').classList.contains('show'); }
+function toggleSearch(){ isSearchOpen() ? closeSearch() : openSearch(); }
+function openSearch(){
+  $('searchWrap').classList.add('show');
+  $('searchTitle').classList.add('show');
+  $('cats').style.display = 'none';
+  $('subcats').style.display = 'none';
+  $('popularWrap').style.display = 'none';
+  $('searchInput').value = '';
+  $('searchInput').focus();
+  searchProducts();
+}
+function closeSearch(){
+  $('searchWrap').classList.remove('show');
+  $('searchTitle').classList.remove('show');
+  $('cats').style.display = '';
+  $('popularWrap').style.display = '';
+  $('searchInput').value = '';
+  renderSubCats();
+  renderProducts();
+}
+function clearSearch(){ closeSearch(); }
+function onSearchKey(e){ if(e.key === 'Enter') closeSearch(); }
+
+function matchItem(it, q){
+  const name = getName(it);
+  const n_ru = (it.n?.ru||'').toLowerCase();
+  const n_uz = (it.n?.uz||'').toLowerCase();
+  const n_en = (it.n?.en||'').toLowerCase();
+  const n_cur = String(name).toLowerCase();
+  return (n_cur.includes(q) || n_ru.includes(q) || n_uz.includes(q) || n_en.includes(q));
+}
+
+function searchProducts(){
+  const q = ($('searchInput').value || '').trim().toLowerCase();
+  $('products').innerHTML='';
+  if(!q){ renderProducts(); return; }
+
+  for(let c in MENU){
+    MENU[c].forEach(base=>{
+      const it = ITEM_BY_ID[base.id] || base;
+      if(matchItem(it,q)) $('products').innerHTML += cardHTML(it, q);
+    });
+  }
+
+  for(let sub in BAR){
+    BAR[sub].forEach(base=>{
+      const it = ITEM_BY_ID[base.id] || base;
+      if(matchItem(it,q)) $('products').innerHTML += cardHTML(it, q);
+    });
+  }
+}
+
+/* order */
+function genOrderId(){
+  const d = new Date();
+  const dd = String(d.getDate()).padStart(2,'0');
+  const mm = String(d.getMonth()+1).padStart(2,'0');
+  const key = `ozbegim_seq_${d.getFullYear()}${mm}${dd}`;
+  let n = Number(localStorage.getItem(key) || 0) + 1;
+  localStorage.setItem(key, String(n));
+  return `OZB-${dd}${mm}-${String(n).padStart(3,'0')}`;
+}
+function calcTotalNum(){
+  let s = 0;
+  for (const id in cart) s += (Number(cart[id] || 0) * price(id));
+  return s;
+}
+function buildOrderLines(){
+  const lines = [];
+  for(const id in cart){
+    const qty = Number(cart[id]||0);
+    if(qty<=0) continue;
+    const it = ITEM_BY_ID[id];
+    if(!it) continue;
+    lines.push({ id, name: getName(it), qty, price: it.p, sum: it.p * qty });
+  }
+  return lines;
+}
+function sendOrder(){
+  const cleanOrder = {};
+  for (const id in cart) {
+    const q = Number(cart[id] || 0);
+    if (q > 0) cleanOrder[id] = q;
+  }
+  if (Object.keys(cleanOrder).length === 0) {
+    alert(TEXT[lang].empty);
+    return;
+  }
+
+  const payload = {
+    tg: { id: tg_id, username: tg_username, first_name: tg_first_name },
+    lang,
+    items: buildOrderLines(),
+    order: cleanOrder,
+    total: $('total').innerText,
+    total_num: calcTotalNum(),
+    payment,
+    type,
+    address: type === 'pickup' ? '' : $('address').value,
+    phone: $('phone').value,
+    comment: $('comment').value,
+    order_id: genOrderId(),
+
+    // ✅ чтобы боту было кому слать (добавлен 6564250879)
+    admins: ADMIN_IDS,
+
+    online_details: payment==='online' ? {recipient: ONLINE_RECIPIENT, card: ONLINE_CARD} : null,
+    click_qr: payment==='click' ? {img: CLICK_QR_IMG} : null
+  };
+
+  Telegram.WebApp.sendData(JSON.stringify(payload));
+  Telegram.WebApp.close();
+}
+
+function applyLang(){
+  $('btnDelivery').innerText = TEXT[lang].delivery;
+  $('btnPickup').innerText   = TEXT[lang].pickup;
+  $('address').placeholder   = TEXT[lang].address;
+  $('phone').placeholder     = TEXT[lang].phone;
+  $('cartTitle').innerText   = TEXT[lang].cart;
+  $('orderBtn').innerText    = TEXT[lang].order;
+  $('comment').placeholder   = TEXT[lang].comment;
+  $('payCash').innerText     = TEXT[lang].cash;
+  $('payClick').innerText    = TEXT[lang].click;
+  $('payOnline').innerText   = TEXT[lang].online;
+  $('searchTitle').innerText = TEXT[lang].results;
+  $('popularTitle').innerText= TEXT[lang].popular;
+  $('stickyCart').innerText  = TEXT[lang].cart_btn;
+
+  $('onlineTitle').innerText = TEXT[lang].online_title;
+  $('recLabel').innerText    = TEXT[lang].rec;
+  $('cardLabel').innerText   = TEXT[lang].card;
+  $('recValue').innerText    = ONLINE_RECIPIENT;
+  $('cardValue').innerText   = ONLINE_CARD;
+  $('onlineHint').innerText  = TEXT[lang].online_hint;
+
+  // ✅ CLICK QR i18n
+  $('clickTitle').innerText  = TEXT[lang].click_qr_title || 'CLICK — QR';
+  $('clickHint').innerText   = TEXT[lang].click_qr_hint  || '';
+
+  renderPopular();
+  renderCats();
+  renderSubCats();
+  renderProducts();
+  updateTotal();
+
+  applyBurgerI18n();
+  syncThemeLabel();
+  applyTypeUI();
+  setPayment(payment);
+}
+
+/* saved inputs */
+function loadSaved(){
+  const a = localStorage.getItem("ozbegim_address") || '';
+  const p = localStorage.getItem("ozbegim_phone") || '';
+  if(a && !$('address').value) $('address').value = a;
+  if(p && !$('phone').value) $('phone').value = p;
+}
+function bindSave(){
+  $('address').addEventListener('input', ()=>localStorage.setItem("ozbegim_address", $('address').value));
+  $('phone').addEventListener('input', ()=>localStorage.setItem("ozbegim_phone", $('phone').value));
+}
+
+/* init theme */
+(function initTheme(){
+  const saved = localStorage.getItem('ozbegim_theme');
+  if(saved === 'dark' || saved === 'light') applyTheme(saved);
+  else applyTheme('light');
+})();
+
+loadSaved();
+bindSave();
+applyLang();
+setAboutLang('uz');
+
+/* ✅ по умолчанию CASH, и блоки скрыты */
+setPayment('cash');
+</script>
+</body>
+</html>
