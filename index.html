@@ -994,7 +994,7 @@ body.photo-lock{ overflow:hidden; }
 <body data-theme="light">
 
 <div class="header">
-  <img src="logo.png" onerror="this.src='logo.png'">
+  <img src="logo.png" onerror="handleImageError(this)">
 
   <div class="brand-wrap">
     <div class="brand-title">CAFE UZBEGIM</div>
@@ -1437,7 +1437,7 @@ const MENU = {
     {
       "id": "hrust_baklajan",
       "p": 50000,
-      "img": "images/images/baklazhany_hrust.jpg",
+      "img": "images/baklazhany_hrust.jpg?v=2",
       "n": {
         "ru": "Салат из хрустящих баклажанов",
         "uz": "Qarsildoq baqlajon salati",
@@ -2741,7 +2741,7 @@ function renderPopular(){
     $('popularRow').innerHTML += `
       <div class="pop-card">
         <div class="pop-badge">🔥</div>
-        <div class="pop-img"><img src="${it.img}" onerror="this.src='logo.png'"></div>
+        <div class="pop-img"><img src="${it.img}" onerror="handleImageError(this)"></div>
         <div class="pop-name">${escapeHtml(name)}</div>
         <div class="pop-price">${priceText}</div>
 
@@ -2968,7 +2968,7 @@ function cardHTML(it, q=''){
   if(it.special === 'plov'){
     const qTotal = plovQtyTotal();
     return `<div class="card">
-      <div class="img"><img src="${it.img}" onerror="this.src='logo.png'"></div>
+      <div class="img"><img src="${it.img}" onerror="handleImageError(this)"></div>
       <div>${nameHtml}</div>
       <div class="price">${formatSum(50000)} <small>${moneyUnit()}</small> <small style="opacity:.75">(${TEXT[lang].choose})</small></div>
       <button class="select-btn" onclick="openPlovSheet()">${TEXT[lang].choose} (${qTotal})</button>
@@ -2979,7 +2979,7 @@ function cardHTML(it, q=''){
     const mp = minVariantPrice(it.v);
     const qTotal = qtyForBase(it.id);
     return `<div class="card">
-      <div class="img"><img src="${it.img}" onerror="this.src='logo.png'"></div>
+      <div class="img"><img src="${it.img}" onerror="handleImageError(this)"></div>
       <div>${nameHtml}</div>
       <div class="price">${formatSum(mp)} <small>${moneyUnit()}</small> <small style="opacity:.75">(${TEXT[lang].choose})</small></div>
       <button class="select-btn" onclick="openVariantSheet('${it.id}')">${TEXT[lang].choose} (${qTotal})</button>
@@ -2988,7 +2988,7 @@ function cardHTML(it, q=''){
 
   cart[it.id]=cart[it.id]||0;
   return `<div class="card">
-    <div class="img"><img src="${it.img}" onerror="this.src='logo.png'"></div>
+    <div class="img"><img src="${it.img}" onerror="handleImageError(this)"></div>
     <div>${nameHtml}</div>
     <div class="price">${formatSum(it.p)} <small>${moneyUnit()}</small></div>
     <div class="counter">
@@ -3422,6 +3422,21 @@ function changeWeightVariant(id, delta){
 
   renderCart();
   updateSticky();
+}
+
+
+function handleImageError(img){
+  if(!img || img.dataset.fallbackDone === '1'){
+    if(img) img.src = 'logo.png';
+    return;
+  }
+  img.dataset.fallbackDone = '1';
+  const clean = (img.getAttribute('src') || '').split('?')[0];
+  if(clean && img.src !== clean){
+    img.src = clean;
+    return;
+  }
+  img.src = 'logo.png';
 }
 
 </script>
