@@ -1613,63 +1613,75 @@ const MENU = {
     },
     {
       "id": "jiz_baranina_1kg",
-      "p": 280000,
+      "p": 0,
       "img": "images/jiz_baranina_1kg.jpg",
       "n": {
         "ru": "Жиз из баранины 1 кг",
         "uz": "Qo‘y go‘shtidan jiz 1 kg",
         "en": "Lamb jiz 1 kg"
-      }
+      },
+      "special": "weight",
+      "weight_key": "jiz_baranina"
     },
     {
       "id": "jiz_govyadina_1kg",
-      "p": 280000,
+      "p": 0,
       "img": "images/jiz_govyadina_1kg.jpg",
       "n": {
         "ru": "Жиз из говядины 1 кг",
         "uz": "Mol go‘shtidan jiz 1 kg",
         "en": "Beef jiz 1 kg"
-      }
+      },
+      "special": "weight",
+      "weight_key": "jiz_govyadina"
     },
     {
       "id": "chuponcha_1kg",
-      "p": 280000,
+      "p": 0,
       "img": "images/chuponcha_1kg.jpg",
       "n": {
         "ru": "Чупонча 1 кг",
         "uz": "Cho‘poncha 1 kg",
         "en": "Chuponcha 1 kg"
-      }
+      },
+      "special": "weight",
+      "weight_key": "chuponcha"
     },
     {
       "id": "jiz_umakay_1kg",
-      "p": 280000,
+      "p": 0,
       "img": "images/jiz_umakay_1kg.jpg",
       "n": {
         "ru": "Жиз Умакай 1 кг",
         "uz": "Jiz Umakay 1 kg",
         "en": "Jiz Umakay 1 kg"
-      }
+      },
+      "special": "weight",
+      "weight_key": "jiz_umakay"
     },
     {
       "id": "tandyr_yagnenka_1kg",
-      "p": 280000,
+      "p": 0,
       "img": "images/tandyr_yagnenka_1kg.jpg",
       "n": {
         "ru": "Тандыр ягненка 1 кг",
         "uz": "Tandir qo‘zichoq 1 kg",
         "en": "Tandoor lamb 1 kg"
-      }
+      },
+      "special": "weight",
+      "weight_key": "tandyr_yagnenka"
     },
     {
       "id": "tandyr_cyplenok_1kg",
-      "p": 120000,
+      "p": 0,
       "img": "images/tandyr_cyplenok_1kg.jpg",
       "n": {
         "ru": "Тандыр цыпленок 1 кг",
         "uz": "Tandir jo‘ja 1 kg",
         "en": "Tandoor chicken 1 kg"
-      }
+      },
+      "special": "weight",
+      "weight_key": "tandyr_cyplenok"
     },
     {
       "id": "tushenka_250",
@@ -1825,13 +1837,15 @@ const MENU = {
     },
     {
       "id": "govyazhya_vyrezka_griby_1kg",
-      "p": 280000,
+      "p": 0,
       "img": "images/govyazhya_vyrezka_griby_1kg.jpg",
       "n": {
         "ru": "Говяжья вырезка с грибами 1 кг",
         "uz": "Qo‘ziqorinli mol filesi 1 kg",
         "en": "Beef tenderloin with mushrooms 1 kg"
-      }
+      },
+      "special": "weight",
+      "weight_key": "govyazhya_vyrezka_griby"
     }
   ],
   "bread": [
@@ -2375,6 +2389,39 @@ const PLOV_VARIANTS = [
 ];
 
 function moneyUnit(){ return lang==='uz' ? 'so‘m' : (lang==='en' ? 'UZS' : 'сум'); }
+
+const WEIGHT_VARIANTS = {
+  jiz_baranina: [
+    {id:'jiz_baranina_1kg', p:280000, w:'1 кг', n:{ru:'Жиз из баранины 1 кг',uz:"Qo‘y go‘shtidan jiz 1 kg",en:'Lamb jiz 1 kg'}},
+    {id:'jiz_baranina_500', p:140000, w:'500 г', n:{ru:'Жиз из баранины 500 г',uz:"Qo‘y go‘shtidan jiz 500 g",en:'Lamb jiz 500 g'}}
+  ],
+  jiz_govyadina: [
+    {id:'jiz_govyadina_1kg', p:280000, w:'1 кг', n:{ru:'Жиз из говядины 1 кг',uz:"Mol go‘shtidan jiz 1 kg",en:'Beef jiz 1 kg'}},
+    {id:'jiz_govyadina_500', p:140000, w:'500 г', n:{ru:'Жиз из говядины 500 г',uz:"Mol go‘shtidan jiz 500 g",en:'Beef jiz 500 g'}}
+  ],
+  chuponcha: [
+    {id:'chuponcha_1kg', p:280000, w:'1 кг', n:{ru:'Чупонча 1 кг',uz:"Cho‘poncha 1 kg",en:'Chuponcha 1 kg'}},
+    {id:'chuponcha_500', p:140000, w:'500 г', n:{ru:'Чупонча 500 г',uz:"Cho‘poncha 500 g",en:'Chuponcha 500 g'}}
+  ],
+  jiz_umakay: [
+    {id:'jiz_umakay_1kg', p:280000, w:'1 кг', n:{ru:'Жиз Умакай 1 кг',uz:'Jiz Umakay 1 kg',en:'Jiz Umakay 1 kg'}},
+    {id:'jiz_umakay_500', p:140000, w:'500 г', n:{ru:'Жиз Умакай 500 г',uz:'Jiz Umakay 500 g',en:'Jiz Umakay 500 g'}}
+  ],
+  tandyr_yagnenka: [
+    {id:'tandyr_yagnenka_1kg', p:280000, w:'1 кг', n:{ru:'Тандыр ягненка 1 кг',uz:"Tandir qo‘zichoq 1 kg",en:'Tandoor lamb 1 kg'}},
+    {id:'tandyr_yagnenka_500', p:140000, w:'500 г', n:{ru:'Тандыр ягненка 500 г',uz:"Tandir qo‘zichoq 500 g",en:'Tandoor lamb 500 g'}},
+    {id:'tandyr_yagnenka_300', p:84000, w:'300 г', n:{ru:'Тандыр ягненка 300 г',uz:"Tandir qo‘zichoq 300 g",en:'Tandoor lamb 300 g'}}
+  ],
+  tandyr_cyplenok: [
+    {id:'tandyr_cyplenok_1kg', p:120000, w:'1 кг', n:{ru:'Тандыр цыпленок 1 кг',uz:"Tandir jo‘ja 1 kg",en:'Tandoor chicken 1 kg'}},
+    {id:'tandyr_cyplenok_500', p:60000, w:'500 г', n:{ru:'Тандыр цыпленок 500 г',uz:"Tandir jo‘ja 500 g",en:'Tandoor chicken 500 g'}}
+  ],
+  govyazhya_vyrezka_griby: [
+    {id:'govyazhya_vyrezka_griby_1kg', p:280000, w:'1 кг', n:{ru:'Говяжья вырезка с грибами 1 кг',uz:"Qo‘ziqorinli mol filesi 1 kg",en:'Beef tenderloin with mushrooms 1 kg'}},
+    {id:'govyazhya_vyrezka_griby_500', p:140000, w:'500 г', n:{ru:'Говяжья вырезка с грибами 500 г',uz:"Qo‘ziqorinli mol filesi 500 g",en:'Beef tenderloin with mushrooms 500 g'}}
+  ]
+};
+
 function formatSum(x){
   const n = Number(x) || 0;
   return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,' ');
@@ -2777,6 +2824,7 @@ function refreshSheetQtys(){
 }
 
 function closePlovSheet(){
+  activeWeightItem = null;
   $('plovBackdrop').classList.remove('show');
   $('plovSheet').classList.remove('show');
 }
@@ -2807,7 +2855,7 @@ function cardHTML(it, q=''){
       <div class="img"><img src="${it.img}" onerror="this.src='logo.png'"></div>
       <div>${nameHtml}</div>
       <div class="price">${formatSum(50000)} <small>${moneyUnit()}</small> <small style="opacity:.75">(${TEXT[lang].choose})</small></div>
-      <button class="select-btn" onclick="openPlovSheet()">${TEXT[lang].choose} (${qTotal})</button>
+      <button class="select-btn" onclick="openSpecialSheet(it)">${TEXT[lang].choose} (${qTotal})</button>
     </div>`;
   }
 
@@ -3178,6 +3226,87 @@ document.addEventListener('click', (event)=>{
 
   openPhotoModal(target.currentSrc || target.src, title);
 }, true);
+
+
+
+let activeWeightItem = null;
+
+function findMenuItemById(id){
+  for(const key of Object.keys(MENU)){
+    const found = MENU[key].find(x=>x.id===id);
+    if(found) return found;
+  }
+  return null;
+}
+
+function openSpecialSheetById(id){
+  const it = findMenuItemById(id);
+  if(!it) return;
+  if(it.special === 'plov') return openPlovSheet();
+  if(it.special === 'weight') return openWeightSheet(it);
+}
+
+function openSpecialSheet(it){
+  if(!it) return;
+  if(it.special === 'plov') return openPlovSheet();
+  if(it.special === 'weight') return openWeightSheet(it);
+}
+
+function openWeightSheet(it){
+  activeWeightItem = it;
+  const variants = WEIGHT_VARIANTS[it.weight_key] || [];
+  if(!variants.length) return;
+
+  $('plovSheetTitle').innerText = ({
+    ru:'Выберите вес',
+    uz:'Og‘irlikni tanlang',
+    en:'Choose weight'
+  })[lang];
+
+  $('plovList').innerHTML = variants.map(v=>{
+    const qty = cart[v.id]?.q || 0;
+    return `
+      <div class="plov-option">
+        <div class="plov-left">
+          <div class="nm">${escapeHtml(v.n[lang] || v.n.ru)}</div>
+          <div class="sm">${formatSum(v.p)} ${moneyUnit()}</div>
+        </div>
+        <div class="plov-right">
+          <button class="plov-mini" onclick="changeWeightVariant('${v.id}',-1)">−</button>
+          <div class="plov-qty" id="weightQty_${v.id}">${qty}</div>
+          <button class="plov-mini" onclick="changeWeightVariant('${v.id}',1)">+</button>
+        </div>
+      </div>`;
+  }).join('');
+
+  $('plovBackdrop').classList.add('show');
+  $('plovSheet').classList.add('show');
+}
+
+function changeWeightVariant(id, delta){
+  if(!activeWeightItem) return;
+  const variants = WEIGHT_VARIANTS[activeWeightItem.weight_key] || [];
+  const v = variants.find(x=>x.id===id);
+  if(!v) return;
+
+  if(!cart[id]){
+    cart[id] = {
+      q:0,
+      p:v.p,
+      img:activeWeightItem.img,
+      n:v.n
+    };
+  }
+
+  cart[id].q = Math.max(0, (cart[id].q || 0) + delta);
+  if(cart[id].q === 0) delete cart[id];
+
+  const qtyNode = $('weightQty_'+id);
+  if(qtyNode) qtyNode.innerText = cart[id]?.q || 0;
+
+  renderCart();
+  updateSticky();
+}
 
 </script>
 
