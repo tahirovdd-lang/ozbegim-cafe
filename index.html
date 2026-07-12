@@ -922,6 +922,72 @@ body[data-theme="dark"] .cat-tile{ background:rgba(255,255,255,.06); }
 .select-btn,.counter button,.pop-counter button{ border-radius:999px !important; }
 @media(max-width:420px){ .cat-grid{ grid-template-columns:repeat(2,1fr); } }
 
+
+/* ===== Dish photo lightbox ===== */
+.photo-modal{
+  position:fixed;
+  inset:0;
+  z-index:5000;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  background:rgba(0,0,0,.82);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+}
+.photo-modal.show{ display:flex; }
+.photo-modal-card{
+  position:relative;
+  width:min(94vw,720px);
+  max-height:90vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+.photo-modal-img{
+  display:block;
+  max-width:100%;
+  max-height:78vh;
+  width:auto;
+  height:auto;
+  object-fit:contain;
+  border-radius:24px;
+  background:#fff;
+  box-shadow:0 24px 70px rgba(0,0,0,.45);
+}
+.photo-modal-title{
+  margin-top:12px;
+  color:#fff;
+  font-weight:900;
+  font-size:16px;
+  text-align:center;
+  text-shadow:0 2px 12px rgba(0,0,0,.55);
+}
+.photo-modal-close{
+  position:absolute;
+  right:-4px;
+  top:-46px;
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.30);
+  background:rgba(255,255,255,.14);
+  color:#fff;
+  font-size:26px;
+  line-height:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+}
+.photo-modal-close:active{ transform:scale(.96); }
+.card .img img,.pop-img img{ cursor:zoom-in; }
+body.photo-lock{ overflow:hidden; }
+
 </style>
 </head>
 
@@ -1361,7 +1427,7 @@ const MENU = {
     {
       "id": "achi_chuk",
       "p": 20000,
-      "img": "images/achi_chuk.jpg",
+      "img": "images/achichuk.jpg",
       "n": {
         "ru": "Ачи-чук",
         "uz": "Achichuk",
@@ -3060,6 +3126,68 @@ setAboutLang('uz');
 
 /* ✅ по умолчанию CASH, и блоки скрыты */
 setPayment('cash');
+
+/* ===== Dish photo lightbox ===== */
+function openPhotoModal(src, title){
+  if(!src) return;
+  const modal = $('photoModal');
+  const img = $('photoModalImg');
+  const ttl = $('photoModalTitle');
+  if(!modal || !img) return;
+
+  img.src = src;
+  img.alt = title || '';
+  if(ttl) ttl.innerText = title || '';
+  modal.classList.add('show');
+  document.body.classList.add('photo-lock');
+}
+
+function closePhotoModal(){
+  const modal = $('photoModal');
+  const img = $('photoModalImg');
+  if(modal) modal.classList.remove('show');
+  if(img) img.src = '';
+  document.body.classList.remove('photo-lock');
+}
+
+function photoModalBackdrop(event){
+  if(event.target && event.target.id === 'photoModal') closePhotoModal();
+}
+
+document.addEventListener('keydown', (event)=>{
+  if(event.key === 'Escape') closePhotoModal();
+});
+
+document.addEventListener('click', (event)=>{
+  const target = event.target;
+  if(!(target instanceof HTMLImageElement)) return;
+
+  const dishImage = target.closest('.card .img, .pop-img');
+  if(!dishImage) return;
+
+  event.preventDefault();
+  event.stopPropagation();
+
+  const card = target.closest('.card, .pop-card');
+  let title = target.alt || '';
+
+  if(card){
+    const nameNode = card.querySelector('.pop-name, .name, b, strong');
+    if(nameNode && nameNode.innerText.trim()) title = nameNode.innerText.trim();
+  }
+
+  openPhotoModal(target.currentSrc || target.src, title);
+}, true);
+
 </script>
+
+<div class="photo-modal" id="photoModal" onclick="photoModalBackdrop(event)">
+  <div class="photo-modal-card">
+    <button class="photo-modal-close" type="button" onclick="closePhotoModal()" aria-label="Закрыть">×</button>
+    <img class="photo-modal-img" id="photoModalImg" src="" alt="">
+    <div class="photo-modal-title" id="photoModalTitle"></div>
+  </div>
+</div>
+
 </body>
 </html>
