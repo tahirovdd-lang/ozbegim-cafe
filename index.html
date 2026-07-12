@@ -982,7 +982,7 @@ body[data-theme="dark"] .cat-tile{ background:rgba(255,255,255,.06); }
 <div id="cartAnchor"></div>
 
 <div class="cart" id="cartBlock">
-  <b id="cartTitle"></b>: <span id="total">0</span> сум
+  <b id="cartTitle"></b>: <span id="total">0</span> <span id="cartCurrency">сум</span>
   <textarea id="comment" class="input"></textarea>
 
   <!-- ✅ Оплата в один ряд + Онлайн -->
@@ -1049,7 +1049,7 @@ body[data-theme="dark"] .cat-tile{ background:rgba(255,255,255,.06); }
 <div class="sticky-checkout">
   <div class="sticky-inner">
     <div class="sticky-sum">
-      <span id="stickyTotal">0</span> <small>сум</small>
+      <span id="stickyTotal">0</span> <small>${moneyUnit()}</small>
     </div>
     <button class="sticky-btn" onclick="scrollToCart()" id="stickyCart">🛒 Корзина</button>
   </div>
@@ -1171,9 +1171,9 @@ body[data-theme="dark"] .cat-tile{ background:rgba(255,255,255,.06); }
     <div class="about-body" id="legalBody"></div>
 
     <div class="legal-actions">
-      <button class="tabbtn" onclick="contactManager()">Связаться с менеджером</button>
-      <button class="tabbtn" onclick="openTelLegal()">Позвонить</button>
-      <button class="tabbtn" onclick="openMailLegal()">Почта</button>
+      <button class="tabbtn" id="legalManagerBtn" onclick="contactManager()">Связаться с менеджером</button>
+      <button class="tabbtn" id="legalCallBtn" onclick="openTelLegal()">Позвонить</button>
+      <button class="tabbtn" id="legalMailBtn" onclick="openMailLegal()">Почта</button>
     </div>
   </div>
 </div>
@@ -1344,8 +1344,8 @@ const MENU = {
       "img": "images/salat_svezhiy.jpg",
       "n": {
         "ru": "Салат Свежий",
-        "uz": "Салат Свежий",
-        "en": "Салат Свежий"
+        "uz": "Yangi salat",
+        "en": "Fresh salad"
       }
     },
     {
@@ -1354,8 +1354,8 @@ const MENU = {
       "img": "images/salat_grecheskiy.jpg",
       "n": {
         "ru": "Салат Греческий",
-        "uz": "Салат Греческий",
-        "en": "Салат Греческий"
+        "uz": "Yunoncha salat",
+        "en": "Greek salad"
       }
     },
     {
@@ -1364,8 +1364,8 @@ const MENU = {
       "img": "images/achi_chuk.jpg",
       "n": {
         "ru": "Ачи-чук",
-        "uz": "Ачи-чук",
-        "en": "Ачи-чук"
+        "uz": "Achichuk",
+        "en": "Achichuk"
       }
     },
     {
@@ -1374,8 +1374,8 @@ const MENU = {
       "img": "images/hrust_baklajan.jpg",
       "n": {
         "ru": "Салат из хрустящих баклажанов",
-        "uz": "Салат из хрустящих баклажанов",
-        "en": "Салат из хрустящих баклажанов"
+        "uz": "Qarsildoq baqlajon salati",
+        "en": "Crispy eggplant salad"
       }
     },
     {
@@ -1384,8 +1384,8 @@ const MENU = {
       "img": "images/francuzskiy.jpg",
       "n": {
         "ru": "Французкий",
-        "uz": "Французкий",
-        "en": "Французкий"
+        "uz": "Fransuzcha salat",
+        "en": "French salad"
       }
     },
     {
@@ -1394,8 +1394,8 @@ const MENU = {
       "img": "images/majnuntol.jpg",
       "n": {
         "ru": "Мажнунтол",
-        "uz": "Мажнунтол",
-        "en": "Мажнунтол"
+        "uz": "Majnuntol",
+        "en": "Majnuntol"
       }
     },
     {
@@ -1404,8 +1404,8 @@ const MENU = {
       "img": "images/choban.jpg",
       "n": {
         "ru": "Чобан",
-        "uz": "Чобан",
-        "en": "Чобан"
+        "uz": "Cho‘pon salati",
+        "en": "Choban salad"
       }
     },
     {
@@ -1414,8 +1414,8 @@ const MENU = {
       "img": "images/vecho.jpg",
       "n": {
         "ru": "Вечо",
-        "uz": "Вечо",
-        "en": "Вечо"
+        "uz": "Vecho",
+        "en": "Vecho"
       }
     }
   ],
@@ -1426,8 +1426,8 @@ const MENU = {
       "img": "images/syr_assorti.jpg",
       "n": {
         "ru": "Сырное ассорти",
-        "uz": "Сырное ассорти",
-        "en": "Сырное ассорти"
+        "uz": "Pishloq assortisi",
+        "en": "Cheese platter"
       }
     },
     {
@@ -1436,8 +1436,8 @@ const MENU = {
       "img": "images/myasnoe_assorti.jpg",
       "n": {
         "ru": "Мясное ассорти",
-        "uz": "Мясное ассорти",
-        "en": "Мясное ассорти"
+        "uz": "Go‘sht assortisi",
+        "en": "Meat platter"
       }
     },
     {
@@ -1446,8 +1446,8 @@ const MENU = {
       "img": "images/fruktovoe_assorti.jpg",
       "n": {
         "ru": "Фруктовое ассорти",
-        "uz": "Фруктовое ассорти",
-        "en": "Фруктовое ассорти"
+        "uz": "Meva assortisi",
+        "en": "Fruit platter"
       }
     },
     {
@@ -1456,8 +1456,8 @@ const MENU = {
       "img": "images/limon_narezka.jpg",
       "n": {
         "ru": "Лимонная нарезка",
-        "uz": "Лимонная нарезка",
-        "en": "Лимонная нарезка"
+        "uz": "Limon bo‘laklari",
+        "en": "Sliced lemon"
       }
     },
     {
@@ -1466,8 +1466,8 @@ const MENU = {
       "img": "images/suzma_chakka.jpg",
       "n": {
         "ru": "Сузьма (Чакка)",
-        "uz": "Сузьма (Чакка)",
-        "en": "Сузьма (Чакка)"
+        "uz": "Suzma (Chakka)",
+        "en": "Suzma (Chakka)"
       }
     },
     {
@@ -1476,8 +1476,8 @@ const MENU = {
       "img": "images/chalop.jpg",
       "n": {
         "ru": "Чалоп",
-        "uz": "Чалоп",
-        "en": "Чалоп"
+        "uz": "Chalop",
+        "en": "Chalop"
       }
     }
   ],
@@ -1488,8 +1488,8 @@ const MENU = {
       "img": "images/shurpa.jpg",
       "n": {
         "ru": "Шурпа",
-        "uz": "Шурпа",
-        "en": "Шурпа"
+        "uz": "Sho‘rva",
+        "en": "Shurpa"
       }
     },
     {
@@ -1498,8 +1498,8 @@ const MENU = {
       "img": "images/mastava.jpg",
       "n": {
         "ru": "Мастава",
-        "uz": "Мастава",
-        "en": "Мастава"
+        "uz": "Mastava",
+        "en": "Mastava"
       }
     },
     {
@@ -1508,8 +1508,8 @@ const MENU = {
       "img": "images/byktyrma.jpg",
       "n": {
         "ru": "Быктырма",
-        "uz": "Быктырма",
-        "en": "Быктырма"
+        "uz": "Biqtirma",
+        "en": "Byktyrma soup"
       }
     }
   ],
@@ -1520,7 +1520,7 @@ const MENU = {
       "img": "images/plov.jpg",
       "n": {
         "ru": "Плов",
-        "uz": "Плов",
+        "uz": "Osh",
         "en": "Plov"
       },
       "special": "plov"
@@ -1531,8 +1531,8 @@ const MENU = {
       "img": "images/manty_govyadina.jpg",
       "n": {
         "ru": "Манты с говядиной 4шт",
-        "uz": "Манты с говядиной 4шт",
-        "en": "Манты с говядиной 4шт"
+        "uz": "Mol go‘shtli manti 4 dona",
+        "en": "Beef manti, 4 pcs"
       }
     },
     {
@@ -1541,8 +1541,8 @@ const MENU = {
       "img": "images/dolma_smetana.jpg",
       "n": {
         "ru": "Долма со сметаной",
-        "uz": "Долма со сметаной",
-        "en": "Долма со сметаной"
+        "uz": "Smetanali do‘lma",
+        "en": "Dolma with sour cream"
       }
     },
     {
@@ -1551,8 +1551,8 @@ const MENU = {
       "img": "images/jiz_baranina_1kg.jpg",
       "n": {
         "ru": "Жиз из баранины 1 кг",
-        "uz": "Жиз из баранины 1 кг",
-        "en": "Жиз из баранины 1 кг"
+        "uz": "Qo‘y go‘shtidan jiz 1 kg",
+        "en": "Lamb jiz 1 kg"
       }
     },
     {
@@ -1561,8 +1561,8 @@ const MENU = {
       "img": "images/jiz_govyadina_1kg.jpg",
       "n": {
         "ru": "Жиз из говядины 1 кг",
-        "uz": "Жиз из говядины 1 кг",
-        "en": "Жиз из говядины 1 кг"
+        "uz": "Mol go‘shtidan jiz 1 kg",
+        "en": "Beef jiz 1 kg"
       }
     },
     {
@@ -1571,8 +1571,8 @@ const MENU = {
       "img": "images/chuponcha_1kg.jpg",
       "n": {
         "ru": "Чупонча 1 кг",
-        "uz": "Чупонча 1 кг",
-        "en": "Чупонча 1 кг"
+        "uz": "Cho‘poncha 1 kg",
+        "en": "Chuponcha 1 kg"
       }
     },
     {
@@ -1581,8 +1581,8 @@ const MENU = {
       "img": "images/jiz_umakay_1kg.jpg",
       "n": {
         "ru": "Жиз Умакай 1 кг",
-        "uz": "Жиз Умакай 1 кг",
-        "en": "Жиз Умакай 1 кг"
+        "uz": "Jiz Umakay 1 kg",
+        "en": "Jiz Umakay 1 kg"
       }
     },
     {
@@ -1591,8 +1591,8 @@ const MENU = {
       "img": "images/tandyr_yagnenka_1kg.jpg",
       "n": {
         "ru": "Тандыр ягненка 1 кг",
-        "uz": "Тандыр ягненка 1 кг",
-        "en": "Тандыр ягненка 1 кг"
+        "uz": "Tandir qo‘zichoq 1 kg",
+        "en": "Tandoor lamb 1 kg"
       }
     },
     {
@@ -1601,8 +1601,8 @@ const MENU = {
       "img": "images/tandyr_cyplenok_1kg.jpg",
       "n": {
         "ru": "Тандыр цыпленок 1 кг",
-        "uz": "Тандыр цыпленок 1 кг",
-        "en": "Тандыр цыпленок 1 кг"
+        "uz": "Tandir jo‘ja 1 kg",
+        "en": "Tandoor chicken 1 kg"
       }
     },
     {
@@ -1611,8 +1611,8 @@ const MENU = {
       "img": "images/tushenka_250.jpg",
       "n": {
         "ru": "Тушенка 250 г",
-        "uz": "Тушенка 250 г",
-        "en": "Тушенка 250 г"
+        "uz": "Dimlangan go‘sht 250 g",
+        "en": "Stewed meat 250 g"
       }
     }
   ],
@@ -1623,8 +1623,8 @@ const MENU = {
       "img": "images/barani_semechki.jpg",
       "n": {
         "ru": "Бараньи семечки",
-        "uz": "Бараньи семечки",
-        "en": "Бараньи семечки"
+        "uz": "Qo‘y qovurg‘achalari",
+        "en": "Lamb riblets"
       }
     },
     {
@@ -1633,8 +1633,8 @@ const MENU = {
       "img": "images/barani_rebryshki.jpg",
       "n": {
         "ru": "Бараньи рёбрышки",
-        "uz": "Бараньи рёбрышки",
-        "en": "Бараньи рёбрышки"
+        "uz": "Qo‘y qovurg‘alari",
+        "en": "Lamb ribs"
       }
     },
     {
@@ -1643,8 +1643,8 @@ const MENU = {
       "img": "images/govyazhya_vyrezka_griby_500.jpg",
       "n": {
         "ru": "Говяжья вырезка с грибами 500гр",
-        "uz": "Говяжья вырезка с грибами 500гр",
-        "en": "Говяжья вырезка с грибами 500гр"
+        "uz": "Qo‘ziqorinli mol filesi 500 g",
+        "en": "Beef tenderloin with mushrooms 500 g"
       }
     },
     {
@@ -1653,8 +1653,8 @@ const MENU = {
       "img": "images/kurinye_krylyshki.jpg",
       "n": {
         "ru": "Куриные крылышки",
-        "uz": "Куриные крылышки",
-        "en": "Куриные крылышки"
+        "uz": "Tovuq qanotchalari",
+        "en": "Chicken wings"
       }
     },
     {
@@ -1663,8 +1663,8 @@ const MENU = {
       "img": "images/kurinoe_file.jpg",
       "n": {
         "ru": "Куриное филе",
-        "uz": "Куриное филе",
-        "en": "Куриное филе"
+        "uz": "Tovuq filesi",
+        "en": "Chicken fillet"
       }
     },
     {
@@ -1673,8 +1673,8 @@ const MENU = {
       "img": "images/baranina_kuskovaya.jpg",
       "n": {
         "ru": "Кусковая баранина",
-        "uz": "Кусковая баранина",
-        "en": "Кусковая баранина"
+        "uz": "Qo‘y go‘shti bo‘laklari",
+        "en": "Lamb pieces"
       }
     },
     {
@@ -1683,8 +1683,8 @@ const MENU = {
       "img": "images/govyazhya_vyrezka.jpg",
       "n": {
         "ru": "Вырезка из говядины",
-        "uz": "Вырезка из говядины",
-        "en": "Вырезка из говядины"
+        "uz": "Mol go‘shti filesi",
+        "en": "Beef tenderloin"
       }
     },
     {
@@ -1693,8 +1693,8 @@ const MENU = {
       "img": "images/rulet.jpg",
       "n": {
         "ru": "Рулет",
-        "uz": "Рулет",
-        "en": "Рулет"
+        "uz": "Rulet",
+        "en": "Meat roll"
       }
     },
     {
@@ -1703,8 +1703,8 @@ const MENU = {
       "img": "images/napoleon.jpg",
       "n": {
         "ru": "Наполеон",
-        "uz": "Наполеон",
-        "en": "Наполеон"
+        "uz": "Napoleon",
+        "en": "Napoleon kebab"
       }
     },
     {
@@ -1713,8 +1713,8 @@ const MENU = {
       "img": "images/molotyy.jpg",
       "n": {
         "ru": "Молотый",
-        "uz": "Молотый",
-        "en": "Молотый"
+        "uz": "Qiymali kabob",
+        "en": "Minced meat kebab"
       }
     },
     {
@@ -1723,8 +1723,8 @@ const MENU = {
       "img": "images/baraniy_kurdyuk.jpg",
       "n": {
         "ru": "Бараний курдюк",
-        "uz": "Бараний курдюк",
-        "en": "Бараний курдюк"
+        "uz": "Qo‘y dumbasi",
+        "en": "Lamb tail fat"
       }
     },
     {
@@ -1733,8 +1733,8 @@ const MENU = {
       "img": "images/ovoshnoy.jpg",
       "n": {
         "ru": "Овощной",
-        "uz": "Овощной",
-        "en": "Овощной"
+        "uz": "Sabzavotli kabob",
+        "en": "Vegetable kebab"
       }
     },
     {
@@ -1743,8 +1743,8 @@ const MENU = {
       "img": "images/kartofel.jpg",
       "n": {
         "ru": "Картофель",
-        "uz": "Картофель",
-        "en": "Картофель"
+        "uz": "Kartoshka",
+        "en": "Potato"
       }
     },
     {
@@ -1753,8 +1753,8 @@ const MENU = {
       "img": "images/pomidory.jpg",
       "n": {
         "ru": "Помидоры",
-        "uz": "Помидоры",
-        "en": "Помидоры"
+        "uz": "Pomidor",
+        "en": "Tomatoes"
       }
     },
     {
@@ -1763,8 +1763,8 @@ const MENU = {
       "img": "images/govyazhya_vyrezka_griby_1kg.jpg",
       "n": {
         "ru": "Говяжья вырезка с грибами 1 кг",
-        "uz": "Говяжья вырезка с грибами 1 кг",
-        "en": "Говяжья вырезка с грибами 1 кг"
+        "uz": "Qo‘ziqorinli mol filesi 1 kg",
+        "en": "Beef tenderloin with mushrooms 1 kg"
       }
     }
   ],
@@ -1775,8 +1775,8 @@ const MENU = {
       "img": "images/chapchak.jpg",
       "n": {
         "ru": "Чапчак",
-        "uz": "Чапчак",
-        "en": "Чапчак"
+        "uz": "Chapchak non",
+        "en": "Chapchak bread"
       }
     }
   ],
@@ -1787,8 +1787,8 @@ const MENU = {
       "img": "images/tea_black_green.jpg",
       "n": {
         "ru": "Черный/зеленый",
-        "uz": "Черный/зеленый",
-        "en": "Черный/зеленый"
+        "uz": "Qora/yashil choy",
+        "en": "Black/green tea"
       }
     },
     {
@@ -1797,8 +1797,8 @@ const MENU = {
       "img": "images/tea_lemon.jpg",
       "n": {
         "ru": "Чай с лимоном",
-        "uz": "Чай с лимоном",
-        "en": "Чай с лимоном"
+        "uz": "Limonli choy",
+        "en": "Tea with lemon"
       }
     },
     {
@@ -1807,8 +1807,8 @@ const MENU = {
       "img": "images/tea_marokanskiy.jpg",
       "n": {
         "ru": "Мароканский",
-        "uz": "Мароканский",
-        "en": "Мароканский"
+        "uz": "Marokash choyi",
+        "en": "Moroccan tea"
       }
     },
     {
@@ -1817,8 +1817,8 @@ const MENU = {
       "img": "images/tea_fruktovyy.jpg",
       "n": {
         "ru": "Фруктовый",
-        "uz": "Фруктовый",
-        "en": "Фруктовый"
+        "uz": "Mevali choy",
+        "en": "Fruit tea"
       }
     },
     {
@@ -1827,8 +1827,8 @@ const MENU = {
       "img": "images/tea_yagodnyy.jpg",
       "n": {
         "ru": "Ягодный",
-        "uz": "Ягодный",
-        "en": "Ягодный"
+        "uz": "Rezavorli choy",
+        "en": "Berry tea"
       }
     },
     {
@@ -1837,8 +1837,8 @@ const MENU = {
       "img": "images/tea_imbirnyy.jpg",
       "n": {
         "ru": "Имбирный",
-        "uz": "Имбирный",
-        "en": "Имбирный"
+        "uz": "Zanjabilli choy",
+        "en": "Ginger tea"
       }
     },
     {
@@ -1847,8 +1847,8 @@ const MENU = {
       "img": "images/tea_oblepihovyy.jpg",
       "n": {
         "ru": "Облепиховый",
-        "uz": "Облепиховый",
-        "en": "Облепиховый"
+        "uz": "Chakandali choy",
+        "en": "Sea buckthorn tea"
       }
     }
   ],
@@ -1859,8 +1859,8 @@ const MENU = {
       "img": "images/fresh_apple.jpg",
       "n": {
         "ru": "Яблочный 0.3L",
-        "uz": "Яблочный 0.3L",
-        "en": "Яблочный 0.3L"
+        "uz": "Olma fresh 0.3L",
+        "en": "Apple juice 0.3L"
       }
     },
     {
@@ -1869,8 +1869,8 @@ const MENU = {
       "img": "images/fresh_orange.jpg",
       "n": {
         "ru": "Апельсиновый 0.3L",
-        "uz": "Апельсиновый 0.3L",
-        "en": "Апельсиновый 0.3L"
+        "uz": "Apelsin fresh 0.3L",
+        "en": "Orange juice 0.3L"
       }
     },
     {
@@ -1879,8 +1879,8 @@ const MENU = {
       "img": "images/fresh_carrot.jpg",
       "n": {
         "ru": "Морковный 0.3L",
-        "uz": "Морковный 0.3L",
-        "en": "Морковный 0.3L"
+        "uz": "Sabzi fresh 0.3L",
+        "en": "Carrot juice 0.3L"
       }
     },
     {
@@ -1889,8 +1889,8 @@ const MENU = {
       "img": "images/fresh_apple_carrot.jpg",
       "n": {
         "ru": "Яблочно-Морковный 0.3L",
-        "uz": "Яблочно-Морковный 0.3L",
-        "en": "Яблочно-Морковный 0.3L"
+        "uz": "Olma-sabzi fresh 0.3L",
+        "en": "Apple-carrot juice 0.3L"
       }
     },
     {
@@ -1899,8 +1899,8 @@ const MENU = {
       "img": "images/fresh_grapefruit.jpg",
       "n": {
         "ru": "Грейпфрутовый 0.3L",
-        "uz": "Грейпфрутовый 0.3L",
-        "en": "Грейпфрутовый 0.3L"
+        "uz": "Greypfrut fresh 0.3L",
+        "en": "Grapefruit juice 0.3L"
       }
     }
   ],
@@ -1911,8 +1911,8 @@ const MENU = {
       "img": "images/lemon_mojito.jpg",
       "n": {
         "ru": "Мохито 1L",
-        "uz": "Мохито 1L",
-        "en": "Мохито 1L"
+        "uz": "Moxito 1L",
+        "en": "Mojito 1L"
       }
     },
     {
@@ -1921,8 +1921,8 @@ const MENU = {
       "img": "images/lemon_strawberry_mojito.jpg",
       "n": {
         "ru": "Мохито клубничный 1L",
-        "uz": "Мохито клубничный 1L",
-        "en": "Мохито клубничный 1L"
+        "uz": "Qulupnayli moxito 1L",
+        "en": "Strawberry mojito 1L"
       }
     },
     {
@@ -1931,8 +1931,8 @@ const MENU = {
       "img": "images/lemon_tropic.jpg",
       "n": {
         "ru": "Тропический 1L",
-        "uz": "Тропический 1L",
-        "en": "Тропический 1L"
+        "uz": "Tropik limonad 1L",
+        "en": "Tropical lemonade 1L"
       }
     },
     {
@@ -1941,8 +1941,8 @@ const MENU = {
       "img": "images/lemon_strawberry_banana.jpg",
       "n": {
         "ru": "Клубника-банан 1L",
-        "uz": "Клубника-банан 1L",
-        "en": "Клубника-банан 1L"
+        "uz": "Qulupnay-banan 1L",
+        "en": "Strawberry-banana 1L"
       }
     },
     {
@@ -1951,8 +1951,8 @@ const MENU = {
       "img": "images/lemon_berry.jpg",
       "n": {
         "ru": "Ягодный 1L",
-        "uz": "Ягодный 1L",
-        "en": "Ягодный 1L"
+        "uz": "Rezavorli limonad 1L",
+        "en": "Berry lemonade 1L"
       }
     },
     {
@@ -1961,8 +1961,8 @@ const MENU = {
       "img": "images/lemon_citrus.jpg",
       "n": {
         "ru": "Цитрусовый 1L",
-        "uz": "Цитрусовый 1L",
-        "en": "Цитрусовый 1L"
+        "uz": "Sitrusli limonad 1L",
+        "en": "Citrus lemonade 1L"
       }
     }
   ],
@@ -1973,8 +1973,8 @@ const MENU = {
       "img": "images/milk_vanilla.jpg",
       "n": {
         "ru": "Ванильный 0.3L",
-        "uz": "Ванильный 0.3L",
-        "en": "Ванильный 0.3L"
+        "uz": "Vanilli 0.3L",
+        "en": "Vanilla 0.3L"
       }
     },
     {
@@ -1983,8 +1983,8 @@ const MENU = {
       "img": "images/milk_chocolate.jpg",
       "n": {
         "ru": "Шоколадный 0.3L",
-        "uz": "Шоколадный 0.3L",
-        "en": "Шоколадный 0.3L"
+        "uz": "Shokoladli 0.3L",
+        "en": "Chocolate 0.3L"
       }
     },
     {
@@ -1993,8 +1993,8 @@ const MENU = {
       "img": "images/milk_raspberry.jpg",
       "n": {
         "ru": "Малиновый 0.3L",
-        "uz": "Малиновый 0.3L",
-        "en": "Малиновый 0.3L"
+        "uz": "Malinali 0.3L",
+        "en": "Raspberry 0.3L"
       }
     },
     {
@@ -2003,8 +2003,8 @@ const MENU = {
       "img": "images/milk_strawberry.jpg",
       "n": {
         "ru": "Клубничный 0.3L",
-        "uz": "Клубничный 0.3L",
-        "en": "Клубничный 0.3L"
+        "uz": "Qulupnayli 0.3L",
+        "en": "Strawberry 0.3L"
       }
     },
     {
@@ -2013,8 +2013,8 @@ const MENU = {
       "img": "images/milk_vanilla_banana.jpg",
       "n": {
         "ru": "Ванильно-банановый 0.3L",
-        "uz": "Ванильно-банановый 0.3L",
-        "en": "Ванильно-банановый 0.3L"
+        "uz": "Vanil-bananli 0.3L",
+        "en": "Vanilla-banana 0.3L"
       }
     },
     {
@@ -2023,8 +2023,8 @@ const MENU = {
       "img": "images/milk_choco_banana.jpg",
       "n": {
         "ru": "Шоколадно-банановый 0.3L",
-        "uz": "Шоколадно-банановый 0.3L",
-        "en": "Шоколадно-банановый 0.3L"
+        "uz": "Shokolad-bananli 0.3L",
+        "en": "Chocolate-banana 0.3L"
       }
     }
   ],
@@ -2075,8 +2075,8 @@ const MENU = {
       "img": "images/zlata_tarkhun.jpg",
       "n": {
         "ru": "Zlata Тархун",
-        "uz": "Zlata Тархун",
-        "en": "Zlata Тархун"
+        "uz": "Zlata Tarxun",
+        "en": "Zlata Tarragon"
       }
     },
     {
@@ -2085,8 +2085,8 @@ const MENU = {
       "img": "images/zlata_duches.jpg",
       "n": {
         "ru": "Zlata Дюшес",
-        "uz": "Zlata Дюшес",
-        "en": "Zlata Дюшес"
+        "uz": "Zlata Dyushes",
+        "en": "Zlata Duchess"
       }
     },
     {
@@ -2095,8 +2095,8 @@ const MENU = {
       "img": "images/bliss_1l.jpg",
       "n": {
         "ru": "Сок Bliss в ассортименте 1L",
-        "uz": "Сок Bliss в ассортименте 1L",
-        "en": "Сок Bliss в ассортименте 1L"
+        "uz": "Bliss sharbatlari assortimenti 1L",
+        "en": "Bliss assorted juice 1L"
       }
     }
   ],
@@ -2137,8 +2137,8 @@ const MENU = {
       "img": "images/blanc_blue_05.jpg",
       "n": {
         "ru": "Blanc Blue 0.5L газ/без газа",
-        "uz": "Blanc Blue 0.5L газ/без газа",
-        "en": "Blanc Blue 0.5L газ/без газа"
+        "uz": "Blanc Blue 0.5L gazli/gazsiz",
+        "en": "Blanc Blue 0.5L sparkling/still"
       }
     },
     {
@@ -2147,8 +2147,8 @@ const MENU = {
       "img": "images/win_1l.jpg",
       "n": {
         "ru": "Win 1L газ/без газа",
-        "uz": "Win 1L газ/без газа",
-        "en": "Win 1L газ/без газа"
+        "uz": "Win 1L gazli/gazsiz",
+        "en": "Win 1L sparkling/still"
       }
     },
     {
@@ -2157,8 +2157,8 @@ const MENU = {
       "img": "images/win_05.jpg",
       "n": {
         "ru": "Win 0.5L газ/без газа",
-        "uz": "Win 0.5L газ/без газа",
-        "en": "Win 0.5L газ/без газа"
+        "uz": "Win 0.5L gazli/gazsiz",
+        "en": "Win 0.5L sparkling/still"
       }
     }
   ],
@@ -2179,7 +2179,7 @@ const MENU = {
       "img": "images/double_espresso.jpg",
       "n": {
         "ru": "Double espresso",
-        "uz": "Double espresso",
+        "uz": "Ikki karra espresso",
         "en": "Double espresso"
       }
     },
@@ -2189,7 +2189,7 @@ const MENU = {
       "img": "images/americano.jpg",
       "n": {
         "ru": "Americano",
-        "uz": "Americano",
+        "uz": "Amerikano",
         "en": "Americano"
       }
     },
@@ -2199,8 +2199,8 @@ const MENU = {
       "img": "images/capucino.jpg",
       "n": {
         "ru": "Capucino",
-        "uz": "Capucino",
-        "en": "Capucino"
+        "uz": "Kapuchino",
+        "en": "Cappuccino"
       }
     },
     {
@@ -2219,8 +2219,8 @@ const MENU = {
       "img": "images/ice_latte.jpg",
       "n": {
         "ru": "Ice latte",
-        "uz": "Ice latte",
-        "en": "Ice latte"
+        "uz": "Muzli latte",
+        "en": "Iced latte"
       }
     }
   ],
@@ -2241,8 +2241,8 @@ const MENU = {
       "img": "images/borjomi_energy.jpg",
       "n": {
         "ru": "Borjomi energy",
-        "uz": "Borjomi energy",
-        "en": "Borjomi energy"
+        "uz": "Borjomi Energy",
+        "en": "Borjomi Energy"
       }
     }
   ]
@@ -2258,7 +2258,7 @@ const PLOV_VARIANTS = [
     "img": "images/plov.jpg",
     "n": {
       "ru": "Плов 0.5 порция",
-      "uz": "Плов 0.5 порция",
+      "uz": "Osh 0.5 porsiya",
       "en": "Plov 0.5 portion"
     }
   },
@@ -2269,7 +2269,7 @@ const PLOV_VARIANTS = [
     "img": "images/plov.jpg",
     "n": {
       "ru": "Плов 0.6 порция",
-      "uz": "Плов 0.6 порция",
+      "uz": "Osh 0.6 porsiya",
       "en": "Plov 0.6 portion"
     }
   },
@@ -2280,7 +2280,7 @@ const PLOV_VARIANTS = [
     "img": "images/plov.jpg",
     "n": {
       "ru": "Плов 0.7 порция",
-      "uz": "Плов 0.7 порция",
+      "uz": "Osh 0.7 porsiya",
       "en": "Plov 0.7 portion"
     }
   },
@@ -2291,7 +2291,7 @@ const PLOV_VARIANTS = [
     "img": "images/plov.jpg",
     "n": {
       "ru": "Плов 0.8 порция",
-      "uz": "Плов 0.8 порция",
+      "uz": "Osh 0.8 porsiya",
       "en": "Plov 0.8 portion"
     }
   },
@@ -2302,12 +2302,13 @@ const PLOV_VARIANTS = [
     "img": "images/plov.jpg",
     "n": {
       "ru": "Плов 1 порция",
-      "uz": "Плов 1 порция",
+      "uz": "Osh 1 porsiya",
       "en": "Plov 1 portion"
     }
   }
 ];
 
+function moneyUnit(){ return lang==='uz' ? 'so‘m' : (lang==='en' ? 'UZS' : 'сум'); }
 function formatSum(x){
   const n = Number(x) || 0;
   return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,' ');
@@ -2423,6 +2424,7 @@ function setAboutLang(l){
 /* i18n */
 function setLang(l,b){
   lang=l;
+  document.documentElement.lang = l;
   document.querySelectorAll('.langs .btn').forEach(x=>x.classList.remove('active'));
   b.classList.add('active');
   applyLang();
@@ -2502,8 +2504,8 @@ function renderPopular(){
 
     const name = getName(it);
     const priceText = (id === 'plov')
-      ? `${formatSum(50000)} <small>сум</small>`
-      : `${formatSum(it.p)} <small>сум</small>`;
+      ? `${formatSum(50000)} <small>${moneyUnit()}</small>`
+      : `${formatSum(it.p)} <small>${moneyUnit()}</small>`;
 
     let qty = 0;
     if(id === 'plov') qty = plovQtyTotal();
@@ -2629,7 +2631,7 @@ function openVariantSheet(baseId){
       <div class="plov-option">
         <div class="plov-left">
           <div class="nm">${escapeHtml(nm)}</div>
-          <div class="sm">${formatSum(opt.p)} сум</div>
+          <div class="sm">${formatSum(opt.p)} ${moneyUnit()}</div>
         </div>
         <div class="plov-right">
           <button class="plov-mini" onclick="chg('${vid}',-1); refreshSheetQtys();">−</button>
@@ -2664,7 +2666,7 @@ function openPlovSheet(){
       <div class="plov-option">
         <div class="plov-left">
           <div class="nm">${escapeHtml(nm)}</div>
-          <div class="sm">${formatSum(v.p)} сум</div>
+          <div class="sm">${formatSum(v.p)} ${moneyUnit()}</div>
         </div>
         <div class="plov-right">
           <button class="plov-mini" onclick="chg('${v.id}',-1); refreshSheetQtys();">−</button>
@@ -2738,7 +2740,7 @@ function cardHTML(it, q=''){
     return `<div class="card">
       <div class="img"><img src="${it.img}" onerror="this.src='logo.png'"></div>
       <div>${nameHtml}</div>
-      <div class="price">${formatSum(50000)} <small>сум</small> <small style="opacity:.75">(${TEXT[lang].choose})</small></div>
+      <div class="price">${formatSum(50000)} <small>${moneyUnit()}</small> <small style="opacity:.75">(${TEXT[lang].choose})</small></div>
       <button class="select-btn" onclick="openPlovSheet()">${TEXT[lang].choose} (${qTotal})</button>
     </div>`;
   }
@@ -2749,7 +2751,7 @@ function cardHTML(it, q=''){
     return `<div class="card">
       <div class="img"><img src="${it.img}" onerror="this.src='logo.png'"></div>
       <div>${nameHtml}</div>
-      <div class="price">${formatSum(mp)} <small>сум</small> <small style="opacity:.75">(${TEXT[lang].choose})</small></div>
+      <div class="price">${formatSum(mp)} <small>${moneyUnit()}</small> <small style="opacity:.75">(${TEXT[lang].choose})</small></div>
       <button class="select-btn" onclick="openVariantSheet('${it.id}')">${TEXT[lang].choose} (${qTotal})</button>
     </div>`;
   }
@@ -2758,7 +2760,7 @@ function cardHTML(it, q=''){
   return `<div class="card">
     <div class="img"><img src="${it.img}" onerror="this.src='logo.png'"></div>
     <div>${nameHtml}</div>
-    <div class="price">${formatSum(it.p)} <small>сум</small></div>
+    <div class="price">${formatSum(it.p)} <small>${moneyUnit()}</small></div>
     <div class="counter">
       <button onclick="chg('${it.id}',-1)">−</button>
       <span id="c_${it.id}">${cart[it.id]||0}</span>
@@ -2989,8 +2991,21 @@ function applyLang(){
   $('payClick').innerText    = TEXT[lang].click;
   $('payOnline').innerText   = TEXT[lang].online;
   $('searchTitle').innerText = TEXT[lang].results;
+  $('searchInput').placeholder = ({ru:'Поиск блюда...',uz:'Taom qidirish...',en:'Search dishes...'})[lang];
   $('popularTitle').innerText= TEXT[lang].popular;
   $('stickyCart').innerText  = TEXT[lang].cart_btn;
+  if($('cartCurrency')) $('cartCurrency').innerText = moneyUnit();
+  if($('stickyCurrency')) $('stickyCurrency').innerText = moneyUnit();
+
+  const UIX = {
+    ru:{copy:'Копировать', manager:'Связаться с менеджером', call:'Позвонить', mail:'Почта', sum:'сум', from:'от'},
+    uz:{copy:'Nusxa olish', manager:'Menejer bilan bog‘lanish', call:'Qo‘ng‘iroq qilish', mail:'Pochta', sum:"so‘m", from:'dan'},
+    en:{copy:'Copy', manager:'Contact manager', call:'Call', mail:'Email', sum:'UZS', from:'from'}
+  }[lang];
+  document.querySelectorAll('.copy-btn').forEach(x=>x.innerText=UIX.copy);
+  if($('legalManagerBtn')) $('legalManagerBtn').innerText=UIX.manager;
+  if($('legalCallBtn')) $('legalCallBtn').innerText=UIX.call;
+  if($('legalMailBtn')) $('legalMailBtn').innerText=UIX.mail;
 
   $('onlineTitle').innerText = TEXT[lang].online_title;
   $('recLabel').innerText    = TEXT[lang].rec;
