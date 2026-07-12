@@ -1002,6 +1002,22 @@ body[data-theme="dark"] .cat-tile{ background:rgba(255,255,255,.06); }
       <!-- ✅ Название файла: images/click_qr.jpg -->
       <img src="images/click_qr.jpg" alt="CLICK QR" style="width:100%; max-width:320px; border-radius:16px; display:block;" onerror="this.style.display='none'">
     </div>
+
+    <div class="online-row">
+      <div class="kv">
+        <small id="clickRecLabel">Получатель</small>
+        <div id="clickRecValue">Takhirov Daler</div>
+      </div>
+      <button class="copy-btn" onclick="copyText(ONLINE_RECIPIENT)">Копировать</button>
+    </div>
+
+    <div class="online-row">
+      <div class="kv">
+        <small id="clickCardLabel">Номер карты</small>
+        <div id="clickCardValue">9860 1001 2635 9502</div>
+      </div>
+      <button class="copy-btn" onclick="copyText(ONLINE_CARD)">Копировать</button>
+    </div>
   </div>
 
   <!-- ✅ Реквизиты (показываем только при Онлайн) -->
@@ -1011,7 +1027,7 @@ body[data-theme="dark"] .cat-tile{ background:rgba(255,255,255,.06); }
     <div class="online-row">
       <div class="kv">
         <small id="recLabel">Получатель</small>
-        <div id="recValue">Baxtiyorov Botur</div>
+        <div id="recValue">Takhirov Daler</div>
       </div>
       <button class="copy-btn" onclick="copyText(ONLINE_RECIPIENT)">Копировать</button>
     </div>
@@ -1019,7 +1035,7 @@ body[data-theme="dark"] .cat-tile{ background:rgba(255,255,255,.06); }
     <div class="online-row">
       <div class="kv">
         <small id="cardLabel">Номер карты</small>
-        <div id="cardValue">9860170109382557</div>
+        <div id="cardValue">9860 1001 2635 9502</div>
       </div>
       <button class="copy-btn" onclick="copyText(ONLINE_CARD)">Копировать</button>
     </div>
@@ -1211,8 +1227,8 @@ const ADMIN_IDS = ["6013591658"];
 const ADMIN_TG_ID = "6013591658";
 
 /* ✅ Онлайн реквизиты */
-const ONLINE_RECIPIENT = "Baxtiyorov Botur";
-const ONLINE_CARD = "9860170109382557";
+const ONLINE_RECIPIENT = "Takhirov Daler";
+const ONLINE_CARD = "9860 1001 2635 9502";
 
 /* ✅ CLICK QR файл (добавь в папку images) */
 const CLICK_QR_IMG = "images/click_qr.jpg"; // <-- название: click_qr.jpg (JPG)
@@ -1272,7 +1288,7 @@ const CATS={
     "salads": "🥗 Салаты",
     "cold": "🧀 Холодные закуски",
     "first": "🍲 Первые блюда",
-    "second": "🍛 Вторые блюда",
+    "second": "🍛 Горячие блюда",
     "shashlik": "🍢 Шашлык",
     "bread": "🍞 Хлеб",
     "tea": "🍵 Чай",
@@ -1288,7 +1304,7 @@ const CATS={
     "salads": "🥗 Salatlar",
     "cold": "🧀 Sovuq zakuskalar",
     "first": "🍲 Birinchi taomlar",
-    "second": "🍛 Ikkinchi taomlar",
+    "second": "🍛 Issiq taomlar",
     "shashlik": "🍢 Shashlik",
     "bread": "🍞 Non",
     "tea": "🍵 Choy",
@@ -1304,7 +1320,7 @@ const CATS={
     "salads": "🥗 Salads",
     "cold": "🧀 Cold snacks",
     "first": "🍲 First dishes",
-    "second": "🍛 Main dishes",
+    "second": "🍛 Hot dishes",
     "shashlik": "🍢 Shashlik",
     "bread": "🍞 Bread",
     "tea": "🍵 Tea",
@@ -1485,6 +1501,16 @@ const MENU = {
         "uz": "Мастава",
         "en": "Мастава"
       }
+    },
+    {
+      "id": "byktyrma",
+      "p": 45000,
+      "img": "images/byktyrma.jpg",
+      "n": {
+        "ru": "Быктырма",
+        "uz": "Быктырма",
+        "en": "Быктырма"
+      }
     }
   ],
   "second": [
@@ -1520,37 +1546,77 @@ const MENU = {
       }
     },
     {
-      "id": "jiz_biz",
+      "id": "jiz_baranina_1kg",
       "p": 280000,
-      "img": "images/jiz_biz.jpg",
+      "img": "images/jiz_baranina_1kg.jpg",
       "n": {
-        "ru": "Жиз-Биз",
-        "uz": "Жиз-Биз",
-        "en": "Жиз-Биз"
+        "ru": "Жиз из баранины 1 кг",
+        "uz": "Жиз из баранины 1 кг",
+        "en": "Жиз из баранины 1 кг"
+      }
+    },
+    {
+      "id": "jiz_govyadina_1kg",
+      "p": 280000,
+      "img": "images/jiz_govyadina_1kg.jpg",
+      "n": {
+        "ru": "Жиз из говядины 1 кг",
+        "uz": "Жиз из говядины 1 кг",
+        "en": "Жиз из говядины 1 кг"
+      }
+    },
+    {
+      "id": "chuponcha_1kg",
+      "p": 280000,
+      "img": "images/chuponcha_1kg.jpg",
+      "n": {
+        "ru": "Чупонча 1 кг",
+        "uz": "Чупонча 1 кг",
+        "en": "Чупонча 1 кг"
+      }
+    },
+    {
+      "id": "jiz_umakay_1kg",
+      "p": 280000,
+      "img": "images/jiz_umakay_1kg.jpg",
+      "n": {
+        "ru": "Жиз Умакай 1 кг",
+        "uz": "Жиз Умакай 1 кг",
+        "en": "Жиз Умакай 1 кг"
+      }
+    },
+    {
+      "id": "tandyr_yagnenka_1kg",
+      "p": 280000,
+      "img": "images/tandyr_yagnenka_1kg.jpg",
+      "n": {
+        "ru": "Тандыр ягненка 1 кг",
+        "uz": "Тандыр ягненка 1 кг",
+        "en": "Тандыр ягненка 1 кг"
+      }
+    },
+    {
+      "id": "tandyr_cyplenok_1kg",
+      "p": 120000,
+      "img": "images/tandyr_cyplenok_1kg.jpg",
+      "n": {
+        "ru": "Тандыр цыпленок 1 кг",
+        "uz": "Тандыр цыпленок 1 кг",
+        "en": "Тандыр цыпленок 1 кг"
+      }
+    },
+    {
+      "id": "tushenka_250",
+      "p": 60000,
+      "img": "images/tushenka_250.jpg",
+      "n": {
+        "ru": "Тушенка 250 г",
+        "uz": "Тушенка 250 г",
+        "en": "Тушенка 250 г"
       }
     }
   ],
   "shashlik": [
-    {
-      "id": "govyazhya_vyrezka",
-      "p": 40000,
-      "img": "images/govyazhya_vyrezka.jpg",
-      "n": {
-        "ru": "Говяжья вырезка",
-        "uz": "Говяжья вырезка",
-        "en": "Говяжья вырезка"
-      }
-    },
-    {
-      "id": "baranina_kuskovaya",
-      "p": 35000,
-      "img": "images/baranina_kuskovaya.jpg",
-      "n": {
-        "ru": "Баранина кусковая",
-        "uz": "Баранина кусковая",
-        "en": "Баранина кусковая"
-      }
-    },
     {
       "id": "barani_semechki",
       "p": 35000,
@@ -1559,86 +1625,6 @@ const MENU = {
         "ru": "Бараньи семечки",
         "uz": "Бараньи семечки",
         "en": "Бараньи семечки"
-      }
-    },
-    {
-      "id": "molotyy",
-      "p": 30000,
-      "img": "images/molotyy.jpg",
-      "n": {
-        "ru": "Молотый",
-        "uz": "Молотый",
-        "en": "Молотый"
-      }
-    },
-    {
-      "id": "napaleon",
-      "p": 35000,
-      "img": "images/napaleon.jpg",
-      "n": {
-        "ru": "Напалеон",
-        "uz": "Напалеон",
-        "en": "Напалеон"
-      }
-    },
-    {
-      "id": "rulet",
-      "p": 35000,
-      "img": "images/rulet.jpg",
-      "n": {
-        "ru": "Рулет",
-        "uz": "Рулет",
-        "en": "Рулет"
-      }
-    },
-    {
-      "id": "baraniy_kurdyuk",
-      "p": 30000,
-      "img": "images/baraniy_kurdyuk.jpg",
-      "n": {
-        "ru": "Бараний курдюк",
-        "uz": "Бараний курдюк",
-        "en": "Бараний курдюк"
-      }
-    },
-    {
-      "id": "ovoshnoy",
-      "p": 15000,
-      "img": "images/ovoshnoy.jpg",
-      "n": {
-        "ru": "Овощной",
-        "uz": "Овощной",
-        "en": "Овощной"
-      }
-    },
-    {
-      "id": "pomidory_3sht",
-      "p": 10000,
-      "img": "images/pomidory_3sht.jpg",
-      "n": {
-        "ru": "Помидоры 3шт",
-        "uz": "Помидоры 3шт",
-        "en": "Помидоры 3шт"
-      }
-    },
-    {
-      "id": "kartofel_3sht",
-      "p": 10000,
-      "img": "images/kartofel_3sht.jpg",
-      "n": {
-        "ru": "Картофель 3шт",
-        "uz": "Картофель 3шт",
-        "en": "Картофель 3шт"
-      }
-    },
-    {
-      "id": "kurinye_krylyshki",
-      "p": 25000,
-      "img": "images/kurinye_krylyshki.jpg",
-      "n": {
-        "ru": "Куринные крылышки",
-        "uz": "Куринные крылышки",
-        "en": "Куринные крылышки"
       }
     },
     {
@@ -1662,13 +1648,123 @@ const MENU = {
       }
     },
     {
+      "id": "kurinye_krylyshki",
+      "p": 25000,
+      "img": "images/kurinye_krylyshki.jpg",
+      "n": {
+        "ru": "Куриные крылышки",
+        "uz": "Куриные крылышки",
+        "en": "Куриные крылышки"
+      }
+    },
+    {
+      "id": "kurinoe_file",
+      "p": 30000,
+      "img": "images/kurinoe_file.jpg",
+      "n": {
+        "ru": "Куриное филе",
+        "uz": "Куриное филе",
+        "en": "Куриное филе"
+      }
+    },
+    {
+      "id": "baranina_kuskovaya",
+      "p": 35000,
+      "img": "images/baranina_kuskovaya.jpg",
+      "n": {
+        "ru": "Кусковая баранина",
+        "uz": "Кусковая баранина",
+        "en": "Кусковая баранина"
+      }
+    },
+    {
+      "id": "govyazhya_vyrezka",
+      "p": 40000,
+      "img": "images/govyazhya_vyrezka.jpg",
+      "n": {
+        "ru": "Вырезка из говядины",
+        "uz": "Вырезка из говядины",
+        "en": "Вырезка из говядины"
+      }
+    },
+    {
+      "id": "rulet",
+      "p": 35000,
+      "img": "images/rulet.jpg",
+      "n": {
+        "ru": "Рулет",
+        "uz": "Рулет",
+        "en": "Рулет"
+      }
+    },
+    {
+      "id": "napoleon",
+      "p": 35000,
+      "img": "images/napoleon.jpg",
+      "n": {
+        "ru": "Наполеон",
+        "uz": "Наполеон",
+        "en": "Наполеон"
+      }
+    },
+    {
+      "id": "molotyy",
+      "p": 30000,
+      "img": "images/molotyy.jpg",
+      "n": {
+        "ru": "Молотый",
+        "uz": "Молотый",
+        "en": "Молотый"
+      }
+    },
+    {
+      "id": "baraniy_kurdyuk",
+      "p": 30000,
+      "img": "images/baraniy_kurdyuk.jpg",
+      "n": {
+        "ru": "Бараний курдюк",
+        "uz": "Бараний курдюк",
+        "en": "Бараний курдюк"
+      }
+    },
+    {
+      "id": "ovoshnoy",
+      "p": 15000,
+      "img": "images/ovoshnoy.jpg",
+      "n": {
+        "ru": "Овощной",
+        "uz": "Овощной",
+        "en": "Овощной"
+      }
+    },
+    {
+      "id": "kartofel",
+      "p": 10000,
+      "img": "images/kartofel.jpg",
+      "n": {
+        "ru": "Картофель",
+        "uz": "Картофель",
+        "en": "Картофель"
+      }
+    },
+    {
+      "id": "pomidory",
+      "p": 10000,
+      "img": "images/pomidory.jpg",
+      "n": {
+        "ru": "Помидоры",
+        "uz": "Помидоры",
+        "en": "Помидоры"
+      }
+    },
+    {
       "id": "govyazhya_vyrezka_griby_1kg",
       "p": 280000,
       "img": "images/govyazhya_vyrezka_griby_1kg.jpg",
       "n": {
-        "ru": "Говяжья вырезка с грибами 1кг",
-        "uz": "Говяжья вырезка с грибами 1кг",
-        "en": "Говяжья вырезка с грибами 1кг"
+        "ru": "Говяжья вырезка с грибами 1 кг",
+        "uz": "Говяжья вырезка с грибами 1 кг",
+        "en": "Говяжья вырезка с грибами 1 кг"
       }
     }
   ],
@@ -2874,7 +2970,7 @@ function sendOrder(){
     admins: ADMIN_IDS,
 
     online_details: payment==='online' ? {recipient: ONLINE_RECIPIENT, card: ONLINE_CARD} : null,
-    click_qr: payment==='click' ? {img: CLICK_QR_IMG} : null
+    click_qr: payment==='click' ? {img: CLICK_QR_IMG, recipient: ONLINE_RECIPIENT, card: ONLINE_CARD} : null
   };
 
   Telegram.WebApp.sendData(JSON.stringify(payload));
@@ -2906,6 +3002,10 @@ function applyLang(){
   // ✅ CLICK QR i18n
   $('clickTitle').innerText  = TEXT[lang].click_qr_title || 'CLICK — QR';
   $('clickHint').innerText   = TEXT[lang].click_qr_hint  || '';
+  if ($('clickRecLabel')) $('clickRecLabel').innerText = TEXT[lang].rec;
+  if ($('clickCardLabel')) $('clickCardLabel').innerText = TEXT[lang].card;
+  if ($('clickRecValue')) $('clickRecValue').innerText = ONLINE_RECIPIENT;
+  if ($('clickCardValue')) $('clickCardValue').innerText = ONLINE_CARD;
 
   renderPopular();
   renderCats();
